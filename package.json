@@ -1,6 +1,6 @@
 {
   "name": "guardian",
-  "version": "0.0.1",
+  "version": "1.9.9",
   "main": "./Structures/index.js",
   "license": "MIT",
   "scripts": {
