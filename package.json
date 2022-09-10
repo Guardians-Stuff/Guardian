@@ -1,0 +1,19 @@
+{
+  "name": "guardian",
+  "version": "0.0.1",
+  "main": "./Structures/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./Structures/index.js"
+  },
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "dbd-dark-dashboard": "^1.6.591",
+    "discord-dashboard": "^2.3.41",
+    "discord.js": "^14.0.2",
+    "dotenv": "^16.0.2",
+    "glob": "7.2.0",
+    "mongoose": "^6.5.4",
+    "ms": "^2.1.3"
+  }
+}
