@@ -11,7 +11,9 @@ module.exports = {
 
     async execute(interaction, client) {
 
-
+           // Not done as you can see
+        
+        
         return Reply(interaction, "✅", "I seem to have the right permissions to work perfectly fine!")
     }
 }
