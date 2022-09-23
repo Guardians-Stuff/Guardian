@@ -6,7 +6,7 @@ const DarkDashboard = require("dbd-dark-dashboard")
 const DBD = require("discord-dashboard")
 const WelcomeDB = require("../../Structures/Schemas/Welcome")
 const GeneralLogsDB = require("../../Structures/Schemas/LogsChannel")
-const LogsSwitch = require("../../Structures/Schemas/GeneralLogs")
+const LogsSwitchDB = require("../../Structures/Schemas/GeneralLogs")
 
 module.exports = {
     name: "ready",
@@ -485,7 +485,7 @@ module.exports = {
                             optionType: DBD.formTypes.switch(false),
                             themeOptions: {
                                 minimalbutton: {
-                                    minimalbutton: true
+                                    last: true
                                 }
                             },
                             getActualSet: async ({
@@ -528,7 +528,7 @@ module.exports = {
                             optionType: DBD.formTypes.switch(false),
                             themeOptions: {
                                 minimalbutton: {
-                                    minimalbutton: true
+                                    first: true
                                 }
                             },
                             getActualSet: async ({
@@ -614,7 +614,7 @@ module.exports = {
                             optionType: DBD.formTypes.switch(false),
                             themeOptions: {
                                 minimalbutton: {
-                                    minimalbutton: true
+                                    last: true
                                 }
                             },
                             getActualSet: async ({
@@ -657,7 +657,7 @@ module.exports = {
                             optionType: DBD.formTypes.switch(false),
                             themeOptions: {
                                 minimalbutton: {
-                                    minimalbutton: true
+                                    first: true
                                 }
                             },
                             getActualSet: async ({
