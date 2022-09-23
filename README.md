@@ -18,3 +18,6 @@ $ yarn or npm install
 ## Contributers
 
 - [Killerclaws12](https://github.com/killerclaws12)
+
+## Support Server
+- https://discord.gg/d4FxAhcVBU
