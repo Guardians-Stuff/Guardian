@@ -24,7 +24,7 @@ module.exports = {
 		return Channel.send({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.channelD)
 					.setTitle(`${process.env.settings} | Channel Deleted`)
 					.setDescription(`A channel has been deleted named: ${name}`)
 					.setThumbnail(guild.iconURL())

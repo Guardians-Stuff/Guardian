@@ -14,6 +14,7 @@ module.exports = {
         const modal = new ModalBuilder()
             .setCustomId("announce-modal")
             .setTitle("Announcement")
+            
 
         const messageInput = new TextInputBuilder()
             .setCustomId("message-input")

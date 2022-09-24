@@ -77,7 +77,7 @@ client.on("guildMemberAdd", async member => {
         if (!invite) return Channel.send({
             embeds: [
                 Embed.setDescription(`${user.tag} joined but, couldn't find through which invite!`)
-            ]
+            ]   
         })
 
         djsClient.grapProfile(invite.inviter.id).then(async inviter => {

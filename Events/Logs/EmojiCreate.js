@@ -24,7 +24,7 @@ module.exports = {
 		return Channel.send({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.emojiC)
 					.setTitle(`${process.env.settings} | Emoji Created`)
 					.setDescription(`An emoji has been added to the server: ${emoji}, **${id}**.`)
 					.setThumbnail(guild.iconURL())

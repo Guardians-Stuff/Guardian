@@ -37,7 +37,7 @@ module.exports = {
 			return Channel.send({
 				embeds: [
 					new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.channelU)
 					.setTitle(`${process.env.settings} | Topic Updated`)
 					.setDescription(`${newChannel}'s topic has been changed from **${oldChannel.topic}** to **${newChannel.topic}**.`)
 					.setThumbnail(guild.iconURL())

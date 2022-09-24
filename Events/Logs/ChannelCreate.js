@@ -24,7 +24,7 @@ module.exports = {
 		return Channel.send({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.channelC)
 					.setTitle(`${process.env.settings} | Channel Created`)
 					.setDescription(`A channel has been created named: ${channel}, \`${name}\``)
 					.setThumbnail(guild.iconURL())

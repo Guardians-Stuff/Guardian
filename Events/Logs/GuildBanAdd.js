@@ -24,7 +24,7 @@ module.exports = {
 		return Channel.send({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.serverB)
 					.setTitle(`${process.env.settings} | User Banned`)
 					.setDescription(`**${username}#${discriminator}** (${id}) has been banned from the server.`)
 					.setThumbnail(guild.iconURL())

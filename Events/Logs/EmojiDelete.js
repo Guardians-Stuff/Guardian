@@ -24,7 +24,7 @@ module.exports = {
 		return Channel.send({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(client.color)
+					.setColor(client.emojiD)
 					.setTitle(`${process.env.settings} | Emoji Deleted`)
 					.setDescription(`An emoji has been deleted from the server: ${emoji}, **${id}**.`)
 					.setThumbnail(guild.iconURL())

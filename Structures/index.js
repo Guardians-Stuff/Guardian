@@ -14,7 +14,16 @@ const client = new Client({
     rest: { timeout: ms("1m") }
 })
 
+// COLORS
 client.color = "Aqua"
+client.channelC = "Green"
+client.channelD = "Red"
+client.channelU = "Purple"
+client.emojiC = "Green"
+client.emojiD = "Red"
+client.serverB = "Red"
+client.serverUB = "Green"
+/////////////////////////////////////
 client.commands = new Collection()
 
 const Handlers = ["Events", "Commands", "EventStack", "Errors"]
