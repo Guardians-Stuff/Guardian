@@ -17,7 +17,7 @@ const client = new Client({
 client.color = "Aqua"
 client.commands = new Collection()
 
-const Handlers = ["Events", "Commands", "Errors"]
+const Handlers = ["Events", "Commands", "EventStack", "Errors"]
 
 Handlers.forEach(handler => {
 
