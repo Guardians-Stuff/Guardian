@@ -2,6 +2,7 @@
   Guardian
   <br>
 </h1>
+
 <p align="center">
 <a href="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml"><img src="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml/badge.svg" alt="Build"></a
 <img src="https://img.shields.io/github/license/GhostyORG/Guardian?label=License" alt="GitHub">
