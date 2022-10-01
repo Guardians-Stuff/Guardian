@@ -3,7 +3,7 @@
   <br>
 </h1>
 <p align="center">
-<a href="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml"><img src="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml/badge.svg" alt="Build"></a>
+<a href="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml"><img src="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml/badge.svg" alt="Build"></a
 <img src="https://img.shields.io/github/license/GhostyORG/Guardian?label=License" alt="GitHub">
 <img src="https://img.shields.io/github/package-json/v/GhostyORG/Guardian?label=Version" alt="GitHub package.json version">
 <img src="https://img.shields.io/github/commit-activity/w/GhostyORG/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
