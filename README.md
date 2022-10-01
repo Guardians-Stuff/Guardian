@@ -50,28 +50,28 @@ npm install
 - Manage your servers and make your server-specific settings!
 - Make custom adjustments easy!
 
-### 🛑 **Powerful Moderation:**
+### 🛑 **Powerful Moderation: (SOON)**
 
 - **Moderation Commands.** <br /> _Commands:_ `ban`, `unban`, `timeout`, `voice moderation`, `deafen`, `move`, `warn`, `setnick`, ...
 - **Multi-Function Purge Commands.** <br /> _Commands:_ `purge`, `purge attach`, `purge bots`, `purge links`, `purge token`, `purge user`, ...
 
-### 🤖 **Auto Moderation:**
+### 🤖 **Auto Moderation: (SOON)**
 
 - **Anti system** <br /> _Commands:_ `anti ghostping`, `anti spam`, `anti massmention`, ...
 - **Auto Delete system** <br /> _Commands:_ `autodelete attachments`, `autodelete invites`, `autodelete links`, `autodelete maxlines`, ...
 - **AutoMod system** <br /> _Commands:_ `automod status`, `automod strikes`, `automod action`, `automod debug`, `automod whitelist`, ...
 
-### ⚙️ **Admin Configuration:**
+### ⚙️ **Admin Configuration: (SOON)**
 
 - **Let a bot be the server's assistant!** <br /> _Commands:_ `autorole`, `farewell`, `welcome`, `counters`, `flag translation`, `reaction roles`, ...
 - **Make custom settings for your own server.** <br /> _Commands:_ `setprefix`, `maxwarns`, `modlog`...
 
-### 💁 **Information Gathering:**
+### 💁 **Information Gathering: (SOON)**
 
 - **User Context Interactions**
 - **Advanced Information** Get deep information about a user, channel, role, etc.
 
-### 📉 **Stats Tracking:**
+### 📉 **Stats Tracking: (SOON)**
 
 - **Levelling** Track your server's activity with a level system
 - **Leaderboards** See who is the most active user in your server
@@ -87,7 +87,7 @@ npm install
 - **Need Some Help With Something? Use The Utility Commands To Find Out The Answer To It** <br /> _Commands:_ `bigemoji`, `covid`, `pokedex`, `urban`, `weather`, ...
 - **Need Help With Some More Stuff?** <br /> _Commands:_ `help`, `proxies`, `translate`, `paste`, ...
 
-### 📨 **Invite Tracking:**
+### 📨 **Invite Tracking: (SOON)**
 
 - **Track who has been inviting people to your server!**
 - **Invite Ranks!** Inviter can get awesome rewards and be recognised
