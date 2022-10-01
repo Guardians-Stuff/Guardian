@@ -8,9 +8,6 @@ module.exports = {
     category: "Utility",
 
     async execute (interaction, client) {
-
-        const {  } = interaction
-
         const modal = new ModalBuilder()
             .setCustomId("announce-modal")
             .setTitle("Announcement")
