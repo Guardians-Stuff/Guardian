@@ -38,7 +38,6 @@ npm install
 
 - Wait for all the dependencies to be installed
 - Rename `.env.example` to `.env` and fill the values
-- Optionally edit `config.js`
 - Type `npm run start` to start the bot
 
 <br>
