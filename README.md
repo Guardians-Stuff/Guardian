@@ -11,7 +11,7 @@
 <a href="https://discord.gg/d4FxAhcVBU"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
 </p>
 
-<p align="center">Moderation, auto-moderation and More...</p>
+<p align="center">A advanced private moderation Discord bot with a admin dashboard.</p>
 
 <br>
 <br>
