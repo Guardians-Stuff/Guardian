@@ -2,7 +2,7 @@ const {
     Perms
 } = require("../Validation/Permissions")
 const {
-    Client
+    Client, REST, Routes
 } = require("discord.js")
 const ms = require("ms")
 
@@ -31,12 +31,12 @@ module.exports = async (client, PG, Ascii) => {
 
     console.log(Table.toString())
 
-    client.on("ready", () => {
+    client.on("ready", async () => {
 
         setInterval(() => {
             client.guilds.cache.forEach(guild => {
                 guild.commands.set(CommandsArray)
             })
         }, ms("5s"))
-    })
+    });
 }

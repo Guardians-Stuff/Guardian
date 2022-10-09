@@ -1,7 +1,7 @@
 const { Client, ActivityType, userMention } = require("discord.js")
 const ms = require("ms")
 const mongoose = require("mongoose")
-const mongodbURL = process.env.mongodbURL
+const mongodbURL = process.env.MONGODBURL
 
 module.exports = {
     name: "ready",
@@ -27,7 +27,6 @@ module.exports = {
         if(!mongodbURL) return 
 
         mongoose.connect(mongodbURL, {
-
             useNewUrlParser: true,
             useUnifiedTopology: true 
         }).then(() => {
