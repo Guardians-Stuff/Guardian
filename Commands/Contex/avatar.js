@@ -26,7 +26,7 @@ module.exports = {
             .setFooter({ text: "Avatar command" })
             .setTimestamp()
 
-        return interaction.EditReply({ embeds: [Embed] })
+        return interaction.editReply({ embeds: [Embed] })
 
     }
 }
