@@ -11,7 +11,7 @@
 <a href="https://discord.gg/Raa9VUZKhk"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
 </p>
 
-<p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with a admin dashboard.</p>
+<p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with built in admin dashboard.</p>
 
 <br>
 <br>
