@@ -11,4 +11,4 @@ function Reply(interaction, emoji, description, type) {
     })
 }
 
-module.exports = Reply
+module.exports = Reply 
