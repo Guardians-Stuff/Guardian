@@ -6,4 +6,4 @@ module.exports = model("account", new Schema({
     Bank: Number,
     Wallet: Number
 
-}))
+})) 
