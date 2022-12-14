@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/github/license/GhostyORG/Guardian?label=License" alt="GitHub">
 <img src="https://img.shields.io/github/package-json/v/GhostyORG/Guardian?label=Version" alt="GitHub package.json version">
 <img src="https://img.shields.io/github/commit-activity/w/GhostyORG/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
-<a href="https://discord.gg/d4FxAhcVBU"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
+<a href="https://discord.gg/Raa9VUZKhk"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
 </p>
 
 <p align="center">A advanced private moderation Discord bot with a admin dashboard.</p>
@@ -17,7 +17,7 @@
 <br>
 
 ## 🔗 Resource Links
-- 🤝 Support Server: [Join Here](https://discord.gg/d4FxAhcVBU)
+- 🤝 Support Server: [Join Here](https://discord.gg/Raa9VUZKhk)
 - 📂 Documentation URL: [Visit Here (COMING SOON)](https://google.com)
 
 ## 📦 Prerequisites
@@ -95,5 +95,3 @@ npm install
 <br>
 
 <h1 align="center"> 🤝 Contributing 🤝 </h1>
-
-- Special thanks to [@GhostyORG](https://github.com/GhostyORG)
