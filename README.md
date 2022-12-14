@@ -4,14 +4,14 @@
 </h1>
 
 <p align="center">
-<a href="https://github.com/GhostyORG/Guardian/actions/workflows/build.yml"><img src="https://github.com/GhostyORG/Guardian/actions/workflows/built.yml/badge.svg" alt="Build"></a
-<img src="https://img.shields.io/github/license/GhostyORG/Guardian?label=License" alt="GitHub">
-<img src="https://img.shields.io/github/package-json/v/GhostyORG/Guardian?label=Version" alt="GitHub package.json version">
-<img src="https://img.shields.io/github/commit-activity/w/GhostyORG/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
+<a href="https://github.com/killerclaws12/Guardian/actions/workflows/build.yml"><img src="https://github.com/killerclaws12/Guardian/actions/workflows/built.yml/badge.svg" alt="Build"></a
+<img src="https://img.shields.io/github/license/killerclaws12/Guardian?label=License" alt="GitHub">
+<img src="https://img.shields.io/github/package-json/v/killerclaws12/Guardian?label=Version" alt="GitHub package.json version">
+<img src="https://img.shields.io/github/commit-activity/w/killerclaws12/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
 <a href="https://discord.gg/Raa9VUZKhk"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
 </p>
 
-<p align="center">A advanced private moderation Discord bot with a admin dashboard.</p>
+<p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with a admin dashboard.</p>
 
 <br>
 <br>
