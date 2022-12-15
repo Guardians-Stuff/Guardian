@@ -21,5 +21,26 @@ module.exports = [
         value: "pork",
         emoji: "🥩",
         price: 300
-    }
+    },
+    {
+        name: "ToolKit",
+        description: "This might be useful!",
+        value: "toolkit",
+        emoji: "🧰",
+        price: 2000
+    },
+    {
+        name: "HockeyStick",
+        description: "A Hockey Stick???",
+        value: "stick",
+        emoji: "🏒",
+        price: 10
+    },
+    {
+        name: "Tree",
+        description: "Save the trees!",
+        value: "tree",
+        emoji: "🌲",
+        price: 50
+    },
 ]
