@@ -33,7 +33,7 @@ client.player = new Manager({
     send: (id, payload) => {
 
         let guild = client.guilds.cache.get(id)
-        if (guild) guild.shard.send(payloaf)
+        if (guild) guild.shard.send(payload)
 
     }
 })

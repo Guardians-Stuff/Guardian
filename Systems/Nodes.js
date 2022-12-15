@@ -11,4 +11,4 @@ const nodes = [
     }
 ]
 
-module.exports = nodes
+module.exports = nodes 
