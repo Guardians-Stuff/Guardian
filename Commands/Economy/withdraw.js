@@ -49,7 +49,7 @@ module.exports = {
             Data.Bank = Math.abs(Data.Wallet)
             await Data.save()
 
-            return EditReply(interaction, "✅", `Withdrawn $${parseInt(converted)} from the bank!`)
+            return EditReply(interaction, "✅", `Withdrawn $${parseInt(Converted)} from the bank!`)
         }
 
     }
