@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/github/license/killerclaws12/Guardian?label=License" alt="GitHub">
 <img src="https://img.shields.io/github/package-json/v/killerclaws12/Guardian?label=Version" alt="GitHub package.json version">
 <img src="https://img.shields.io/github/commit-activity/w/killerclaws12/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
-<a href="https://discord.gg/Raa9VUZKhk"><img src="https://img.shields.io/discord/1050966175800098896?label=Support+Chat" alt="Discord"></a>
+<a href="https://discord.gg/Raa9VUZKhk"><img src="https://img.shields.io/discord/999653324787810365?label=Support+Chat" alt="Discord"></a>
 </p>
 
 <p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with built in admin dashboard.</p>
