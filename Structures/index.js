@@ -6,6 +6,8 @@ const PG = promisify(glob)
 const Ascii = require("ascii-table")
 require("dotenv").config()
 const { Channel, GuildMember, Message, Reaction, ThreadMember, User, GuildScheduledEvent } = Partials
+const nodes = require("../Systems/Nodes")
+const { Manager } = require("erela.js")
 
 const client = new Client({
     intents: 131071,
@@ -26,7 +28,19 @@ client.serverUB = "Green"
 /////////////////////////////////////
 client.commands = new Collection()
 
-const Handlers = ["Events", "Commands", "EventStack", "Errors"]
+client.player = new Manager({
+    nodes,
+    send: (id, payload) => {
+
+        let guild = client.guilds.cache.get(id)
+        if (guild) guild.shard.send(payloaf)
+
+    }
+})
+
+client.on("raw", (d) => client.player.updateVoiceState(d))
+
+const Handlers = ["Events", "Commands", "EventStack", "Errors", "Player"]
 
 Handlers.forEach(handler => {
 

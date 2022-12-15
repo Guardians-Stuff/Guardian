@@ -12,6 +12,8 @@ module.exports = {
     async execute(client) {
         const { user, ws } = client 
 
+        client.player.init(user.id)
+
         console.log(`Logged into ${client.user.tag}.`)
 
         setInterval(() => {
