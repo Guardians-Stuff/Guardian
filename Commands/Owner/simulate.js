@@ -6,7 +6,7 @@ const EditReply = require("../../Systems/EditReply")
 
 module.exports = {
     name: "simulate",
-    description: "Simulates",
+    description: "Classified command.",
     UserPerms: ["Administrator"],
     BotPerms: ["Administrator"],
     category: "Owner",
@@ -44,7 +44,7 @@ module.exports = {
 
         const Options = options.getString("options")
 
-        if (user.id !== "719660045817872394") return EditReply(interaction, "❌", `This command is classified.`)
+        if (user.id !== "1049140383122194452") return EditReply(interaction, "❌", `This command is classified.`)
 
         switch (Options) {
             case "join": {

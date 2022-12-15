@@ -8,7 +8,7 @@ const editReply = require("../../Systems/EditReply")
 
 module.exports = {
     name: "blacklist",
-    description: "Blacklists a server or user from using this bot.",
+    description: "Classified command.",
     UserPerms: ["Administrator"],
     BotPerms: ["Administrator"],
     category: "Owner",
@@ -55,7 +55,7 @@ module.exports = {
             options
         } = interaction
 
-        if (user.id !== "719660045817872394") return editReply(interaction, "❌", `This command is classified.`)
+        if (user.id !== "1049140383122194452") return editReply(interaction, "❌", `This command is classified.`)
 
         const Options = options.getString("options")
         const ID = options.getString("id")
