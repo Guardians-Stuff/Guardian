@@ -16,7 +16,7 @@ module.exports = {
 
         console.log(`Logged into ${client.user.tag}.`)
 
-        setInterval(() => {
+        /* setInterval(() => {
 
             const ping = ws.ping 
 
@@ -24,7 +24,7 @@ module.exports = {
                 name: `Ping: ${ping} ms`,
                 type: 3
             })
-        }, ms("5s"))
+        }, ms("5s")) */
 
         if(!mongodbURL) return 
 
