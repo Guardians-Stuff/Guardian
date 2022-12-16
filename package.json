@@ -4,7 +4,8 @@
   "main": "./Structures/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./Structures/index.js"
+    "start": "node ./Structures/index.js",
+    "dev": "nodemon ./Structures/index.js"
   },
   "dependencies": {
     "ascii-table": "^0.0.9",
