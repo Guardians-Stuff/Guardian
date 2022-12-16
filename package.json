@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ascii-table": "^0.0.9",
+    "axios": "^1.2.1",
     "dbd-dark-dashboard": "^1.6.591",
     "discord-dashboard": "^2.3.41",
     "discord-id": "^1.1.0",
