@@ -17,7 +17,7 @@ module.exports = {
         console.log(`Logged into ${client.user.tag}.`)
 
         user.setActivity({
-            name: `${guilds}`,
+            name: `over the server.`,
             type: 3
         })
 
