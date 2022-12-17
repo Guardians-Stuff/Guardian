@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
     name: `purge`,
     description: `Purges a specific number of messages from a channel or user`,
+    category: 'Moderation',
     UserPerms: ['ModerateMembers'],
     options: [{
         name: `amount`,
