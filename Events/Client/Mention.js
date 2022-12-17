@@ -53,8 +53,8 @@ module.exports = {
 
                     new ButtonBuilder()
                     .setStyle(ButtonStyle.Link)
-                    .setURL("https://discord.gg/4rztPDANgj")
-                    .setLabel("Support Server")
+                    .setURL("https://discord.gg/9qeSpddEGq")
+                    .setLabel("Server Invite")
 
                 )
             ]
