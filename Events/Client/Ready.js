@@ -16,6 +16,11 @@ module.exports = {
 
         console.log(`Logged into ${client.user.tag}.`)
 
+        user.setActivity({
+            name: `${guilds}`,
+            type: 3
+        })
+
         /* setInterval(() => {
 
             const ping = ws.ping 
