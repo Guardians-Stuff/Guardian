@@ -10,8 +10,10 @@
   "dependencies": {
     "ascii-table": "^0.0.9",
     "axios": "^1.2.1",
+    "canvacord": "^5.4.8",
     "dbd-dark-dashboard": "^1.6.591",
     "discord-api-types": "^0.37.23",
+    "discord-canvas": "^1.5.2",
     "discord-dashboard": "^2.3.41",
     "discord-id": "^1.1.0",
     "discord.js": "^14.5.0",
