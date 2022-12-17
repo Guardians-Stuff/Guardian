@@ -65,5 +65,11 @@ module.exports = [
         emoji: "🎅",
         price: 10000
     },
-    
+    {
+        name: "Mrs.Claws",
+        description: "We totally didn't kidnap her and is putting her on a shop-",
+        value: "mrsclaws",
+        emoji: "🤶",
+        price: 100000
+    },
 ]
