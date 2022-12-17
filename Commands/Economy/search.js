@@ -20,7 +20,7 @@ module.exports = {
 
         let Adata = await ActionsDB.findOne({ User: user.id }).catch(err => { })
 
-        const locations = ["Toilet", "Sink", "Shower", "Tub", "Engine"]
+        const locations = ["Toilet", "Sink"]
 
         const location = locations.sort(() => Math.random() - Math.random()).slice(0, 3)
 
