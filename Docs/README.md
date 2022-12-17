@@ -30,7 +30,7 @@
 - Open the terminal and run the following commands
 
 ```
-git clone https://github.com/GhostyORG/Guardian.git
+git clone https://github.com/killerclaws12/Guardian.git
 cd Guardian
 npm install
 ```
