@@ -43,4 +43,27 @@ module.exports = [
         emoji: "🌲",
         price: 50
     },
+    // Seasonal items (only for the holidays) //
+    {
+        name: "Christmas Tree",
+        description: "Christmas tree. 8 FT tree LOL!",
+        value: "christmastree",
+        emoji: "🎄",
+        price: 100
+    },
+    {
+        name: "Candycane",
+        description: "Very very tasty!",
+        value: "candycane",
+        emoji: "🍬",
+        price: 1000
+    },
+    {
+        name: "Santa Doll",
+        description: "Who doesn't love a good Santa Doll?!",
+        value: "santadoll",
+        emoji: "🎅",
+        price: 10000
+    },
+    
 ]
