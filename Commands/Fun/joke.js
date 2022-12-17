@@ -7,6 +7,7 @@ const axios = require("axios")
 module.exports = {
     name: "dadjoke",
     description: "Get random dad jokes",
+    category: 'Fun',
 
     /**
      * @param {ChatInputCommandInteraction} interaction 

@@ -7,6 +7,7 @@ const ms = require("ms")
 module.exports = {
     name: "rps",
     description: "Play a rock paper scissor game",
+    category: 'Fun',
 
     /**
      * @param {Client} client
