@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
-module.exports = model("premium-guild", new Schema({
+module.exports = model("premium-user", new Schema({
 
-    Guild: String
+    User: String
 
 }))

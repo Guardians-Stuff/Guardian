@@ -10,4 +10,4 @@ function EditReply(interaction, emoji, description) {
     })
 }
 
-module.exports = EditReply  
+module.exports = EditReply   
