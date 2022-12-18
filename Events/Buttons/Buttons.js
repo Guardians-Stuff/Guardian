@@ -1,6 +1,7 @@
 const { Client, MessageComponentInteraction, EmbedBuilder, InteractionType } = require("discord.js")
 const DB = require("../../Structures/Schemas/Verification")
 const EditReply = require("../../Systems/EditReply")
+const Reply = require("../../Systems/Reply")
 
 module.exports = {
     name: "interactionCreate",
