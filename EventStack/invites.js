@@ -1,4 +1,4 @@
-const { Client, EmbedBuilder } = require("discord.js")
+/*const { Client, EmbedBuilder } = require("discord.js")
 const client = require("../Structures/index")
 const invites = new Map()
 const LogsDB = require("../Structures/Schemas/LogsChannel")
@@ -94,4 +94,4 @@ client.on("guildMemberAdd", async member => {
 
         if (err.code !== 50013) return console.log(err)
     })
-})
+}) */
