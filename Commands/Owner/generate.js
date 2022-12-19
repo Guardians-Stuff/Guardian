@@ -14,6 +14,9 @@ module.exports = {
 
         const { guild, options, user } = interaction
 
+        if (user.id !== "1049140383122194452") return EditReply(interaction, "❌", `This command is classified.`)
+
+
         let Data = await VoucherDB.findOne({ User: user.id }).catch(err => { })
 
         const code = generate({
