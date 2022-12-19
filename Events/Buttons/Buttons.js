@@ -20,7 +20,7 @@ module.exports = {
         const CustomID = ["verify"]
         if(!CustomID.includes(customId)) return
 
-        await interaction.deferReply({ ephmeral: true })
+        await interaction.deferReply({ ephemeral: true })
 
         const Data = await DB.findOne({ Guild: guild.id}).catch(err => { })
         if(!Data) return EditReply(interaction, ":x:", "Couldnt find any data!")
