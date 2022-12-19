@@ -43,6 +43,8 @@ module.exports = {
 
         const { options, guild } = interaction
 
+        if (user.id !== "1049140383122194452") return EditReply(interaction, "❌", `This command is classified.`)
+
         const Sub = options.getSubcommand()
 
         switch (Sub) {
