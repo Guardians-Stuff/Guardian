@@ -8,6 +8,7 @@ module.exports = {
     description: `Add or remove a user from the AUTOYT list`,
     UserPerms: ['ManageRoles'],
     BotPerms: ["ManageRoles"],
+    premium: true,
     type: ApplicationCommandType.ChatInput,
     options: [{
         name: `add`,
