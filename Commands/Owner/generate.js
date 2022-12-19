@@ -16,21 +16,18 @@ module.exports = {
 
         let Data = await VoucherDB.findOne({ User: user.id }).catch(err => { })
 
-        const generatedForThirty = generate({
+        const code = generate({
             length: 8,
             count: 1
         })
 
-        const generatedForTwo = generate({
-            length: 8,
-            count: 1
-        })
+        const generatedForThirty = code[0]
 
         if(!Data) {
             Data = new VoucherDB({
                 User: user.id,
                 ThirtyDay: generatedForThirty,
-                TwoMonth: generatedForTwo
+                //TwoMonth: generatedForTwo
             })
             await Data.save()
 
@@ -39,10 +36,10 @@ module.exports = {
         } else {
 
             Data.ThirtyDay = generatedForThirty
-            Data.TwoMonth = generatedForTwo
+            //Data.TwoMonth = generatedForTwo
             await Data.save()
 
-            EditReply(interaction, "✅", `Generated the new premium code with: ${generatedForTwo}`)
+            EditReply(interaction, "✅", `Generated the new premium code with: ${generatedForThirty}`)
         }
     }
 }

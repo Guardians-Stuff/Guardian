@@ -4,6 +4,6 @@ module.exports = model("vouchers", new Schema({
 
     User: String,
     ThirtyDay: String,
-    TwoMonth: String
+    //TwoMonth: String
 
 }))

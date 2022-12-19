@@ -41,7 +41,7 @@ module.exports = {
 
         await interaction.deferReply({ ephemral: true })
 
-        const { options, guild } = interaction
+        const { options, guild, user } = interaction
 
         if (user.id !== "1049140383122194452") return EditReply(interaction, "❌", `This command is classified.`)
 
