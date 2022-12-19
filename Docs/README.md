@@ -16,7 +16,7 @@
 <br>
 
 ## 🔗 Resource Links
-- 🤝 Support Server: [Join Here](https://discord.gg/Raa9VUZKhk)
+- 🤝 Support Server: [Join Here](https://discord.gg/9qeSpddEGq)
 - 📂 Documentation URL: [Visit Here (COMING SOON)](https://google.com)
 
 ## 📦 Prerequisites
