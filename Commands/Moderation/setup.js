@@ -36,7 +36,7 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
      */
-    async execute(interaction) {
+    async execute(interaction, client) {
         const { options, guild, channel } = interaction
 
         const Channel = options.getChannel("channel") || channel
@@ -67,7 +67,7 @@ module.exports = {
                 const Embed = new EmbedBuilder()
 
                 interaction.reply({
-                    embeds: [Embed.setColor("Blue").setDescription(`The report log channel has been set to ${Channel}`)]
+                    embeds: [Embed.setColor(client.color).setDescription(`The report log channel has been set to ${Channel}`)]
                 })
 
             }
@@ -80,13 +80,13 @@ module.exports = {
                 const Embed = new EmbedBuilder()
 
                 if (!Data) return interaction.reply({
-                    embeds: [Embed.setColor("DarkRed").setDescription(`No data could be found`)]
+                    embeds: [Embed.setColor(client.color).setDescription(`No data could be found`)]
                 })
 
                 await DB.deleteOne({ Guild: guild.id }).catch(err => { })
 
                 interaction.reply({
-                    embeds: [Embed.setColor("Blue").setDescription(`Report log channel has been reset`)]
+                    embeds: [Embed.setColor(client.color).setDescription(`Report log channel has been reset`)]
                 })
             }
                 break;
