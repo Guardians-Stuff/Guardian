@@ -13,7 +13,7 @@ module.exports = {
 
         if(customId !== "announce-modal")
 
-            await interaction.deferReply({ ephemeral: true })
+        await interaction.deferReply({ ephemeral: true })
 
         const messageInput = fields.getTextInputValue("message-input")
 
