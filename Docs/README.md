@@ -10,87 +10,36 @@
 <img src="https://img.shields.io/github/commit-activity/w/killerclaws12/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
 </p>
 
-<p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with built in admin dashboard.</p>
+### Features
 
-<br>
-<br>
+- Strong automoderation system 
+- Useful moderation tools and utilities 
+- Secure
+- Fun commands
+- Active development & support
+  
+ ### Setup for Custom Hosting
 
-## 🔗 Resource Links
-- 🤝 Support Server: [Join Here](https://discord.gg/9qeSpddEGq)
-- 📂 Documentation URL: [Visit Here (COMING SOON)](https://google.com)
+#### Requirements
+* NodeJS version 16 or higher
+* MongoDB version 5.0 or higher ([Click here to get free MongoDB service](https://www.mongodb.com/atlas))
+* A Discord API application token with proper setup
+  
+### Setup steps
 
-## 📦 Prerequisites
-
-- [Node.js](https://nodejs.org/en/) v16.9.0 or higher
-- [Git](https://git-scm.com/downloads)
-- [MongoDB](https://www.mongodb.com)
-
-## 🚀 Getting Started
-
-- Open the terminal and run the following commands
+1. Download the latest release or clone the repo by running:
 
 ```
-git clone https://github.com/killerclaws12/Guardian.git
-cd Guardian
-npm install
+git clone https://github.com/killerclaws12/Guardian
 ```
 
-- Wait for all the dependencies to be installed
-- Rename `.env.example` to `.env` and fill the values
-- Type `npm run start` to start the bot
+2. Go inside the project directory, and run the following command:
+
+```
+npm install -D
+```
 
 <br>
+I am aware that the code in this repo, some of the commands dont work although they are written correctly. I am making a Guardian v2 and when Guardianv2 is stable and ready for release, all code in this repo will be deleted and updated with the Guardianv2 code!
 
-<h1 align="center"> ✨ Features ✨ </h1>
-
-### 📡 **Advanced Dashboard**
-
-- Manage your servers and make your server-specific settings!
-- Make custom adjustments easy!
-
-### 🛑 **Powerful Moderation: (SOON)**
-
-- **Moderation Commands.** <br /> _Commands:_ `ban`, `unban`, `timeout`, `voice moderation`, `deafen`, `move`, `warn`, `setnick`, ...
-- **Multi-Function Purge Commands.** <br /> _Commands:_ `purge`, `purge attach`, `purge bots`, `purge links`, `purge token`, `purge user`, ...
-
-### 🤖 **Auto Moderation: (SOON)**
-
-- **Anti system** <br /> _Commands:_ `anti ghostping`, `anti spam`, `anti massmention`, ...
-- **Auto Delete system** <br /> _Commands:_ `autodelete attachments`, `autodelete invites`, `autodelete links`, `autodelete maxlines`, ...
-- **AutoMod system** <br /> _Commands:_ `automod status`, `automod strikes`, `automod action`, `automod debug`, `automod whitelist`, ...
-
-### ⚙️ **Admin Configuration: (SOON)**
-
-- **Let a bot be the server's assistant!** <br /> _Commands:_ `autorole`, `farewell`, `welcome`, `counters`, `flag translation`, `reaction roles`, ...
-- **Make custom settings for your own server.** <br /> _Commands:_ `setprefix`, `maxwarns`, `modlog`...
-
-### 💁 **Information Gathering: (SOON)**
-
-- **User Context Interactions**
-- **Advanced Information** Get deep information about a user, channel, role, etc.
-
-### 📉 **Stats Tracking: (SOON)**
-
-- **Levelling** Track your server's activity with a level system
-- **Leaderboards** See who is the most active user in your server
-- **Customizable System** Configure the levelup message, rank cards to your liking
-
-### 🙋‍♂️ **Suggestions: (SOON)**
-
-- **Get Suggestions From Server Members To Help Your Server Become The Best!** <br /> _Commands:_ `suggest`, `suggestion`...
-- **Accept Or Decline The Suggestions And Customize Them To The Max!** <br /> _Commands:_ `suggestion status`, `suggestion channel`, `suggestion appch`, `suggestion rejch`, `suggestion approve`, `suggestion staffadd`, `suggestion staffremove`...
-
-### ⚒️ **Utility Commands:**
-
-- **Need Some Help With Something? Use The Utility Commands To Find Out The Answer To It** <br /> _Commands:_ `bigemoji`, `covid`, `pokedex`, `urban`, `weather`, ...
-- **Need Help With Some More Stuff?** <br /> _Commands:_ `help`, `proxies`, `translate`, `paste`, ...
-
-### 📨 **Invite Tracking: (SOON)**
-
-- **Track who has been inviting people to your server!**
-- **Invite Ranks!** Inviter can get awesome rewards and be recognised
-- **Configure these settings and customize them to your liking!** <br /> _Commands:_ `resetinvites`, `addinvites`, `invitesimport`, `inviterank`...
-
-<br>
-
-<h1 align="center"> 🤝 Contributing 🤝 </h1>
+If you want to stay updated, join the Discord! https://discord.gg/9qeSpddEGq
