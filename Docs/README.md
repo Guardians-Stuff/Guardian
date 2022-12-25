@@ -10,7 +10,34 @@
 <img src="https://img.shields.io/github/commit-activity/w/killerclaws12/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
 </p>
 
-<p align="center">Dont use Zeppelin! Use Guardian! A advanced private moderation Discord bot with built in admin dashboard.</p>
+### Features
+
+- Strong automoderation system 
+- Useful moderation tools and utilities 
+- Secure
+- Fun commands
+- Active development & support
+  
+ ### Setup for Custom Hosting
+
+#### Requirements
+* NodeJS version 16 or higher
+* MongoDB version 5.0 or higher ([Click here to get free MongoDB service](https://www.mongodb.com/atlas))
+* A Discord API application token with proper setup
+  
+### Setup steps
+
+1. Download the latest release or clone the repo by running:
+
+```
+git clone https://github.com/killerclaws12/Guardian
+```
+
+2. Go inside the project directory, and run the following command:
+
+```
+npm install -D
+```
 
 <br>
 I am aware that the code in this repo, some of the commands dont work although they are written correctly. I am making a Guardian v2 and when Guardianv2 is stable and ready for release, all code in this repo will be deleted and updated with the Guardianv2 code!
