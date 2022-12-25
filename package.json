@@ -1,35 +1,20 @@
 {
-  "name": "guardian",
+  "name": "guardianv-two",
   "version": "0.1.0",
-  "main": "./Structures/index.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./Structures/index.js",
-    "dev": "nodemon ./Structures/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "axios": "^1.2.1",
-    "canvacord": "^5.4.8",
-    "dbd-dark-dashboard": "^1.6.591",
-    "discord-api-types": "^0.37.23",
-    "discord-canvas": "^1.5.2",
-    "discord-dashboard": "^2.3.41",
-    "discord-id": "^1.1.0",
-    "discord.js": "^14.5.0",
-    "dotenv": "^16.0.2",
-    "erela.js": "^2.4.0",
-    "fs": "^0.0.1-security",
-    "glob": "7.2.0",
+    "discord-html-transcripts": "^3.1.2",
+    "discord.js": "^14.7.1",
+    "glob": "^8.0.3",
     "moment": "^2.29.4",
-    "moment-duration-format": "^2.3.2",
-    "mongoose": "^6.5.4",
+    "mongoose": "^6.8.1",
     "ms": "^2.1.3",
-    "npm": "^9.2.0",
-    "path": "^0.12.7",
-    "rss-parser": "^3.12.0",
-    "systeminformation": "^5.12.6",
-    "uuid": "^9.0.0",
-    "voucher-code-generator": "^1.3.0"
+    "nodemon": "^2.0.20"
   }
 }

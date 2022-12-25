@@ -1,5 +1,3 @@
 node_modules
-yarn.lock
-.gitattributes
-yarn-error.log
-.env
+config.json
+yarn.lock 
