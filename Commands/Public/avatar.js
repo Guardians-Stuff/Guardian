@@ -5,7 +5,7 @@ module.exports = {
         .setName("avatar")
         .setDescription("Gets the avatar of a user")
         .addUserOption(option => option.setName("user").setDescription("The user to get the avatar of")),
-    execute: interaction => {
+    execute(interaction) {
         const user = interaction.options.getUser("user") || interaction.user;
 
         const embed = new EmbedBuilder()
