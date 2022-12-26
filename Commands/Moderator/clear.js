@@ -1,3 +1,5 @@
+// COMMAND UNDER CONSTRUCTION
+
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction } = require("discord.js")
 const Transcripts = require("discord-html-transcripts")
 
@@ -29,7 +31,7 @@ module.exports = {
         const Target = interaction.options.getUser("target")
 
         const channelMessages = await interaction.channel.messages.fetch()
-        const logChannel = interaction.guild.channels.cache.get("1054533335394816000")
+        const logChannel = interaction.guild.channels.cache.get("1056720695167569961")
 
         const responseEmbed = new EmbedBuilder().setColor("DarkBlue")
         const logEmbed = new EmbedBuilder().setColor("DarkAqua")
@@ -67,7 +69,7 @@ module.exports = {
                 })
             })
         } else {
-            const Transcript = Transcripts.createTranscript(interaction.channel, { limit: Amount })
+            const Transcript = await Transcripts.createTranscript(interaction.channel, { limit: Amount })
 
             interaction.channel.bulkDelete(Amount, true).then((messages) => {
                 interaction.reply({
@@ -83,4 +85,4 @@ module.exports = {
             })
         }
     }
-}
+} 

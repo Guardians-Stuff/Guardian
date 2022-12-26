@@ -16,7 +16,7 @@
 - [ ] Unmute
 - [ ] Warn
 - [ ] Unwarn
-- [ ] Fix Clear (purge messages)
+- [x] Fix Clear (purge messages)
 - [ ] Lockdown (lock a channel)
 - [ ] Unlock (unlock a channel)
 - [ ] Slowmode (set slowmode for a channel)
