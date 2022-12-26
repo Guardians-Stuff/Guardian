@@ -15,7 +15,7 @@
 - [ ] Mute
 - [ ] Unmute
 - [ ] Warn
-- [x] Unwarn
+- [ ] Unwarn
 - [ ] Fix Clear (purge messages)
 - [ ] Lockdown (lock a channel)
 - [ ] Unlock (unlock a channel)
