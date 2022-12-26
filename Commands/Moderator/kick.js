@@ -5,13 +5,18 @@ module.exports = {
         .setName('kick')
         .setDescription('Kicks a member of the discord.')
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-        .addUserOption(option => option.setName(`user`).setDescription(`The user you'd like to kick.`))
-        .addStringOption(option => option.setName(`reason`).setDescription(`Reason for kicking the user.`)),
-    execute(interaction, client) {
-
-        const kickUser = interaction.options.getUser('user');
-        const kickMember = interaction.guild.members.fetch(kickUser.id);
-        const channel = interaction.channel;
+        .addUserOption(option => option
+            .setName(`user`)
+            .setDescription(`The user you'd like to kick.`)
+            .setRequired(true)
+        )
+        .addStringOption(option => option
+            .setName(`reason`)
+            .setDescription(`Reason for kicking the user.`)
+        ),
+    async execute(interaction, client) {
+        const kickUser = interaction.options.getUser('user', true);
+        const kickMember = await interaction.guild.members.fetch(kickUser.id);
 
         if (!kickMember) return interaction.reply({ content: 'That user is no longer in the server.', ephemeral: true });
         if (!kickMember.kickable) return interaction.reply({ content: 'User cannot be kicked.', ephemeral: true });

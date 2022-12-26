@@ -10,16 +10,17 @@
 
 ### Moderation
 
-- [ ] Ban
+- [X] Ban
+- [X] Unban
 - [x] Kick
 - [ ] Mute
 - [ ] Unmute
 - [ ] Warn
 - [ ] Unwarn
-- [x] Fix Clear (purge messages)
+- [X] Fix Clear (purge messages)
 - [ ] Lockdown (lock a channel)
 - [ ] Unlock (unlock a channel)
-- [ ] Slowmode (set slowmode for a channel)
+- [X] Slowmode (set slowmode for a channel)
 - [ ] Settings (get/set the server's settings)
 
 ### Utility
