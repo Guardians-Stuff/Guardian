@@ -24,14 +24,14 @@
 
 ### Utility
 
-- [ ] Avatar (get a user's avatar)
+- [x] Avatar (get a user's avatar)
 - [x] Ping (get the bot's ping)
 - [ ] Help (get help for a command)
-- [ ] Invite (get the bot's invite link)
+- [x] Invite (get the bot's invite link)
 - [ ] Support (get the bot's support server link)
-- [ ] Stats (get the bot's stats)
+- [x] Stats (get the bot's stats)
 - [ ] Uptime (get the bot's uptime)
-- [ ] Userinfo (get a user's info)
+- [x] Userinfo (get a user's info)
 - [ ] Serverinfo (get the server's info)
 - [ ] Roleinfo (get a role's info)
 
