@@ -40,6 +40,6 @@ npm install -D
 ```
 
 <br>
-I am aware that the code in this repo, some of the commands dont work although they are written correctly. I am making a Guardian v2 and when Guardianv2 is stable and ready for release, all code in this repo will be deleted and updated with the Guardianv2 code!
+I am remaking Guardian bot. V2 code has been pushed to this repo but barley any commands yet.
 
-If you want to stay updated, join the Discord! https://discord.gg/9qeSpddEGq
+If you want to stay updated, join the Discord! https://discord.gg/NP8jMjW84F
