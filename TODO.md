@@ -10,19 +10,24 @@
 
 ### Moderation
 
-- [X] Ban
-- [X] Unban
+- [x] Ban
+- [x] Unban
 - [x] Kick
-- [ ] Mute
-- [ ] Unmute
-- [ ] Warn
-- [ ] Unwarn
-- [X] Fix Clear (purge messages)
-- [ ] Lockdown (lock a channel)
-- [ ] Unlock (unlock a channel)
-- [X] Slowmode (set slowmode for a channel)
+- [x] Warn
+- [x] Unwarn
+- [x] Fix Clear (purge messages)
+- [x] Lockdown (lock a channel)
+- [x] Unlock (unlock a channel)
+- [x] Slowmode (set slowmode for a channel)
 - [ ] Settings (get/set the server's settings)
 - [ ] Setup (w/ embed)
+- [ ] Tempban
+- [ ] Verify
+- [ ] Add notes (delete note by id, add note, view note history)
+- [ ] Lockall channels (unlock all etc)
+- [ ] Softban
+- [ ] Massban
+- [ ] Nothing here
 
 ### Utility
 
@@ -30,12 +35,15 @@
 - [x] Ping (get the bot's ping)
 - [ ] Help (get help for a command)
 - [x] Invite (get the bot's invite link)
-- [ ] Support (get the bot's support server link)
+- [x] Support (get the bot's support server link)
 - [x] Stats (get the bot's stats)
 - [ ] Uptime (get the bot's uptime)
 - [x] Userinfo (get a user's info)
 - [ ] Serverinfo (get the server's info)
 - [ ] Roleinfo (get a role's info)
+- [ ] Afk
+- [ ] Snippet
+- [ ] Announce
 
 ### Fun
 
@@ -50,7 +58,9 @@
 - [x] Split slash commands into multiple folders (moderation, utility, fun, etc.)
 
 ## Website/Dashboard
+
 - [ ] Nothing yet
 
-### Dashboard 
+### Dashboard
+
 - [ ] Nothing yet
