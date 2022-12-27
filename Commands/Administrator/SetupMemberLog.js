@@ -1,64 +1,45 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder, ChannelType } = require("discord.js");
+const Discord = require('discord.js');
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
-const MemerLog = require("../../Schemas/MemberLog")
+const Guilds = require('../../Schemas/Guilds');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("setup_memberlog")
-        .setDescription("Config the member logging system.")
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    data: new Discord.SlashCommandBuilder()
+        .setName('setup_memberlog')
+        .setDescription('Config the member logging system.')
+        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.Administrator)
         .setDMPermission(false)
         .addChannelOption((options) => options
-            .setName("log_channel")
-            .setDescription("Select the logging channel for this system.")
-            .addChannelTypes(ChannelType.GuildText)
+            .setName('log_channel')
+            .setDescription('Select the logging channel for this system.')
+            .addChannelTypes(Discord.ChannelType.GuildText)
             .setRequired(true)
         )
         .addRoleOption((options) => options
-            .setName("member_role")
-            .setDescription("Select the autorole for new members.")
+            .setName('member_role')
+            .setDescription('Select the autorole for new members.')
         )
         .addRoleOption((options) => options
-            .setName("bot_role")
-            .setDescription("Select the autorole for bots.")
+            .setName('bot_role')
+            .setDescription('Select the autorole for bots.')
         ),
     /**
-     * @param {ChatInputCommandInteraction} interaction
-     * @param {Client} client
+     * @param {Discord.ChatInputCommandInteraction} interaction
+     * @param {Discord.Client} client
      */
     async execute(interaction, client) {
-        const { guild, options } = interaction
+        const logChannel = interaction.options.getChannel('log_channel');
+        const memberRole = interaction.options.getRole('member_role');
+        const botRole = interaction.options.getRole('bot_role');
 
-        const logChannel = options.getChannel("log_channel").id
-
-        let memberRole = options.getRole("member_role") ?
-            options.getRole("member_role").id : null
-
-        let botRole = options.getRole("bot_role") ?
-            options.getRole("bot_role").id : null
-
-        await MemerLog.findOneAndUpdate(
-            { Guild: guild.id },
-            {
-                logChannel: logChannel,
-                memberRole: memberRole,
-                botRole: botRole
-            },
-            { new: true, upsert: true }
-        )
-
-        client.guildConfig.set(guild.id, {
-            logChannel: logChannel,
-            memberRole: memberRole,
-            botRole: botRole
-        })
+        const guild = await Guilds.findOneAndUpdate({ guild: interaction.guild.id }, { $set: { 'logs.basic': logChannel.id, 'autorole.member': memberRole.id, 'autorole.bot': botRole.id } }, { upsert: true, new: true });
+        client.guildConfig.set(interaction.guild.id, guild.toObject());
 
         return EmbedGenerator.basicEmbed([
-            `- Logging Channel Updated: <#${logChannel}>`,
-            `- Member Auto-Role Updated: ${memberRole ? `<@&${memberRole}>` : "Not Specified."}`,
-            `- Bot Auto-Role Updated: ${botRole ? `<@&${botRole}>` : "Not Specified."}`
-        ].join("\n"))
+            `- Logging Channel Updated: <#${logChannel.id}>`,
+            `- Member Auto-Role Updated: ${memberRole ? `<@&${memberRole.id}>` : 'Not Specified.'}`,
+            `- Bot Auto-Role Updated: ${botRole ? `<@&${botRole.id}>` : 'Not Specified.'}`
+        ].join("\n"));
     }
 }

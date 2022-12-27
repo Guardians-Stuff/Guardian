@@ -24,7 +24,7 @@ module.exports = {
 
         await interaction.editReply({ embeds: [ generateEmbed(1, [0]) ] });
 
-        if(interaction.guild.roles.botRoleFor(client.user).position != 4){
+        if(interaction.guild.roles.botRoleFor(client.user).position != interaction.guild.roles.highest.position){
             const embed = generateEmbed(1, [0]);
             return embed.setDescription(`${embed.data.description}\n\n❌ Bot role is not the highest role in the server!`);
         }
