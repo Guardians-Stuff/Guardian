@@ -23,7 +23,6 @@
 - [X] Slowmode (set slowmode for a channel)
 - [ ] Settings (get/set the server's settings)
 - [ ] Setup (w/ embed)
-- [ ] 
 
 ### Utility
 
