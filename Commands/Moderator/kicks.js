@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const moment = require('moment');
-const { createPages } = require('../../Functions/createPages');
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 const Infractions = require('../../Schemas/Infractions');
 
@@ -15,32 +16,30 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client){
         const user = interaction.options.getUser('user', true);
 
         const kicks = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'kick' }).sort({ time: -1 });
-        if(kicks.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No kicks found') ] })
+        if(kicks.length == 0) return EmbedGenerator.errorEmbed('No kicks found');
 
         const embeds = [];
 
         for(let i = 0; i < kicks.length; i += 10){
             const kicksSlice = kicks.slice(i, i + 10);
-            const embed = new Discord.EmbedBuilder()
-                .setColor('#fff176')
-                .setAuthor({ name: `${user.tag} | Kicks`, iconURL: user.displayAvatarURL() })
-                .setDescription([
+            const embed = EmbedGenerator.basicEmbed([
                     `Total Kicks: ${kicks.length}`,
                     `Latest Kick: <t:${moment(kicks[0].time).unix()}:f>`,
                     '',
                     ...kicksSlice.map((kick, index) => `**${i + index + 1}** • **${kick.reason}** • <@${kick.issuer}>`)
                 ].join('\n'))
+                .setAuthor({ name: `${user.tag} | Kicks`, iconURL: user.displayAvatarURL() })
 
             embeds.push(embed);
         }
 
-        await createPages(interaction, embeds);
+        await EmbedGenerator.pagesEmbed(interaction, embeds);
     }
 }

@@ -1,6 +1,6 @@
-const { EmbedBuilder, MessageActionRow, MessageButton, MessageCollector, SlashCommandBuilder } = require("discord.js");
-const axios = require("axios").default;
-const wait = require("util").promisify(setTimeout);
+const { SlashCommandBuilder, ChatInputCommandInteraction, Client } = require("discord.js");
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,8 +12,11 @@ module.exports = {
                 .setDescription("The question you want to ask the magic 8ball")
                 .setRequired(true)
         ),
-    async execute(interaction) {
-
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
+    async execute(interaction, client) {
         const question = interaction.options.getString("question");
 
         const options = [
@@ -27,9 +30,8 @@ module.exports = {
 
         const randomoption = options[Math.floor(Math.random() * options.length)];
 
-        const embed = new EmbedBuilder()
+        return EmbedGenerator.basicEmbed(`\`\`\`${question}\`\`\``)
             .setTitle(`8ball` + ` - ${interaction.user.username}`)
-            .setDescription(`\`\`\`${question}\`\`\``)
             .addFields(
                 { name: 'Answer', value: `${randomoption}` },
             )
@@ -38,7 +40,5 @@ module.exports = {
                 iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
             })
             .setTimestamp();
-        interaction.reply({ embeds: [embed] });
-
-    },
+    }
 };

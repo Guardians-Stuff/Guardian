@@ -1,5 +1,8 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder, ChannelType } = require("discord.js")
-const database = require("../../Schemas/MemberLog")
+const { SlashCommandBuilder, PermissionFlagsBits, ChatInputCommandInteraction, EmbedBuilder, ChannelType } = require("discord.js");
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
+const MemerLog = require("../../Schemas/MemberLog")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,6 +24,10 @@ module.exports = {
             .setName("bot_role")
             .setDescription("Select the autorole for bots.")
         ),
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
     async execute(interaction, client) {
         const { guild, options } = interaction
 
@@ -32,7 +39,7 @@ module.exports = {
         let botRole = options.getRole("bot_role") ?
             options.getRole("bot_role").id : null
 
-        await database.findOneAndUpdate(
+        await MemerLog.findOneAndUpdate(
             { Guild: guild.id },
             {
                 logChannel: logChannel,
@@ -48,14 +55,10 @@ module.exports = {
             botRole: botRole
         })
 
-        const Embed = new EmbedBuilder()
-            .setColor("Green")
-            .setDescription([
-                `- Logging Channel Updated: <#${logChannel}>`,
-                `- Member Auto-Role Updated: ${memberRole ? `<@&${memberRole}>` : "Not Specified."}`,
-                `- Bot Auto-Role Updated: ${botRole ? `<@&${botRole}>` : "Not Specified."}`
-            ].join("\n"))
-
-        return interaction.reply({ embeds: [Embed] })
+        return EmbedGenerator.basicEmbed([
+            `- Logging Channel Updated: <#${logChannel}>`,
+            `- Member Auto-Role Updated: ${memberRole ? `<@&${memberRole}>` : "Not Specified."}`,
+            `- Bot Auto-Role Updated: ${botRole ? `<@&${botRole}>` : "Not Specified."}`
+        ].join("\n"))
     }
 }

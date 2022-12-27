@@ -1,15 +1,21 @@
-const { SlashCommandBuilder, User, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, Client, ChatInputCommandInteraction } = require("discord.js");
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("userinfo")
         .setDescription("Shows information about a user")
         .addUserOption(option => option.setName("user").setDescription("The user to get information about")),
-    execute(interaction) {
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
+    execute(interaction, client) {
         const user = interaction.options.getUser("user") || interaction.user;
         const userCreated = interaction?.guild?.members?.cache?.get(user.id)?.joinedTimestamp || user.createdTimestamp;
 
-        const embed = new EmbedBuilder()
+        return EmbedGenerator.basicEmbed()
             .addFields([
                 { name: "👤 Username", value: `${user.username}#${user.discriminator}`, inline: true },
                 { name: "🆔 ID", value: user.id, inline: true },
@@ -20,11 +26,7 @@ module.exports = {
                 { name: "📷 Banner", value: user.bannerURL() ? `[Click Here](${user.bannerURL()})` : "None", inline: true },
                 { name: "🎭 System", value: user.system ? "Yes" : "No", inline: true },
             ])
-            .setColor("#FFFFFF")
             .setThumbnail(user.avatarURL())
-
-        interaction.reply({ embeds: [embed] });
-
-    },
+    }
 };
 

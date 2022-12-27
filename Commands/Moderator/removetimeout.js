@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
@@ -17,33 +19,32 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
 
-        /** @type {String} */ let timeout = interaction.options.getString('timeout', true);
+        const timeout = interaction.options.getString('timeout', true);
         if(timeout == 'all'){
             await Infractions.deleteMany({ guild: interaction.guild.id, user: user.id, type: 'timeout' });
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('All timeouts removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('All timeouts removed');
         }
         
         const timeouts = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'timeout' }).sort({ time: -1 });
-        if(timeouts.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No timeouts found') ], ephemeral: true });
+        if(timeouts.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('No timeouts found') ], ephemeral: true };
 
         if(timeout == 'latest'){
             await timeouts[0].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Timeout removed') ] });
+            return EmbedGenerator.basicEmbed('Timeout removed');
         }else{
-            if(isNaN(+timeout)) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Timeout not found') ], ephemeral: true });
-            if(!timeouts[+timeout - 1]) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Timeout removed').setTimestamp() ] });
+            if(isNaN(+timeout) || !timeouts[+timeout - 1]) return { embeds: [ EmbedGenerator.errorEmbed('Timeout not found') ], ephemeral: true };
 
             await timeouts[+timeout - 1].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Timeout removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('Timeout removed')
         }
         
     }

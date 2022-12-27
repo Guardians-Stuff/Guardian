@@ -2,8 +2,9 @@ const Discord = require('discord.js');
 const moment = require('moment');
 const ms = require('ms');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
-const { createPages } = require('../../Functions/createPages');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -16,21 +17,20 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client){
         const user = interaction.options.getUser('user', true);
 
         const timeouts = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'timeout' }).sort({ time: -1 });
-        if(timeouts.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No timeouts found') ] })
+        if(timeouts.length == 0) return EmbedGenerator.errorEmbed('No timeouts found');
 
         const embeds = [];
 
         for(let i = 0; i < timeouts.length; i += 10){
             const timeoutsSlice = timeouts.slice(i, i + 10);
-            const embed = new Discord.EmbedBuilder()
-                .setColor('#fff176')
+            const embed = EmbedGenerator.basicEmbed()
                 .setAuthor({ name: `${user.tag} | Timeouts`, iconURL: user.displayAvatarURL() })
                 .setDescription([
                     `Total Timeouts: ${timeouts.length}`,
@@ -42,6 +42,6 @@ module.exports = {
             embeds.push(embed);
         }
 
-        await createPages(interaction, embeds);
+        await EmbedGenerator.pagesEmbed(interaction, embeds);
     }
 }

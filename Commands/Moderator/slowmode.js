@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('slowmode')
@@ -16,13 +18,13 @@ module.exports = {
         ),
     /**
      * 
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client){
-        /** @type {String} */ const duration = interaction.options.getString('duration', true);
+        const duration = interaction.options.getString('duration', true);
         const durationSeconds = Math.floor(ms(duration) / 1000);
-        /** @type {String} */ const reason = interaction.options.getString('reason') || 'Unspecified reason.';
+        const reason = interaction.options.getString('reason') || 'Unspecified reason.';
         /** @type {Discord.TextChannel} */ const channel = interaction.channel;
     
         if(isNaN(durationSeconds)) return interaction.reply({ content: 'Invalid duration.', ephemeral: true });
@@ -31,9 +33,9 @@ module.exports = {
 
         channel.setRateLimitPerUser(durationSeconds, reason).then(() => {
             const durationString = durationSeconds == 0 ? 'disabled' : ms(ms(duration), { long: true });
-            interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription(`The slowmode for this chnanel is now ${durationString} | ${reason}`) ] });
+            interaction.reply({ embeds: [ EmbedGenerator.basicEmbed(`The slowmode for this chnanel is now ${durationString} | ${reason}`) ] });
         }).catch(() => {
-            interaction.reply({ content: 'There was an error.', ephemeral: true });
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed('There was an error.') ], ephemeral: true });
         });
     }
 }

@@ -1,6 +1,8 @@
 const Discord = require(`discord.js`);
 const ms = require('ms');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
@@ -30,20 +32,20 @@ module.exports = {
             .setDescription('Reason for banning the user.')
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
         const member = await interaction.guild.members.fetch(user.id);
         const deleteMessages = interaction.options.getString('delete_messages', true);
-        /** @type {String} */ const reason = interaction.options.getString('reason') || 'Unspecified reason.';
+        const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
         if (!member) return interaction.reply({ content: 'That user is no longer in the server.', ephemeral: true });
         if (!member.bannable) return interaction.reply({ content: 'User cannot be banned.', ephemeral: true });
 
         await member.send({
-            embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription(`You have been banned from ${interaction.guild.name} | ${reason}`) ]
+            embeds: [ EmbedGenerator.basicEmbed(`You have been banned from ${interaction.guild.name} | ${reason}`) ]
         }).catch(() => null);
 
         member.ban({
@@ -59,18 +61,16 @@ module.exports = {
             })
 
             interaction.reply({ embeds: [
-                new Discord.EmbedBuilder()
-                .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
-                .setColor('Gold')
-                .setDescription([
+                EmbedGenerator.basicEmbed([
                     `<@${member.id}> was issued a permenant ban by ${interaction.member}`,
                     `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
                     `Reason: \`${reason}\``
                 ].join('\n'))
+                .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
                 .setTimestamp()
             ] })
         }).catch(() => {
-            interaction.reply({ content: 'There was an error.', ephemeral: true })
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true })
         });
     }
 }
