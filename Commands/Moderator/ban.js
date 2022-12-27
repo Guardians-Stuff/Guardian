@@ -1,6 +1,8 @@
 const Discord = require(`discord.js`);
 const ms = require('ms');
 
+const Infractions = require('../../Schemas/Infractions');
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('ban')
@@ -9,8 +11,8 @@ module.exports = {
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user you\'d like to ban.')
-            .setRequired(true))
-        .addStringOption(option => option
+            .setRequired(true)
+        ).addStringOption(option => option
             .setName('delete_messages')
             .setDescription('How much of their recent message history to delete.')
             .addChoices(
@@ -23,8 +25,7 @@ module.exports = {
                 { name: 'Previous 7 Days', value: '7d' }
             )
             .setRequired(true)
-        )
-        .addStringOption(option => option
+        ).addStringOption(option => option
             .setName('reason')
             .setDescription('Reason for banning the user.')
         ),
@@ -48,8 +49,26 @@ module.exports = {
         member.ban({
             reason: reason,
             deleteMessageSeconds: ms(deleteMessages) / 1000
-        }).then(() => {
-            interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription(`<@${user.id}> has been banned. | ${reason}`) ] })
+        }).then(async () => {
+            await Infractions.create({
+                guild: interaction.guild.id,
+                user: member.id,
+                issuer: interaction.user.id,
+                type: 'ban',
+                reason: reason
+            })
+
+            interaction.reply({ embeds: [
+                new Discord.EmbedBuilder()
+                .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
+                .setColor('Gold')
+                .setDescription([
+                    `<@${member.id}> was issued a permenant ban by ${interaction.member}`,
+                    `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
+                    `Reason: \`${reason}\``
+                ].join('\n'))
+                .setTimestamp()
+            ] })
         }).catch(() => {
             interaction.reply({ content: 'There was an error.', ephemeral: true })
         });
