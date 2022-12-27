@@ -22,6 +22,8 @@
 - [ ] Unlock (unlock a channel)
 - [X] Slowmode (set slowmode for a channel)
 - [ ] Settings (get/set the server's settings)
+- [ ] Setup (w/ embed)
+- [ ] 
 
 ### Utility
 
@@ -47,3 +49,9 @@
 
 - [ ] Send a help message upon @mentioning the bot
 - [x] Split slash commands into multiple folders (moderation, utility, fun, etc.)
+
+# Website 
+- [ ] Nothing yet
+
+# Dashboard 
+- [ ] Nothing yet
