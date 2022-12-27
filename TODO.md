@@ -22,7 +22,7 @@
 - [ ] Settings (get/set the server's settings)
 - [x] Setup (w/ embed)
 - [x] Tempban
-- [ ] Verify
+- [x] Setup Verify
 - [ ] Add notes (delete note by id, add note, view note history)
 - [ ] Lockall channels (unlock all etc)
 - [ ] Softban
