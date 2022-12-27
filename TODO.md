@@ -49,7 +49,7 @@
 - [ ] Send a help message upon @mentioning the bot
 - [x] Split slash commands into multiple folders (moderation, utility, fun, etc.)
 
-# Website 
+### Website/Dashboard
 - [ ] Nothing yet
 
 # Dashboard 
