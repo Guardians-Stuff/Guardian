@@ -10,15 +10,9 @@ module.exports = Mongoose.model('Infractions', new Mongoose.Schema({
     time: { type: Number, default: Date.now },
     duration: { type: Number, default: Infinity, required: true },
     expires: {
-        type    : Number,
+        type: Number,
         default: function () {
             return this.time + this.duration;
-        },
-        validate: {
-            validator: function(value) {
-                return value > Date.now();
-            },
-            message: props => `${props.value} is not a time in the future!`
         }
     }
 }, {
