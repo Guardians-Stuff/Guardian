@@ -1,15 +1,16 @@
-const { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction } = require("discord.js")
+const { SlashCommandBuilder, Client, ChatInputCommandInteraction } = require("discord.js")
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("support")
         .setDescription("Sends an invite to the support server"),
-    execute(interaction) {
-
-        const embed = new EmbedBuilder()
-            .setColor('Green')
-            .setDescription(`[Click me for the support server invite!](https://discord.gg/NP8jMjW84F)`);
-
-        interaction.reply({ embeds: [embed] });
-    },
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
+    execute(interaction, client) {
+        return EmbedGenerator.basicEmbed('[Click me for the support server invite!](https://discord.gg/NP8jMjW84F)')
+    }
 };

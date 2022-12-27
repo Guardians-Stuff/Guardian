@@ -1,7 +1,9 @@
 // COMMAND UNDER CONSTRUCTION
 
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction } = require("discord.js")
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Client } = require("discord.js")
 const Transcripts = require("discord-html-transcripts")
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,7 +27,11 @@ module.exports = {
             .setName("target")
             .setDescription("Provide a target.")
         ),
-    async execute(interaction) {
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
+    async execute(interaction, client) {
         const Amount = interaction.options.getNumber("amount")
         const Reason = interaction.options.getString("reason")
         const Target = interaction.options.getUser("target")

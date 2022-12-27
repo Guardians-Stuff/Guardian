@@ -1,9 +1,6 @@
-const {
-    ChatInputCommandInteraction,
-    SlashCommandBuilder,
-    PermissionFlagsBits,
-    Client
-} = require("discord.js")
+const { ChatInputCommandInteraction, SlashCommandBuilder, PermissionFlagsBits, Client } = require("discord.js")
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 const { loadCommands } = require("../../Handlers/commandHandler")
 const { loadEvents } = require("../../Handlers/eventHandler")
 
@@ -19,7 +16,10 @@ module.exports = {
         .addSubcommand((options) => options
             .setName("commands")
             .setDescription("Reload your commands.")),
-
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
     execute(interaction, client) {
         const subCommand = interaction.options.getSubcommand()
 
@@ -28,14 +28,12 @@ module.exports = {
                 for (const [key, value] of client.events)
                     client.removeListener(`${key}`, value, true)
                 loadEvents(client)
-                interaction.reply({ content: "Reloaded Events", ephemeral: true })
+                return { embeds: [ EmbedGenerator.basicEmbed('Reloaded events.') ], ephemeral: true };
             }
-                break;
             case "commands": {
                 loadCommands(client)
-                interaction.reply({ content: "Reloaded Commands.", ephemeral: true })
+                return { embeds: [ EmbedGenerator.basicEmbed('Reloaded commands.') ], ephemeral: true };
             }
-                break;
         }
     }
 }

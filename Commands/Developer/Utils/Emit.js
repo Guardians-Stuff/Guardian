@@ -1,4 +1,6 @@
-const { SlashCommandBuilder, PermissionFlagsBits, Client, ChatInputCommandInteraction } = require("discord.js")
+const { SlashCommandBuilder, PermissionFlagsBits, Client, ChatInputCommandInteraction } = require("discord.js");
+
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -6,7 +8,10 @@ module.exports = {
         .setDescription("Emit the guildMemberAdd/Remove events.")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .setDMPermission(false),
-
+    /**
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
+     */
     execute(interaction, client) {
         client.emit("guildMemberRemove", interaction.member)
 

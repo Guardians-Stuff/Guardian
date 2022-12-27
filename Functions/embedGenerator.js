@@ -1,11 +1,31 @@
 const Discord = require('discord.js');
 
 /**
+ * @param {String} [description]
+ */
+function basicEmbed(description){
+    const embed = new Discord.EmbedBuilder().setColor('Green');
+    if(description) embed.setDescription(description);
+
+    return embed;
+}
+
+/**
+ * @param {String} [description]
+ */
+function errorEmbed(description = 'There was an error.'){
+    return new Discord.EmbedBuilder()
+        .setColor('Red')
+        .setDescription(description);
+}
+
+
+/**
  * 
- * @param {Discord.CommandInteraction} interaction 
+ * @param {Discord.ChatInputCommandInteraction} interaction 
  * @param {Array<Discord.MessageEmbed>} embeds 
  */
-async function createPages(interaction, embeds){
+async function pagesEmbed(interaction, embeds){
     if(embeds.length == 0) return interaction.reply({ content: 'There was an error.', ephemeral: true });
     if(embeds.length == 1) return interaction.reply({ embeds: [ embeds[0].setFooter({ text: 'Page 1/1' }) ] });
 
@@ -32,4 +52,8 @@ async function createPages(interaction, embeds){
     });
 }
 
-module.exports = { createPages };
+module.exports = {
+    basicEmbed,
+    errorEmbed,
+    pagesEmbed
+}

@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
@@ -17,33 +19,32 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
 
-        /** @type {String} */ let kick = interaction.options.getString('kick', true);
+        const kick = interaction.options.getString('kick', true);
         if(kick == 'all'){
             await Infractions.deleteMany({ guild: interaction.guild.id, user: user.id, type: 'kick' });
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('All kicks removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('All kicks removed');
         }
         
         const kicks = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'kick' }).sort({ time: -1 });
-        if(kicks.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No kicks found') ], ephemeral: true });
+        if(kicks.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('No kicks found') ], ephemeral: true };
 
         if(kick == 'latest'){
             await kicks[0].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Kick removed') ] });
+            return EmbedGenerator.basicEmbed('Kick removed');
         }else{
-            if(isNaN(+kick)) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Kick not found') ], ephemeral: true });
-            if(!kicks[+kick - 1]) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Kick removed').setTimestamp() ] });
+            if(isNaN(+kick) || !kicks[+kick - 1]) return { embeds: [ EmbedGenerator.errorEmbed('Kick not found') ], ephemeral: true };
 
             await kicks[+kick - 1].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Kick removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('Kick removed');
         }
         
     }

@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
@@ -17,33 +19,32 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
 
-        /** @type {String} */ let warning = interaction.options.getString('warning', true);
+        const warning = interaction.options.getString('warning', true);
         if(warning == 'all'){
             await Infractions.deleteMany({ guild: interaction.guild.id, user: user.id, type: 'warning' });
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('All warnings removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('All warnings removed');
         }
         
         const warnings = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'warning' }).sort({ time: -1 });
-        if(warnings.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No warnings found') ], ephemeral: true });
+        if(warnings.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('No warnings found') ], ephemeral: true };
 
         if(warning == 'latest'){
             await warnings[0].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Warning removed') ] });
+            return EmbedGenerator.basicEmbed('Warning removed');
         }else{
-            if(isNaN(+warning)) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Warning not found') ], ephemeral: true });
-            if(!warnings[+warning - 1]) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Warning removed').setTimestamp() ] });
+            if(isNaN(+warning) || !warnings[+warning - 1]) return { embeds: [ EmbedGenerator.errorEmbed('Warning not found') ], ephemeral: true };
 
             await warnings[+warning - 1].remove();
 
-            return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('Warning removed').setTimestamp() ] });
+            return EmbedGenerator.basicEmbed('Warning removed');
         }
         
     }

@@ -37,7 +37,7 @@
 - [x] Invite (get the bot's invite link)
 - [x] Support (get the bot's support server link)
 - [x] Stats (get the bot's stats)
-- [ ] Uptime (get the bot's uptime)
+- [X] Uptime (get the bot's uptime)
 - [x] Userinfo (get a user's info)
 - [ ] Serverinfo (get the server's info)
 - [ ] Roleinfo (get a role's info)
@@ -48,8 +48,8 @@
 ### Fun
 
 - [x] 8ball (ask the magic 8ball a question)
-- [ ] Coinflip (flip a coin)
-- [ ] Dice (roll a dice)
+- [X] Coinflip (flip a coin)
+- [X] Dice (roll a dice)
 - [ ] RPS (play rock paper scissors)
 
 # General

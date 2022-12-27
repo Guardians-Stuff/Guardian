@@ -1,12 +1,13 @@
 const Discord = require('discord.js');
 const moment = require('moment');
-const { createPages } = require('../../Functions/createPages');
+
+const EmbedGenerator = require('../../Functions/embedGenerator');
 
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
-        .setName('warnings')
+        .setName('warns')
         .setDescription('View the warnings of a user.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
         .addUserOption(option => option
@@ -15,21 +16,20 @@ module.exports = {
             .setRequired(true)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client){
         const user = interaction.options.getUser('user', true);
 
         const warnings = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'warning' }).sort({ time: -1 });
-        if(warnings.length == 0) return interaction.reply({ embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription('No warnings found') ] })
+        if(warnings.length == 0) return EmbedGenerator.errorEmbed('No warnings found');
 
         const embeds = [];
 
         for(let i = 0; i < warnings.length; i += 10){
             const warningsSlice = warnings.slice(i, i + 10);
-            const embed = new Discord.EmbedBuilder()
-                .setColor('#fff176')
+            const embed = EmbedGenerator.basicEmbed()
                 .setAuthor({ name: `${user.tag} | Warnings`, iconURL: user.displayAvatarURL() })
                 .setDescription([
                     `Total Warnings: ${warnings.length}`,
@@ -41,6 +41,6 @@ module.exports = {
             embeds.push(embed);
         }
 
-        await createPages(interaction, embeds);
+        await EmbedGenerator.pagesEmbed(interaction, embeds);
     }
 }

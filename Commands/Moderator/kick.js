@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
@@ -16,19 +18,19 @@ module.exports = {
             .setDescription(`Reason for kicking the user.`)
         ),
     /**
-     * @param {Discord.CommandInteraction} interaction
+     * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
         const member = await interaction.guild.members.fetch(user.id);
-        /** @type {String} */ const reason = interaction.options.getString('reason') || 'Unspecified reason.';
+        const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
         if (!member) return interaction.reply({ content: 'That user is no longer in the server.', ephemeral: true });
         if (!member.kickable) return interaction.reply({ content: 'User cannot be kicked.', ephemeral: true });
 
         await member.send({
-            embeds: [ new Discord.EmbedBuilder().setColor('#fff176').setDescription(`You have been kicked from ${interaction.guild.name} | ${reason}`) ]
+            embeds: [ EmbedGenerator.basicEmbed(`You have been kicked from ${interaction.guild.name} | ${reason}`) ]
         }).catch(() => null);
 
         member.kick(reason).then(async () => {
@@ -41,18 +43,16 @@ module.exports = {
             });
 
             interaction.reply({ embeds: [
-                new Discord.EmbedBuilder()
-                .setAuthor({ name: 'Kick issued', iconURL: interaction.guild.iconURL() })
-                .setColor('Gold')
-                .setDescription([
+                EmbedGenerator.basicEmbed([
                     `<@${member.id}> was issued a kick by ${interaction.member}`,
                     `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
                     `Reason: \`${reason}\``
                 ].join('\n'))
+                .setAuthor({ name: 'Kick issued', iconURL: interaction.guild.iconURL() })
                 .setTimestamp()
             ] })
         }).catch(() => {
-            interaction.reply({ content: 'There was an error.', ephemeral: true });
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true });
         });
     }
 }

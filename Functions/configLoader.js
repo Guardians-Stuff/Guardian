@@ -1,13 +1,8 @@
-const configDatabase = require("../Schemas/MemberLog")
+const Guilds = require("../Schemas/Guilds")
 
 async function loadConfig(client) {
-    (await configDatabase.find()).forEach((doc) => {
-        client.guildConfig.set(doc.Guild, {
-            logChannel: doc.logChannel,
-            memberRole: doc.memberRole,
-            botRole: doc.botRole
-        })
-    })
+    const guilds = await Guilds.find();
+    guilds.forEach(guild => client.guildConfig.set(guild.guild, guild.toObject()));
 
     return console.log("Loaded Guild Configs to the Collection.")
 }
