@@ -21,7 +21,7 @@
 - [x] Slowmode (set slowmode for a channel)
 - [ ] Settings (get/set the server's settings)
 - [ ] Setup (w/ embed)
-- [ ] Tempban
+- [X] Tempban
 - [ ] Verify
 - [ ] Add notes (delete note by id, add note, view note history)
 - [ ] Lockall channels (unlock all etc)
