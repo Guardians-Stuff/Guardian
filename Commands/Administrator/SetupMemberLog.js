@@ -1,7 +1,5 @@
 const Discord = require('discord.js');
-
 const EmbedGenerator = require('../../Functions/embedGenerator');
-
 const Guilds = require('../../Schemas/Guilds');
 
 module.exports = {
