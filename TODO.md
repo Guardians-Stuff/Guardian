@@ -1,4 +1,4 @@
-# ToDo
+# TODO
 
 ## Features (events)
 
@@ -57,10 +57,18 @@
 - [ ] Send a help message upon @mentioning the bot
 - [x] Split slash commands into multiple folders (moderation, utility, fun, etc.)
 
-## Website/Dashboard
+## Website/Dashboard Stuff
 
-- [ ] Nothing yet
+- [x] Add footer (displays privacy, tos, and much more)
+- [ ] Nothing here yet
 
 ### Dashboard
 
-- [ ] Nothing yet
+- [ ] Login page/button
+- [ ] Choose what server to configure
+- [ ] Make a API
+- [ ] Make a option to switch themes
+- [ ] Make footer (have tos button, privacy, contact buttons)
+- [ ] Show the list of available commands to use
+- [ ] Add configurable commands via dashboard (welcome messages/images, join messages/images and etc)
+- [ ] Report bug/feature button via dashboard
