@@ -48,7 +48,7 @@
 ### Fun
 
 - [x] 8ball (ask the magic 8ball a question)
-- [ ] Coinflip (flip a coin)
+- [X] Coinflip (flip a coin)
 - [ ] Dice (roll a dice)
 - [ ] RPS (play rock paper scissors)
 
