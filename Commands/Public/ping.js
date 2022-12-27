@@ -1,4 +1,4 @@
-const { ChatInputCommandInteraction, SlashCommandBuilder } = require("discord.js")
+const { ChatInputCommandInteraction, SlashCommandBuilder, Client } = require("discord.js")
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
@@ -9,7 +9,7 @@ module.exports = {
     /**
      * 
      * @param {ChatInputCommandInteraction} interaction 
-     * @param {Discord.Client} client 
+     * @param {Client} client 
      */
     execute(interaction, client) {
         return { content: 'Pong!', ephemeral: true };
