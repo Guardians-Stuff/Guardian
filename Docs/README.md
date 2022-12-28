@@ -33,6 +33,14 @@ If you don't have git installed on your local machine, you can install it like s
 ```
 git --version
 ```
+  
+To install this package using [nodejs](https://nodejs.org/en/), you can use these commands:
+
+```sh-session
+npm install {package name}
+yarn add {package name}
+pnpm add {package name}
+```
 
 <br>
 I am remaking Guardian bot. V2 code has been pushed to this repo but barley any commands yet.
