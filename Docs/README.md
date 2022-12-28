@@ -20,23 +20,18 @@
   
  ### Setup for Custom Hosting
 
-#### Requirements
-* NodeJS version 16 or higher
-* MongoDB version 5.0 or higher ([Click here to get free MongoDB service](https://www.mongodb.com/atlas))
-* A Discord API application token with proper setup
-  
-### Setup steps
+# Installation
 
-1. Download the latest release or clone the repo by running:
+To start, clone this github repository to your local machine:
 
 ```
-git clone https://github.com/killerclaws12/Guardian
+git clone https://github.com/{username}/{repo}
 ```
 
-2. Go inside the project directory, and run the following command:
+If you don't have git installed on your local machine, you can install it like so:
 
 ```
-npm install -D
+git --version
 ```
 
 <br>
