@@ -1,8 +1,6 @@
-const Discord = require('discord.js');
-
+const { Discord, Client } = require('discord.js');
 const { loadCommands } = require("../../Handlers/commandHandler")
 const ExpiringDocumentManager = require('../../Classes/ExpiringDocumentManager');
-
 const Infractions = require('../../Schemas/Infractions');
 
 module.exports = {
