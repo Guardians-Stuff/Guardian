@@ -1,125 +1,67 @@
-const {
-    PermissionFlagsBits,
-    AuditLogEvent,
-    EmbedBuilder,
-    SlashCommandBuilder
-} = require("discord.js");
+const Discord = require('discord.js');
+
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
-
-const requiredPerms = {
-    type: "flags",
-    key: [
-        PermissionFlagsBits.ViewAuditLog,
-        PermissionFlagsBits.SendMessages,
-        PermissionFlagsBits.EmbedLinks,
-    ],
-};
-
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("audit")
-        .setDescription(
-            "Displays the audit log for the server, for you lazy people"
+    data: new Discord.SlashCommandBuilder()
+        .setName('audit')
+        .setDescription('Displays the audit log for the server')
+        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ViewAuditLog)
+        .addStringOption(option => option
+            .setName('type')
+            .setDescription('The type of audit log to display')
+            .setChoices(
+                { name: 'ban', value: Discord.AuditLogEvent.MemberBanAdd.toString() },
+                { name: 'unban', value: Discord.AuditLogEvent.MemberBanRemove.toString() },
+                { name: 'kick', value: Discord.AuditLogEvent.MemberKick.toString() },
+                { name: 'message-delete', value: Discord.AuditLogEvent.MessageDelete.toString() },
+                { name: 'message-delete-bulk', value: Discord.AuditLogEvent.MessageBulkDelete.toString() },
+                { name: 'role-create', value: Discord.AuditLogEvent.RoleCreate.toString() },
+                { name: 'role-delete', value: Discord.AuditLogEvent.RoleDelete.toString() },
+                { name: 'role-update', value: Discord.AuditLogEvent.RoleUpdate.toString() },
+                { name: 'channel-create', value: Discord.AuditLogEvent.ChannelCreate.toString() },
+                { name: 'channel-delete', value: Discord.AuditLogEvent.ChannelDelete.toString() },
+                { name: 'channel-update', value: Discord.AuditLogEvent.ChannelUpdate.toString() },
+                { name: 'emoji-create', value: Discord.AuditLogEvent.EmojiCreate.toString() },
+                { name: 'emoji-delete', value: Discord.AuditLogEvent.EmojiDelete.toString() },
+                { name: 'emoji-update', value: Discord.AuditLogEvent.EmojiUpdate.toString() },
+                { name: 'invite-create', value: Discord.AuditLogEvent.InviteCreate.toString() },
+                { name: 'invite-delete', value: Discord.AuditLogEvent.InviteDelete.toString() },
+                { name: 'webhook-create', value: Discord.AuditLogEvent.WebhookCreate.toString() },
+                { name: 'webhook-delete', value: Discord.AuditLogEvent.WebhookDelete.toString() },
+                { name: 'webhook-update', value: Discord.AuditLogEvent.WebhookUpdate.toString() },
+                { name: 'member-update', value: Discord.AuditLogEvent.MemberUpdate.toString() },
+                { name: 'member-move', value: Discord.AuditLogEvent.MemberMove.toString() },
+            )
         )
-        .addStringOption((option) =>
-            option
-                .setName("type")
-                .setDescription(
-                    "The type of audit log to display, seperated by dashes (ex: channel-create)"
-                )
-                .setRequired(false)
+        .addUserOption(option => option
+            .setName('user')
+            .setDescription('The user to filter the audit log for')
         )
-        .addUserOption((option) =>
-            option
-                .setName("user")
-                .setDescription("The user to filter the audit log for")
-                .setRequired(false)
-        )
-        .addIntegerOption((option) =>
-            option
-                .setName("limit")
-                .setDescription("The amount of audit logs to display")
-                .setRequired(false)
-                .setMaxValue(5)
+        .addIntegerOption(option => option
+            .setName('limit')
+            .setDescription('The amount of audit logs to display')
+            .setMaxValue(5)
         ),
+    /**
+     * @param {Discord.ChatInputCommandInteraction} interaction
+     */
     async execute(interaction) {
-        const type = interaction.options.getString("type") ?? null;
-        const user = interaction.options.getUser("user") ?? null;
-        const limit = interaction.options.getInteger("limit") ?? 5;
+        const type = interaction.options.getString('type');
+        const user = interaction.options.getUser('user');
+        const limit = interaction.options.getInteger('limit') || 5;
 
-        if (!interaction.member.permissions.has(requiredPerms.key))
-            return interaction.reply({
-                content: ":wrench: You do not have permission to use this command!",
-                ephemeral: true,
-            });
+        const auditLogs = await interaction.guild.fetchAuditLogs({ limit: limit, type: type, user: user });
+        if (auditLogs.entries.size === 0) return EmbedGenerator.errorEmbed('No audit logs found!');
 
-        if (!interaction.guild.members.me.permissions.has(requiredPerms.key)) {
-            return interaction.reply({
-                content: ":wrench: I do not have the `VIEWAUDITLOG` permission!",
-                ephemeral: true,
-            });
+        const description = [];
+
+        for(const entry of auditLogs.entries.values()){
+            description.push(`**${Discord.AuditLogEvent[entry.action]}** | <@${entry.executor.id}> ${entry.target.username ? ` => <@${entry.target.id}>` : ''}`);
         }
 
-        const auditLogTypes = {
-            "ban": AuditLogEvent.MemberBanAdd,
-            "unban": AuditLogEvent.MemberBanRemove,
-            "kick": AuditLogEvent.MemberKick,
-            "message-delete": AuditLogEvent.MessageDelete,
-            "message-delete-bulk": AuditLogEvent.MessageBulkDelete,
-            "role-create": AuditLogEvent.RoleCreate,
-            "role-delete": AuditLogEvent.RoleDelete,
-            "role-update": AuditLogEvent.RoleUpdate,
-            "channel-create": AuditLogEvent.ChannelCreate,
-            "channel-delete": AuditLogEvent.ChannelDelete,
-            "channel-update": AuditLogEvent.ChannelUpdate,
-            "emoji-create": AuditLogEvent.EmojiCreate,
-            "emoji-delete": AuditLogEvent.EmojiDelete,
-            "emoji-update": AuditLogEvent.EmojiUpdate,
-            "invite-create": AuditLogEvent.InviteCreate,
-            "invite-delete": AuditLogEvent.InviteDelete,
-            "webhook-create": AuditLogEvent.WebhookCreate,
-            "webhook-delete": AuditLogEvent.WebhookDelete,
-            "webhook-update": AuditLogEvent.WebhookUpdate,
-            "member-update": AuditLogEvent.MemberUpdate,
-            "member-move": AuditLogEvent.MemberMove,
-        };
-
-        const auditLogs = await interaction.guild.fetchAuditLogs({
-            limit: limit,
-            type: type ? auditLogTypes[type] : null,
-            user: user,
-        });
-
-        let replyEmbed = new EmbedBuilder()
-            .setTitle("Audit Log")
-            .setColor("#FF0000")
+        return EmbedGenerator.basicEmbed(description.join('\n'))
+            .setAuthor({ name: 'Audit Logs' })
             .setTimestamp();
-
-        if (auditLogs.entries.size === 0) {
-            replyEmbed.setDescription("No audit logs found!");
-            return interaction.reply({ embeds: [replyEmbed] });
-        }
-
-        for (i = 0; i < auditLogs.entries.size; i++) {
-            const auditLog = auditLogs.entries.at(i);
-            const { executor, target, targetType, actionType } = auditLog;
-
-            if (target.username !== undefined) {
-                replyEmbed.addFields({
-                    name: `${targetType + " " + actionType}`,
-                    value: `\`\`\`ini\nExecutor = '${executor.username}'\nTarget = '${target.username}#${target.discriminator}'\`\`\``,
-                    inline: false,
-                });
-            } else {
-                replyEmbed.addFields({
-                    name: `${targetType + " " + actionType}`,
-                    value: `\`\`\`ini\nExecutor = '${executor.username}'\`\`\``,
-                    inline: false,
-                });
-            }
-        }
-        interaction.reply({ embeds: [replyEmbed], ephemeral: true });
-    },
-    requiredPerms: requiredPerms,
+    }
 };

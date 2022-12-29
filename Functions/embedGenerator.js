@@ -19,11 +19,10 @@ function errorEmbed(description = 'There was an error.'){
         .setDescription(description);
 }
 
-
 /**
  * 
  * @param {Discord.ChatInputCommandInteraction} interaction 
- * @param {Array<Discord.MessageEmbed>} embeds 
+ * @param {Array<Discord.MessageEmbed>} embeds
  */
 async function pagesEmbed(interaction, embeds){
     if(embeds.length == 0) return interaction.reply({ content: 'There was an error.', ephemeral: true });
