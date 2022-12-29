@@ -17,6 +17,18 @@ module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
         // enabled: { type: Boolean, default: false },
         member: { type: String, default: false },
         bot: { type: String, default: false }
+    },
+    antiraid: {
+        enabled: { type: Boolean, default: false },
+        raid: { type: Boolean, default: false },
+        joinAmount: { type: Number, default: 20 },
+        joinWithin: { type: Number, default: 2 },
+        action: { type: String, enum: [ null, 'kick', 'ban' ], default: 'kick' },
+        lockdown: {
+            enabled: { type: Boolean, default: true },
+            active: { type: Boolean, default: false }
+        },
+        channel: { type: String, default: null }
     }
 }));
 

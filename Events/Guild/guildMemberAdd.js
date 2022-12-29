@@ -1,6 +1,11 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 
+const EmbedGenerator = require('../../Functions/embedGenerator');
+
+const Guilds = require('../../Schemas/Guilds');
+
+/** @type {Record<string, Set<String>>} */ const antiRaidTracking = {}
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -10,7 +15,60 @@ module.exports = {
      */
     async execute(member, client) {
         const guildConfig = client.guildConfig.get(member.guild.id)
-        if (!guildConfig) return
+        if (!guildConfig) return;
+
+        if(guildConfig.antiraid.enabled){
+            if(!guildConfig.antiraid.raid){
+                if(!antiRaidTracking[member.guild.id]) antiRaidTracking[member.guild.id] = new Set();
+                antiRaidTracking[member.guild.id].add(member.id);
+
+                if(antiRaidTracking[member.guild.id].size >= guildConfig.antiraid.joinAmount){
+                    guildConfig.antiraid.raid = true;
+                    if(guildConfig.antiraid.lockdown.enabled) guildConfig.antiraid.lockdown.active = true;
+
+                    Guilds.findOneAndUpdate({ guild: member.guild.id }, { $set: { 'antiraid.raid': guildConfig.antiraid.raid, 'antiraid.lockdown.active': guildConfig.antiraid.lockdown.active }}).then(async guild => {
+                        if(!guild.antiraid.raid){
+                            if(guild.antiraid.channel){
+                                /** @type {Discord.TextChannel} */ const channel = await member.guild.channels.fetch(guild.antiraid.channel);
+                                if(channel) channel.send({ embeds: [ EmbedGenerator.basicEmbed(`🔒 | Raid mode has been enabled!${guild.antiraid.lockdown.enabled ? '\n🔒 | This server has entered lockdown mode!' : ''}`) ] });
+                            }
+
+                            if(guild.antiraid.lockdown.enabled){
+                                // execute lockdown
+                            }
+
+                            if(guildConfig.antiraid.action == 'kick'){
+                                for(const id of antiRaidTracking[member.guild.id]){
+                                    member.guild.members.fetch(id).then(m => {
+                                        m.send({ embeds: [ EmbedGenerator.basicEmbed(`You have been kicked from **${member.guild.name}**\nThis server is currently in raid mode, please try again later!`) ] }).finally(() => {
+                                            m.kick().catch(() => null);
+                                        }).catch(() => null);
+                                    }).catch(err => null);
+                                }
+                            }else if(guildConfig.antiraid.action == 'ban'){
+                                for(const id of antiRaidTracking[member.guild.id]){
+                                    member.guild.members.fetch(id).then(m => {
+                                        m.send({ embeds: [ EmbedGenerator.basicEmbed(`You have been banned from **${member.guild.name}**\nThis server is currently in raid mode, we apologize for the inconvenience!`) ] }).finally(() => {
+                                            m.ban().catch(() => null);
+                                        }).catch(() => null);
+                                    }).catch(err => null);
+                                }
+                            }
+                        }
+                    });
+                }
+
+                setTimeout(() => antiRaidTracking[member.guild.id].delete(member.id), guildConfig.antiraid.joinWithin * 1000);
+            }else{
+                if(guildConfig.antiraid.action == 'kick'){
+                    await member.send({ embeds: [ EmbedGenerator.basicEmbed(`You have been kicked from **${member.guild.name}**\nThis server is currently in raid mode, please try again later!`) ] }).catch(() => null);
+                    member.kick().catch(() => null);
+                }else if(guildConfig.antiraid.action == 'ban'){
+                    await member.send({ embeds: [ EmbedGenerator.basicEmbed(`You have been banned from **${member.guild.name}**\nThis server is currently in raid mode, we apologize for the inconvenience!`) ] }).catch(() => null);
+                    member.ban().catch(() => null);
+                }
+            }
+        }
 
         const guildRoles = await member.guild.roles.fetch();
         let assignedRole = member.user.bot ? guildRoles.get(guildConfig.autorole.bot) : guildRoles.get(guildConfig.autorole.member);
