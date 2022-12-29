@@ -1,12 +1,14 @@
-const { PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder } = require("discord.js");
-
+const Discord = require('discord.js');
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName("cat")
         .setDescription("Get a random cat image!"),
+    /**
+     * @param {Discord.ChatInputApplicationCommandData} interaction
+     */
     async execute(interaction) {
-        const embed = new EmbedBuilder()
+        const embed = new Discord.EmbedBuilder()
             .setTitle("Meow!")
             .setImage(`https://cataas.com/cat?${Date.now()}`)
             .setColor("Blue")
@@ -16,6 +18,6 @@ module.exports = {
                 iconURL: `${interaction.user.displayAvatarURL()}`,
             });
 
-        await interaction.reply({ embeds: [embed] });
-    },
+        return embed;
+    }
 };
