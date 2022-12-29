@@ -35,6 +35,7 @@ module.exports = {
             "SetupMemberLog.js": "`[log_channel]`, `[member_role]`, `[bot_role]`",
             "Setupverification.js": "`[type]`, `[role]`, `[channel]`",
             "8ball.js": "`[question]`",
+            "cat.js": "`No Input`",
             "coinflip.js": "`No Input`",
             "dice.js": "`[sides]`",
             "help.js": "`[category]`",
