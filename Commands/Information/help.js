@@ -20,7 +20,8 @@ module.exports = {
                     { name: "Giveaways", value: "Giveaways" },
                     { name: "Information", value: "Information" },
                     { name: "Moderation", value: "Moderator" },
-                    { name: "Utility", value: "Utility" }
+                    { name: "Utility", value: "Utility" },
+                    { name: "Admin", value: "Administrator" }
                 )
                 .setRequired(true)
         ),
