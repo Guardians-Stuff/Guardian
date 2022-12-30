@@ -33,9 +33,9 @@ module.exports = {
         const guild = await Guilds.findOneAndUpdate({ guild: interaction.guild.id }, { $set: { 'logs.basic': logChannel.id, 'autorole.member': memberRole?.id, 'autorole.bot': botRole?.id } }, { upsert: true, new: true }); client.guildConfig.set(interaction.guild.id, guild.toObject());
 
         return EmbedGenerator.basicEmbed([
-            `- Logging Channel Updated: <#${logChannel.id}>`,
-            `- Member Auto-Role Updated: ${memberRole ? `<@&${memberRole.id}>` : 'Not Specified.'}`,
-            `- Bot Auto-Role Updated: ${botRole ? `<@&${botRole.id}>` : 'Not Specified.'}`
+            `• Logging Channel Updated: <#${logChannel.id}>`,
+            `• Member Auto-Role Updated: ${memberRole ? `<@&${memberRole.id}>` : 'Not Specified.'}`,
+            `• Bot Auto-Role Updated: ${botRole ? `<@&${botRole.id}>` : 'Not Specified.'}`
         ].join("\n"));
     }
 }
