@@ -1,5 +1,5 @@
 <h1 align="center">
-  Guardian
+  Guardian - The best and most advanced moderation Discord bot on the planet!
   <br>
 </h1>
 
