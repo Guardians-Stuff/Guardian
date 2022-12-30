@@ -7,6 +7,7 @@ const Infractions = require('../../Schemas/Infractions');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('warn')
+        .setDMPermission(false)
         .setDescription('Warns a member of the discord.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
         .addUserOption(option => option
@@ -26,10 +27,10 @@ module.exports = {
         const member = await interaction.guild.members.fetch(user.id).catch(() => null);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
-        if (!member) return { embeds: [ EmbedGenerator.errorEmbed('That user is no longer in the server.') ], ephemeral: true };
+        if (!member) return { embeds: [EmbedGenerator.errorEmbed('That user is no longer in the server.')], ephemeral: true };
 
         await member.send({
-            embeds: [ EmbedGenerator.basicEmbed(`You have been warned from ${interaction.guild.name} | ${reason}`) ]
+            embeds: [EmbedGenerator.basicEmbed(`You have been warned from ${interaction.guild.name} | ${reason}`)]
         }).catch(() => null);
 
         await Infractions.create({

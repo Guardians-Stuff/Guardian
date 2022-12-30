@@ -7,6 +7,7 @@ module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('dice')
         .setDescription('Roll a dice.')
+        .setDMPermission(false)
         .addNumberOption(option => option
             .setName('sides')
             .setDescription('How many sides the dice to roll has.')

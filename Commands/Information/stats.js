@@ -5,6 +5,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("stats")
+        .setDMPermission(false)
         .setDescription("Shows the bot's stats"),
     /**
      * 

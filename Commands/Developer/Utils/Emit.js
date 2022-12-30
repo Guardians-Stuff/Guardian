@@ -3,6 +3,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, Client, ChatInputCommandIntera
 const EmbedGenerator = require('../../../Functions/embedGenerator');
 
 module.exports = {
+    developer: true,
     data: new SlashCommandBuilder()
         .setName("emit")
         .setDescription("Emit the guildMemberAdd/Remove events.")

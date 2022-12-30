@@ -8,6 +8,7 @@ const Infractions = require('../../Schemas/Infractions');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('tempban')
+        .setDMPermission(false)
         .setDescription('Temporarily bans a member of the discord.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.BanMembers)
         .addUserOption(option => option
@@ -44,17 +45,17 @@ module.exports = {
         const member = await interaction.guild.members.fetch(user.id);
         const deleteMessages = interaction.options.getString('delete_messages', true);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
-        
+
         const duration = await interaction.options.getString('duration', true);
         const durationMs = ms(duration);
-        if(!durationMs || isNaN(durationMs)) return { embeds: [ EmbedGenerator.errorEmbed('Invalid duration.') ], ephemeral: true };
-        if(durationMs < 1000) return { embeds: [ EmbedGenerator.errorEmbed('Duration must be longer than 1s') ], ephemeral: true };
+        if (!durationMs || isNaN(durationMs)) return { embeds: [EmbedGenerator.errorEmbed('Invalid duration.')], ephemeral: true };
+        if (durationMs < 1000) return { embeds: [EmbedGenerator.errorEmbed('Duration must be longer than 1s')], ephemeral: true };
 
-        if(!member) return { embeds: [ EmbedGenerator.errorEmbed('That user is no longer in the server.') ], ephemeral: true };
-        if(!member.bannable) return { embeds: [ EmbedGenerator.errorEmbed('User cannot be banned.') ], ephemeral: true };
+        if (!member) return { embeds: [EmbedGenerator.errorEmbed('That user is no longer in the server.')], ephemeral: true };
+        if (!member.bannable) return { embeds: [EmbedGenerator.errorEmbed('User cannot be banned.')], ephemeral: true };
 
         await member.send({
-            embeds: [ EmbedGenerator.basicEmbed(`You have been banned from ${interaction.guild.name} for ${ms(durationMs, { long: true })} | ${reason}`) ]
+            embeds: [EmbedGenerator.basicEmbed(`You have been banned from ${interaction.guild.name} for ${ms(durationMs, { long: true })} | ${reason}`)]
         }).catch(() => null);
 
         member.ban({
@@ -70,17 +71,19 @@ module.exports = {
                 duration: durationMs
             }));
 
-            interaction.reply({ embeds: [
-                EmbedGenerator.basicEmbed()
-                .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
-                .setDescription([
-                    `<@${member.id}> was issued a temporary ban by ${interaction.member}`,
-                    `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                    `Duration: **${ms(durationMs, { long: true })}**`,
-                    `Reason: \`${reason}\``,
-                ].join('\n'))
-                .setTimestamp()
-            ] })
+            interaction.reply({
+                embeds: [
+                    EmbedGenerator.basicEmbed()
+                        .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
+                        .setDescription([
+                            `<@${member.id}> was issued a temporary ban by ${interaction.member}`,
+                            `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
+                            `Duration: **${ms(durationMs, { long: true })}**`,
+                            `Reason: \`${reason}\``,
+                        ].join('\n'))
+                        .setTimestamp()
+                ]
+            })
         });
     }
 }

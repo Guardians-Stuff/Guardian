@@ -5,6 +5,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("avatar")
+        .setDMPermission(false)
         .setDescription("Gets the avatar of a user")
         .addUserOption(option => option.setName("user").setDescription("The user to get the avatar of")),
     /**

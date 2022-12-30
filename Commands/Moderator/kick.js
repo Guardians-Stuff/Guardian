@@ -7,6 +7,7 @@ const Infractions = require('../../Schemas/Infractions');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('kick')
+        .setDMPermission(false)
         .setDescription('Kicks a member of the discord.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.KickMembers)
         .addUserOption(option => option
@@ -30,7 +31,7 @@ module.exports = {
         if (!member.kickable) return interaction.reply({ content: 'User cannot be kicked.', ephemeral: true });
 
         await member.send({
-            embeds: [ EmbedGenerator.basicEmbed(`You have been kicked from ${interaction.guild.name} | ${reason}`) ]
+            embeds: [EmbedGenerator.basicEmbed(`You have been kicked from ${interaction.guild.name} | ${reason}`)]
         }).catch(() => null);
 
         member.kick(reason).then(async () => {
@@ -42,17 +43,19 @@ module.exports = {
                 reason: reason
             });
 
-            interaction.reply({ embeds: [
-                EmbedGenerator.basicEmbed([
-                    `<@${member.id}> was issued a kick by ${interaction.member}`,
-                    `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                    `Reason: \`${reason}\``
-                ].join('\n'))
-                .setAuthor({ name: 'Kick issued', iconURL: interaction.guild.iconURL() })
-                .setTimestamp()
-            ] })
+            interaction.reply({
+                embeds: [
+                    EmbedGenerator.basicEmbed([
+                        `<@${member.id}> was issued a kick by ${interaction.member}`,
+                        `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
+                        `Reason: \`${reason}\``
+                    ].join('\n'))
+                        .setAuthor({ name: 'Kick issued', iconURL: interaction.guild.iconURL() })
+                        .setTimestamp()
+                ]
+            })
         }).catch(() => {
-            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true });
+            interaction.reply({ embeds: [EmbedGenerator.errorEmbed()], ephemeral: true });
         });
     }
 }

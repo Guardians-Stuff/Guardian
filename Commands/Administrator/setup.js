@@ -9,6 +9,7 @@ module.exports = {
         .setName('setup')
         .setDescription('Setup basic bot stuff.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.Administrator)
+        .setDMPermission(false)
     ,
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction

@@ -3,7 +3,8 @@ const Discord = require('discord.js');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("cat")
-        .setDescription("Get a random cat image!"),
+        .setDescription("Get a random cat image!")
+        .setDMPermission(false),
     /**
      * @param {Discord.ChatInputApplicationCommandData} interaction
      */

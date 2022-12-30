@@ -8,6 +8,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("clear")
+        .setDMPermission(false)
         .setDescription("Bulk delete messages")
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
         .setDMPermission(false)

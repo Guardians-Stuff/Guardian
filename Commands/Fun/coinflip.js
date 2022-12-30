@@ -5,7 +5,8 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('coinflip')
-        .setDescription('Flips a coin.'),
+        .setDescription('Flips a coin.')
+        .setDMPermission(false),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client

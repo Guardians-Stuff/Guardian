@@ -7,6 +7,7 @@ const Infractions = require('../../Schemas/Infractions');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('removeban')
+        .setDMPermission(false)
         .setDescription('Removes a ban from a member of the discord.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
         .addUserOption(option => option
@@ -26,28 +27,28 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
 
         const ban = interaction.options.getString('ban', true);
-        if(ban == 'all'){
+        if (ban == 'all') {
             await Infractions.deleteMany({ guild: interaction.guild.id, user: user.id, type: 'ban', active: false });
 
             return EmbedGenerator.basicEmbed('All inactive bans removed');
         }
-        
-        const bans = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'ban' }).sort({ time: -1 });
-        if(bans.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('No bans found') ], ephemeral: true };
 
-        if(ban == 'latest'){
-            if(bans[0].active) return { embeds: [ EmbedGenerator.errorEmbed('Unable to remove an active ban') ], ephemeral: true };
+        const bans = await Infractions.find({ guild: interaction.guild.id, user: user.id, type: 'ban' }).sort({ time: -1 });
+        if (bans.length == 0) return { embeds: [EmbedGenerator.errorEmbed('No bans found')], ephemeral: true };
+
+        if (ban == 'latest') {
+            if (bans[0].active) return { embeds: [EmbedGenerator.errorEmbed('Unable to remove an active ban')], ephemeral: true };
             await bans[0].remove();
 
             return EmbedGenerator.basicEmbed('Ban removed');
-        }else{
-            if(isNaN(+ban) || !bans[+ban - 1]) return { embeds: [ EmbedGenerator.errorEmbed('Ban not found') ], ephemeral: true };
-            if(bans[+ban - 1].active) return { embeds: [ EmbedGenerator.errorEmbed('Unable to remove an active ban') ], ephemeral: true };
+        } else {
+            if (isNaN(+ban) || !bans[+ban - 1]) return { embeds: [EmbedGenerator.errorEmbed('Ban not found')], ephemeral: true };
+            if (bans[+ban - 1].active) return { embeds: [EmbedGenerator.errorEmbed('Unable to remove an active ban')], ephemeral: true };
 
             await bans[+ban - 1].remove();
 
             return EmbedGenerator.basicEmbed('Ban removed');
         }
-        
+
     }
 }

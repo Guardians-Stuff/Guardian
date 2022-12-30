@@ -6,6 +6,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('uptime')
+        .setDMPermission(false)
         .setDescription('View the bots uptime.'),
     /**
      * 
@@ -13,9 +14,11 @@ module.exports = {
      * @param {Discord.Client} client 
      */
     execute(interaction, client) {
-        return { embeds: [
-            EmbedGenerator.basicEmbed(`The bot has been online for \`${ms(client.uptime, { long: true })}\``)
-                .setAuthor({ name: `${client.user.tag} | Uptime`, iconURL: client.user.displayAvatarURL() })
-        ], ephemeral: true };
+        return {
+            embeds: [
+                EmbedGenerator.basicEmbed(`The bot has been online for \`${ms(client.uptime, { long: true })}\``)
+                    .setAuthor({ name: `${client.user.tag} | Uptime`, iconURL: client.user.displayAvatarURL() })
+            ], ephemeral: true
+        };
     }
 }

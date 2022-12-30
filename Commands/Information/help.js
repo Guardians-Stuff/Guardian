@@ -7,18 +7,19 @@ module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('help')
         .setDescription('Get help from the bot')
+        .setDMPermission(false)
         .addStringOption(option => option
-                .setName('category')
-                .setDescription('The category to get help for')
-                .addChoices(
-                    { name: 'Fun', value: 'Fun' },
-                    //{ name: "Giveaways", value: "Giveaways" },
-                    { name: 'Information', value: 'Information' },
-                    { name: 'Moderation', value: 'Moderator' },
-                    { name: 'Utility', value: 'Public' },
-                    { name: 'Admin', value: 'Administrator' }
-                )
-                .setRequired(true)
+            .setName('category')
+            .setDescription('The category to get help for')
+            .addChoices(
+                { name: 'Fun', value: 'Fun' },
+                //{ name: "Giveaways", value: "Giveaways" },
+                { name: 'Information', value: 'Information' },
+                { name: 'Moderation', value: 'Moderator' },
+                { name: 'Utility', value: 'Public' },
+                { name: 'Admin', value: 'Administrator' }
+            )
+            .setRequired(true)
         ),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
@@ -41,7 +42,7 @@ module.exports = {
                     option.name,
                     option.required ? '>' : ']'
                 ].join(''))
-            .join(' ');
+                .join(' ');
 
             return [
                 `**${command.name}** - ${command.description}`,
@@ -52,7 +53,7 @@ module.exports = {
 
         let embeds = [];
 
-        for(let i = 0; i < processed.length; i += 5){
+        for (let i = 0; i < processed.length; i += 5) {
             const processedSlice = processed.slice(i, i + 5);
 
             const embed = EmbedGenerator.basicEmbed([
@@ -62,7 +63,7 @@ module.exports = {
             ].join('\n'))
                 .setTitle(`${category}`)
                 .setTimestamp();
-            
+
             embeds.push(embed);
         }
 

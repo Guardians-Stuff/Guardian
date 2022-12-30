@@ -5,6 +5,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("userinfo")
+        .setDMPermission(false)
         .setDescription("Shows information about a user")
         .addUserOption(option => option.setName("user").setDescription("The user to get information about")),
     /**

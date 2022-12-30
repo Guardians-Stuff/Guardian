@@ -5,6 +5,7 @@ const EmbedGenerator = require('../../Functions/embedGenerator');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('audit')
+        .setDMPermission(false)
         .setDescription('Displays the audit log for the server')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ViewAuditLog)
         .addStringOption(option => option
@@ -56,7 +57,7 @@ module.exports = {
 
         const description = [];
 
-        for(const entry of auditLogs.entries.values()){
+        for (const entry of auditLogs.entries.values()) {
             description.push(`**${Discord.AuditLogEvent[entry.action]}** | <@${entry.executor.id}> ${entry.target.username ? ` => <@${entry.target.id}>` : ''}`);
         }
 

@@ -7,6 +7,7 @@ const Infractions = require('../../Schemas/Infractions');
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('unban')
+        .setDMPermission(false)
         .setDescription('Unbans a member of the discord.')
         .setDefaultMemberPermissions(Discord.PermissionFlagsBits.BanMembers)
         .addUserOption(option => option
@@ -25,14 +26,14 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
-        if(!(await interaction.guild.bans.fetch(user).catch(() => null))) return { embeds: [ EmbedGenerator.errorEmbed('That user is not banned') ], ephemeral: true };
+        if (!(await interaction.guild.bans.fetch(user).catch(() => null))) return { embeds: [EmbedGenerator.errorEmbed('That user is not banned')], ephemeral: true };
 
         interaction.guild.members.unban(user, reason).then(async () => {
             await Infractions.updateMany({ type: 'ban' }, { $set: { active: false } });
 
             return EmbedGenerator.basicEmbed(`<@${user.id}> has been unbanned. | ${reason}`);
         }).catch(() => {
-            return { embeds: [ EmbedGenerator.errorEmbed() ] , ephemeral: true };
+            return { embeds: [EmbedGenerator.errorEmbed()], ephemeral: true };
         });
     }
 }
