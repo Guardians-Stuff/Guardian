@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
+
 const EmbedGenerator = require('../../Functions/embedGenerator');
-const Guilds = require('../../Schemas/Guilds');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -25,12 +25,16 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
+     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
-    async execute(interaction, client) {
-        const logChannel = interaction.options.getChannel('log_channel');
+    async execute(interaction, client, dbGuild) {
+        const logChannel = interaction.options.getChannel('log_channel', true);
         const memberRole = interaction.options.getRole('member_role');
         const botRole = interaction.options.getRole('bot_role');
-        const guild = await Guilds.findOneAndUpdate({ guild: interaction.guild.id }, { $set: { 'logs.basic': logChannel.id, 'autorole.member': memberRole?.id, 'autorole.bot': botRole?.id } }, { upsert: true, new: true }); client.guildConfig.set(interaction.guild.id, guild.toObject());
+
+        dbGuild.logs.basic = logChannel.id;
+        dbGuild.autorole.member = memberRole?.id;
+        dbGuild.autorole.bot = memberRole?.id;
 
         return EmbedGenerator.basicEmbed([
             `• Logging Channel Updated: <#${logChannel.id}>`,

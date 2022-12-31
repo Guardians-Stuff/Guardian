@@ -25,12 +25,25 @@ module.exports = {
      * @param {Discord.ChatInputCommandInteraction} interaction
      */
     async execute(interaction) {
-        const category = interaction.options.getString('category', true);
+        const category = interaction.options.getString('category', true);   
 
         const commandFiles = fs.readdirSync(`${__dirname}/../../Commands/${category}`).filter(file => file.endsWith('.js'));
-        /** @type {Array<Discord.SlashCommandBuilder>} */ const commands = commandFiles.map(commandFile => require(`../../Commands/${category}/${commandFile}`).data);
-        const processed = commands.map(command => {
-            const options = command.options
+
+        const commands = {};
+        for(const commandFile of commandFiles){
+            const command = require(`../../Commands/${category}/${commandFile}`);
+            if(command.data instanceof Discord.SlashCommandSubcommandBuilder) continue;
+
+            if(command.subCommands) for(const subcommand of command.subCommands){
+                commands[`${command.data.name} ${subcommand.data.name}`] = subcommand.data;
+            }
+
+            commands[`${command.data.name}`] = command.data;
+        }
+
+        const processed = [];
+        for(const [name, data] of Object.entries(commands)){
+            const options = data.options
                 .filter(option => option.type != 1 && option.type != 2)
                 .map(option => [
                     option.required ? '<' : '[',
@@ -38,18 +51,18 @@ module.exports = {
                     option.type == 6 ? '@' : '',
                     option.type == 7 ? '@#' : '',
                     option.type == 8 ? '@&' : '',
-                    option.type == 9 ? '@' : '',
+                    option.type == 9 ? '@' :    '',
                     option.name,
                     option.required ? '>' : ']'
                 ].join(''))
                 .join(' ');
 
-            return [
-                `**${command.name}** - ${command.description}`,
-                `Usage: \`/${command.name}${options ? ` ${options}` : ''}\``,
+            processed.push([
+                `**${name}** - ${data.description}`,
+                `Usage: \`/${name}${options ? ` ${options}` : ''}\``,
                 ''
-            ].join('\n')
-        });
+            ].join('\n'));
+        }
 
         let embeds = [];
 

@@ -2,8 +2,6 @@ const Discord = require(`discord.js`);
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
-const Guilds = require('../../Schemas/Guilds');
-
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('setup')
@@ -14,8 +12,9 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
+     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
-    async execute(interaction, client) {
+    async execute(interaction, client, dbGuild) {
         await interaction.reply({ embeds: [generateEmbed(0, [])] });
 
         if (!interaction.guild.members.me.permissions.has('Administrator')) {
@@ -27,17 +26,16 @@ module.exports = {
 
         if (interaction.guild.roles.botRoleFor(client.user).position != interaction.guild.roles.highest.position) {
             const embed = generateEmbed(1, [0]);
-            return embed.setDescription(`${embed.data.description}\n❌ Bot role is not the highest role in the server!`);
+            return embed.setDescription(`${embed.data.description}\n\n❌ Bot role is not the highest role in the server!`);
         }
 
         await interaction.editReply({ embeds: [generateEmbed(2, [0, 1])] });
 
-        const guild = await Guilds.findOne({ guild: interaction.guild.id }) || await Guilds.create({ guild: interaction.guild.id });
-        const memberLog = guild.logs.basic ? 2 : '';
+        const memberLog = dbGuild.logs.basic ? 2 : '';
 
         await interaction.editReply({ embeds: [generateEmbed(3, [0, 1, memberLog])] });
 
-        const modLog = guild.logs.moderator ? 3 : '';
+        const modLog = dbGuild.logs.moderator ? 3 : '';
 
         await interaction.editReply({ embeds: [generateEmbed(4, [0, 1, memberLog, modLog])] });
 
@@ -60,7 +58,7 @@ function generateEmbed(count, completed) {
         count >= 2 ? `${count > 2 ? completed.includes(2) ? '✅ ' : '❌' : ''}Checking for a log channel...` : '',
         count >= 3 ? `${count > 3 ? completed.includes(3) ? '✅ ' : '❌' : ''}Checking for a mod-log channel...` : '',
         count >= 4 ? `${count > 4 ? completed.includes(4) ? '✅ ' : '❌' : ''}Finishing up...` : '',
-        count >= 5 ? 'All checks completed!' : '',
+        count >= 5 ? '\nAll checks completed!' : '',
     ].filter(i => i != '').join('\n'))
         .setTitle('Guardian Setup:');
 }

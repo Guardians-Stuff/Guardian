@@ -15,8 +15,8 @@ module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
     },
     autorole: {
         // enabled: { type: Boolean, default: false },
-        member: { type: String, default: false },
-        bot: { type: String, default: false }
+        member: { type: String, default: null },
+        bot: { type: String, default: null }
     },
     antiraid: {
         enabled: { type: Boolean, default: false },
