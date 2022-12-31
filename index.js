@@ -1,25 +1,21 @@
-const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js")
-const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits
-const { User, Message, GuildMember, ThreadMember } = Partials
+const Discord = require('discord.js')
+const Mongoose = require('mongoose');
 
 const ExpiringDocumentManager = require('./Classes/ExpiringDocumentManager');
+const { loadEvents } = require('./Handlers/eventHandler');
+const config = require('./config.json');
 
 const Infractions = require('./Schemas/Infractions');
 
-const client = new Client({
-    intents: [Guilds, GuildMembers, GuildMessages],
-    partials: [User, Message, GuildMember, ThreadMember]
-})
+const client = new Discord.Client({
+    intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMembers, Discord.GatewayIntentBits.GuildMessages ],
+    partials: [ Discord.Partials, Discord.Partials.Message, Discord.Partials.GuildMember, Discord.Partials.ThreadMember ]
+});
 
-const { loadEvents } = require("./Handlers/eventHandler")
-
-client.config = require("./config.json")
-client.events = new Collection()
-client.subCommands = new Collection()
-client.commands = new Collection()
-client.guildConfig = new Collection()
+client.commands = new Discord.Collection();
+client.subCommands = new Discord.Collection();
 client.expiringDocumentsManager = {
-    punishments: new ExpiringDocumentManager(Infractions, 'expires', async (infraction) => {
+    infractions: new ExpiringDocumentManager(Infractions, 'expires', async (infraction) => {
         if (infraction.type == 'ban') {
             const guild = await client.guilds.fetch(infraction.guild).catch(() => null);
             if (guild) guild.members.unban(infraction.user, 'Temporary ban expired').catch(() => null);
@@ -30,18 +26,11 @@ client.expiringDocumentsManager = {
     }, { active: true })
 };
 
-const { connect } = require("mongoose")
-connect(client.config.DatabaseURL, {
-}).then(() => console.log("Client is connected to the database."))
+Mongoose.connect(config.DatabaseURL).then(async () => {
+    console.log('Client is connected to the database.');
 
-loadEvents(client)
-
-const { loadConfig } = require("./Functions/configLoader")
-loadConfig(client)
-
-client
-    .login(client.config.token)
-    .then(() => {
+    await loadEvents(client);
+    client.login(config.token).then(() => {
         client.user.setActivity(`with ${client.guilds.cache.size} servers!`)
-        //client.user.setActivity(`Bot is down! V2 coming soon!`)
-    })
+    });
+});

@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
-const Guilds = require('../../Schemas/Guilds');
-
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('setup_verification')
@@ -30,14 +28,18 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
+     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
-    async execute(interaction, client) {
+    async execute(interaction, client, dbGuild) {
         const type = interaction.options.getString('type', true);
         /** @type {Discord.Role} */ let role = interaction.options.getRole('role');
         /** @type {Discord.TextChannel} */ let channel = interaction.options.getChannel('channel');
 
         if(type == 'disable'){
-            await Guilds.updateOne({ guild: interaction.guild.id }, { $set: { 'verification.enabled': false, 'verification.version': null, 'verification.channel': null, 'verification.role': null } }, { upsert: true });
+            dbGuild.verification.enabled = false;
+            dbGuild.verification.version = null;
+            dbGuild.verification.channel = null;
+            dbGuild.verification.role = null;
 
             return EmbedGenerator.basicEmbed('🔓 | Member verification has been disabled.')
         }
@@ -115,7 +117,10 @@ module.exports = {
             });
         }
 
-        await Guilds.updateOne({ guild: interaction.guild.id }, { $set: { 'verification.enabled': true, 'verification.version': type, 'verification.channel': channel.id, 'verification.role': role.id } }, { upsert: true });
+        dbGuild.verification.enabled = true;
+        dbGuild.verification.version = type;
+        dbGuild.verification.channel = channel.id;
+        dbGuild.verification.role = role.id;
 
         return EmbedGenerator.basicEmbed('🔒 | Member verification has been enabled.');
     }

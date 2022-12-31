@@ -2,8 +2,7 @@ const Discord = require('discord.js');
 const moment = require('moment');
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
-
-const Guilds = require('../../Schemas/Guilds');
+const { GuildsManager } = require('../../Classes/GuildsManager');
 
 /** @type {Record<string, Set<String>>} */ const antiRaidTracking = {}
 
@@ -14,19 +13,19 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(member, client) {
-        const guildConfig = client.guildConfig.get(member.guild.id)
-        if (!guildConfig) return;
+        const guild = await GuildsManager.fetch(member.guild.id);
+        if (!guild) return;
 
-        if (guildConfig.antiraid.enabled) {
-            if (!guildConfig.antiraid.raid) {
+        if (guild.antiraid.enabled) {
+            if (!guild.antiraid.raid) {
                 if (!antiRaidTracking[member.guild.id]) antiRaidTracking[member.guild.id] = new Set();
                 antiRaidTracking[member.guild.id].add(member.id);
 
-                if (antiRaidTracking[member.guild.id].size >= guildConfig.antiraid.joinAmount) {
-                    guildConfig.antiraid.raid = true;
-                    if (guildConfig.antiraid.lockdown.enabled) guildConfig.antiraid.lockdown.active = true;
+                if (antiRaidTracking[member.guild.id].size >= guild.antiraid.joinAmount) {
+                    guild.document.antiraid.raid = true;
+                    if (guild.antiraid.lockdown.enabled) guild.document.antiraid.lockdown.active = true;
 
-                    Guilds.findOneAndUpdate({ guild: member.guild.id }, { $set: { 'antiraid.raid': guildConfig.antiraid.raid, 'antiraid.lockdown.active': guildConfig.antiraid.lockdown.active } }).then(async guild => {
+                    Guilds.findOneAndUpdate({ guild: member.guild.id }, { $set: { 'antiraid.raid': guild.antiraid.raid, 'antiraid.lockdown.active': guild.antiraid.lockdown.active } }).then(async guild => {
                         if (!guild.antiraid.raid) {
                             if (guild.antiraid.channel) {
                                 /** @type {Discord.TextChannel} */ const channel = await member.guild.channels.fetch(guild.antiraid.channel);
@@ -37,7 +36,7 @@ module.exports = {
                                 // execute lockdown
                             }
 
-                            if (guildConfig.antiraid.action == 'kick') {
+                            if (guild.antiraid.action == 'kick') {
                                 for (const id of antiRaidTracking[member.guild.id]) {
                                     member.guild.members.fetch(id).then(m => {
                                         m.send({ embeds: [EmbedGenerator.basicEmbed(`You have been kicked from **${member.guild.name}**\nThis server is currently in raid mode, please try again later!`)] }).finally(() => {
@@ -45,7 +44,7 @@ module.exports = {
                                         }).catch(() => null);
                                     }).catch(err => null);
                                 }
-                            } else if (guildConfig.antiraid.action == 'ban') {
+                            } else if (guild.antiraid.action == 'ban') {
                                 for (const id of antiRaidTracking[member.guild.id]) {
                                     member.guild.members.fetch(id).then(m => {
                                         m.send({ embeds: [EmbedGenerator.basicEmbed(`You have been banned from **${member.guild.name}**\nThis server is currently in raid mode, we apologize for the inconvenience!`)] }).finally(() => {
@@ -58,12 +57,12 @@ module.exports = {
                     });
                 }
 
-                setTimeout(() => antiRaidTracking[member.guild.id].delete(member.id), guildConfig.antiraid.joinWithin * 1000);
+                setTimeout(() => antiRaidTracking[member.guild.id].delete(member.id), guild.antiraid.joinWithin * 1000);
             } else {
-                if (guildConfig.antiraid.action == 'kick') {
+                if (guild.antiraid.action == 'kick') {
                     await member.send({ embeds: [EmbedGenerator.basicEmbed(`You have been kicked from **${member.guild.name}**\nThis server is currently in raid mode, please try again later!`)] }).catch(() => null);
                     member.kick().catch(() => null);
-                } else if (guildConfig.antiraid.action == 'ban') {
+                } else if (guild.antiraid.action == 'ban') {
                     await member.send({ embeds: [EmbedGenerator.basicEmbed(`You have been banned from **${member.guild.name}**\nThis server is currently in raid mode, we apologize for the inconvenience!`)] }).catch(() => null);
                     member.ban().catch(() => null);
                 }
@@ -71,14 +70,14 @@ module.exports = {
         }
 
         const guildRoles = await member.guild.roles.fetch();
-        let assignedRole = member.user.bot ? guildRoles.get(guildConfig.autorole.bot) : guildRoles.get(guildConfig.autorole.member);
+        let assignedRole = member.user.bot ? guildRoles.get(guild.autorole.bot) : guildRoles.get(guild.autorole.member);
         if (!assignedRole) {
             assignedRole = 'Not configured.';
         } else {
             await member.roles.add(assignedRole).catch(() => assignedRole = 'Failed due to higher role hierarchy.');
         }
 
-        const logChannel = await member.guild.channels.fetch(guildConfig.logs.basic);
+        const logChannel = await member.guild.channels.fetch(guild.logs.basic);
         if (!logChannel) return;
 
         let color = '#74e21e';

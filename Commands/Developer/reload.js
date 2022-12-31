@@ -20,18 +20,19 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
      */
-    execute(interaction, client) {
+    async execute(interaction, client) {
         const subCommand = interaction.options.getSubcommand()
 
         switch (subCommand) {
             case "events": {
-                for (const [key, value] of client.events)
-                    client.removeListener(`${key}`, value, true)
-                loadEvents(client)
+                client.removeAllListeners();
+                await loadEvents(client);
+
                 return { embeds: [ EmbedGenerator.basicEmbed('Reloaded events.') ], ephemeral: true };
             }
             case "commands": {
-                loadCommands(client)
+                await loadCommands(client);
+
                 return { embeds: [ EmbedGenerator.basicEmbed('Reloaded commands.') ], ephemeral: true };
             }
         }

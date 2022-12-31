@@ -1,27 +1,27 @@
+const Discord = require('discord.js');
+const ascii = require('ascii-table');
+
+const { loadFiles } = require('../Functions/fileLoader');
+
 async function loadCommands(client) {
-    const { loadFiles } = require("../Functions/fileLoader")
-    const ascii = require("ascii-table")
-    const table = new ascii().setHeading("Commands", "Status")
+    const table = new ascii().setHeading("Commands", "Status");
+    const files = await loadFiles("Commands")
+    let commandsArray = [];
 
-    await client.commands.clear()
-    await client.subCommands.clear()
+    await client.commands.clear();
+    await client.subCommands.clear();
 
-    let commandsArray = []
+    files.forEach(file => {
+        const command = require(file);
 
-    const Files = await loadFiles("Commands")
+        if(command.subCommands) for(const subcommand of command.subCommands) client.subCommands.set(`${command.data.name}.${subcommand.data.name}`, subcommand);
+        if(command.data instanceof Discord.SlashCommandSubcommandBuilder) return;
 
-    Files.forEach((file) => {
-        const command = require(file)
+        client.commands.set(command.data.name, command);
+        commandsArray.push(command.data.toJSON());
 
-        if (command.subCommands)
-            return client.subCommands.set(command.subCommand, command)
-
-        client.commands.set(command.data.name, command)
-
-        commandsArray.push(command.data.toJSON())
-
-        table.addRow(command.data.name, "✅")
-    })
+        table.addRow(command.data.name, "✅");
+    });
 
     client.application.commands.set(commandsArray)
 
