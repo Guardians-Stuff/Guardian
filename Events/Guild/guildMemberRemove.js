@@ -9,11 +9,11 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(member, client) {
-        const guildConfig = client.guildConfig.get(member.guild.id)
-        if (!guildConfig) return;
+        const guild = await GuildsManager.fetch(member.guild.id);
+        if (!guild) return;
 
-        const logChannel = await member.guild.channels.fetch(guildConfig.logs.basic);
-        if (!logChannel) return;
+        const logChannel = await member.guild.channels.fetch(guild.logs.basic);
+        if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
 
         const accountCreation = parseInt(member.user.createdTimestamp / 1000);
 

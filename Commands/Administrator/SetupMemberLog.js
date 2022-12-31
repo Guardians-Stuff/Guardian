@@ -34,7 +34,7 @@ module.exports = {
 
         dbGuild.logs.basic = logChannel.id;
         dbGuild.autorole.member = memberRole?.id;
-        dbGuild.autorole.bot = memberRole?.id;
+        dbGuild.autorole.bot = botRole?.id;
 
         return EmbedGenerator.basicEmbed([
             `• Logging Channel Updated: <#${logChannel.id}>`,

@@ -78,7 +78,7 @@ module.exports = {
         }
 
         const logChannel = await member.guild.channels.fetch(guild.logs.basic);
-        if (!logChannel) return;
+        if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
 
         let color = '#74e21e';
         let risk = 'Fairly Safe';

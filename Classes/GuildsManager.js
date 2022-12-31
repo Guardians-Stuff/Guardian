@@ -137,7 +137,7 @@ class GuildsManagerAutoRole{
      * @type {String | null}
      */
     get member(){
-        return this.parent.document.logs.member;
+        return this.parent.document.autorole.member;
     }
 
     /**
