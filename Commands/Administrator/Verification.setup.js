@@ -3,16 +3,13 @@ const Discord = require('discord.js');
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('setup_verification')
-        .setDescription('Configure the member verification system.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.Administrator)
-        .setDMPermission(false)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('setup')
+        .setDescription('Configure the verification system.')
         .addStringOption(option => option
             .setName('type')
             .setDescription('How to verify members.')
             .addChoices(
-                { name: 'Don\'t verify members', value: 'disable' },
                 { name: 'Press a button', value: 'button' },
                 { name: 'Use a command', value: 'command' },
                 { name: 'Use a command with a captcha', value: 'captcha' }
@@ -31,18 +28,9 @@ module.exports = {
      * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
-        const type = interaction.options.getString('type', true);
+        /** @type { 'button' | 'command' | 'captcha' } */ const type = interaction.options.getString('type', true);
         /** @type {Discord.Role} */ let role = interaction.options.getRole('role');
         /** @type {Discord.TextChannel} */ let channel = interaction.options.getChannel('channel');
-
-        if(type == 'disable'){
-            dbGuild.verification.enabled = false;
-            dbGuild.verification.version = null;
-            dbGuild.verification.channel = null;
-            dbGuild.verification.role = null;
-
-            return EmbedGenerator.basicEmbed('🔓 | Member verification has been disabled.')
-        }
 
         await interaction.deferReply();
 

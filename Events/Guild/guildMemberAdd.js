@@ -69,75 +69,89 @@ module.exports = {
             }
         }
 
-        const guildRoles = await member.guild.roles.fetch();
-        let assignedRole = member.user.bot ? guildRoles.get(guild.autorole.bot) : guildRoles.get(guild.autorole.member);
-        if (!assignedRole) {
-            assignedRole = 'Not configured.';
-        } else {
-            await member.roles.add(assignedRole).catch(() => assignedRole = 'Failed due to higher role hierarchy.');
+        if(guild.verification.enabled){
+            const role = await member.guild.roles.fetch(guild.verification.role);
+            if(role && role instanceof Discord.Role) member.roles.add(role).catch(() => null);
         }
 
-        const logChannel = await member.guild.channels.fetch(guild.logs.basic);
-        if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
-
-        let color = '#74e21e';
-        let risk = 'Fairly Safe';
-
-        const accountCreation = parseInt(member.user.createdTimestamp / 1000);
-        const joiningTime = parseInt(member.joinedAt / 1000);
-
-        const monthsAgo = moment().subtract(2, 'months').unix();
-        const weeksAgo = moment().subtract(2, 'weeks').unix();
-        const daysAgo = moment().subtract(2, 'days').unix();
-
-        if (accountCreation >= monthsAgo) {
-            color = "#e2bb1e"
-            risk = "Medium"
+        let assignedRole;
+        if(guild.autorole.enabled){
+            const role = await member.guild.roles.fetch(member.user.bot ? guild.autorole.bot : guild.autorole.member);
+            if(!role || !(role instanceof Discord.Role)){
+                assignedRole = 'Failed to fetch role.';
+            }else{
+                member.roles.add(role).then(() => {
+                    assignedRole = role.id;
+                }).catch(() => {
+                    assignedRole = 'Failed due to higher role hierarchy.';
+                });
+            }
+        }else{
+            assignedRole = 'Not configured.'
         }
 
-        if (accountCreation >= weeksAgo) {
-            color = "#e24d1e"
-            risk = "High"
+        if(guild.logs.enabled){
+            const logChannel = await member.guild.channels.fetch(guild.logs.basic);
+            if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
+
+            let color = '#74e21e';
+            let risk = 'Fairly Safe';
+
+            const accountCreation = parseInt(member.user.createdTimestamp / 1000);
+            const joiningTime = parseInt(member.joinedAt / 1000);
+
+            const monthsAgo = moment().subtract(2, 'months').unix();
+            const weeksAgo = moment().subtract(2, 'weeks').unix();
+            const daysAgo = moment().subtract(2, 'days').unix();
+
+            if (accountCreation >= monthsAgo) {
+                color = "#e2bb1e"
+                risk = "Medium"
+            }
+
+            if (accountCreation >= weeksAgo) {
+                color = "#e24d1e"
+                risk = "High"
+            }
+
+            if (accountCreation >= daysAgo) {
+                color = "#e21e11"
+                risk = "Extreme"
+            }
+
+            const response = {
+                embeds: [
+                    new Discord.EmbedBuilder()
+                        .setAuthor({ name: `${member.user.tag} | ${member.id}`, iconURL: member.displayAvatarURL({ dynamic: true }) })
+                        .setColor(color)
+                        .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 256 }))
+                        .setDescription([
+                            `• User: ${member.user}`,
+                            `• Account Type: ${member.user.bot ? 'Bot' : 'User'}`,
+                            `• Role Assigned: ${assignedRole}`,
+                            `• Risk Level: ${risk}\n`,
+                            `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
+                            `• Account Joined: <t:${joiningTime}:D> | <t:${joiningTime}:R>`,
+                        ].join("\n"))
+                        .setFooter({ text: 'Joined' })
+                        .setTimestamp()
+                ]
+            };
+
+            if (risk == 'High' || risk == 'Extreme') response.components = [
+                new Discord.ActionRowBuilder().addComponents(
+                    new Discord.ButtonBuilder()
+                        .setCustomId(`MemberLogging-Kick-${member.id}`)
+                        .setLabel('Kick')
+                        .setStyle(Discord.ButtonStyle.Danger),
+                    new Discord.ButtonBuilder()
+                        .setCustomId(`MemberLogging-Ban-${member.id}`)
+                        .setLabel('Ban')
+                        .setStyle(Discord.ButtonStyle.Danger)
+                )
+            ];
+
+            logChannel.send(response);
         }
-
-        if (accountCreation >= daysAgo) {
-            color = "#e21e11"
-            risk = "Extreme"
-        }
-
-        const response = {
-            embeds: [
-                new Discord.EmbedBuilder()
-                    .setAuthor({ name: `${member.user.tag} | ${member.id}`, iconURL: member.displayAvatarURL({ dynamic: true }) })
-                    .setColor(color)
-                    .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 256 }))
-                    .setDescription([
-                        `• User: ${member.user}`,
-                        `• Account Type: ${member.user.bot ? "Bot" : "User"}`,
-                        `• Role Assigned: ${assignedRole}`,
-                        `• Risk Level: ${risk}\n`,
-                        `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
-                        `• Account Joined: <t:${joiningTime}:D> | <t:${joiningTime}:R>`,
-                    ].join("\n"))
-                    .setFooter({ text: "Joined" })
-                    .setTimestamp()
-            ],
-            components: []
-        };
-
-        if (risk == 'High' || risk == 'Extreme') response.components = [
-            new Discord.ActionRowBuilder().addComponents(
-                new Discord.ButtonBuilder()
-                    .setCustomId(`MemberLogging-Kick-${member.id}`)
-                    .setLabel('Kick')
-                    .setStyle(Discord.ButtonStyle.Danger),
-                new Discord.ButtonBuilder()
-                    .setCustomId(`MemberLogging-Ban-${member.id}`)
-                    .setLabel('Ban')
-                    .setStyle(Discord.ButtonStyle.Danger)
-            )
-        ];
-
-        logChannel.send(response);
     }
 }

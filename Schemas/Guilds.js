@@ -9,12 +9,12 @@ module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
         channel: { type: String, default: null }
     },
     logs: {
-        // enabled: { type: Boolean, default: false },
+        enabled: { type: Boolean, default: false },
         basic: { type: String, default: null },
         moderator: { type: String, default: null }
     },
     autorole: {
-        // enabled: { type: Boolean, default: false },
+        enabled: { type: Boolean, default: false },
         member: { type: String, default: null },
         bot: { type: String, default: null }
     },
