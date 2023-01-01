@@ -15,13 +15,6 @@ module.exports = {
         .addSubcommand(AntiRaidDisable.data)
         .addSubcommand(AntiRaidStartRaid.data)
         .addSubcommand(AntiRaidStopRaid.data),
-        // ).addSubcommand(subcommand => subcommand
-        //     .setName('stop')
-        //     .setDescription('Stop the anti-raid protection system if it has been triggered.')
-        // ).addSubcommand(subcommand => subcommand
-        //     .setName('start')
-        //     .setDescription('Manually start the anti-raid protection system.')
-        // ),
     subCommands: [
         AntiRaidSetup,
         AntiRaidDisable,

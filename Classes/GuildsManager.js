@@ -79,20 +79,20 @@ class GuildsManagerLogs{
         this.parent = parent;
     }
 
-    // /**
-    //  * @type {Boolean}
-    //  */
-    // get enabled(){
-    //     this.parent.document.logs.enabled;
-    // }
+    /**
+     * @type {Boolean}
+     */
+    get enabled(){
+        return this.parent.document.logs.enabled;
+    }
 
-    // /**
-    //  * @param {Boolean} enabled
-    //  */
-    // set enabled(enabled){
-    //     this.parent.document.logs.enabled = enabled;
-    //     Guilds.updateOne({ guild: this.parent.id }, { $set: { 'logs.enabled': enabled } }).then(() => null);
-    // }
+    /**
+     * @param {Boolean} enabled
+     */
+    set enabled(enabled){
+        this.parent.document.logs.enabled = enabled;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'logs.enabled': enabled } }).then(() => null);
+    }
 
     /**
      * @type {String | null}
@@ -134,10 +134,25 @@ class GuildsManagerAutoRole{
     }
 
     /**
+     * @type {Boolean}
+     */
+     get enabled(){
+        return this.parent.document.autorole.enabled;
+    }
+
+    /**
+     * @param {Boolean} enabled
+     */
+    set enabled(enabled){
+        this.parent.document.autorole.enabled = enabled;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'autorole.enabled': enabled } }).then(() => null);
+    }
+
+    /**
      * @type {String | null}
      */
     get member(){
-        return this.parent.document.logs.member;
+        return this.parent.document.autorole.member;
     }
 
     /**
