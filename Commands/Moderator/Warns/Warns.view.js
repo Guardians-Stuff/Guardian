@@ -1,16 +1,14 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
-const Infractions = require('../../Schemas/Infractions');
+const Infractions = require('../../../Schemas/Infractions');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('warns')
-        .setDMPermission(false)
-        .setDescription('View the warnings of a user.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('view')
+        .setDescription('View the logged warnings of a user.')
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user you\'d like to view.')

@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const LoggingSetup = require('./Logging.setup');
-const LoggingDisable = require('./Logging.disable');
+const LoggingSetup = require('./Logging/Logging.setup');
+const LoggingDisable = require('./Logging/Logging.disable');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

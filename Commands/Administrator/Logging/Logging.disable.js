@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
 module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
-     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
+     * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
         if(!dbGuild.logs.enabled) return EmbedGenerator.errorEmbed('The logging system is not enabled!');

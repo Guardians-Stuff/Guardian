@@ -2,16 +2,14 @@ const Discord = require('discord.js');
 const moment = require('moment');
 const ms = require('ms');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
-const Infractions = require('../../Schemas/Infractions');
+const Infractions = require('../../../Schemas/Infractions');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('timeouts')
-        .setDMPermission(false)
-        .setDescription('View the timeouts of a user.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('view')
+        .setDescription('View the logged timeouts of a user.')
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user you\'d like to view.')

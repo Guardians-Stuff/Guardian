@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const VerificationSetup = require('./Verification.setup');
-const VerificationDisable = require('./Verification.disable');
+const VerificationSetup = require('./Verification/Verification.setup');
+const VerificationDisable = require('./Verification/Verification.disable');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

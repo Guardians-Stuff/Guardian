@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const AutoRoleSetup = require('./AutoRole.setup');
-const AutoRoleDisable = require('./AutoRole.disable');
+const AutoRoleSetup = require('./AutoRole/AutoRole.setup');
+const AutoRoleDisable = require('./AutoRole/AutoRole.disable');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

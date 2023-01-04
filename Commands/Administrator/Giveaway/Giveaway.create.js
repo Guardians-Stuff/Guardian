@@ -2,8 +2,9 @@ const Discord = require('discord.js');
 const Moment = require('moment');
 const ms = require('ms');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
-const Giveaways = require('../../Schemas/Giveaways');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
+
+const Giveaways = require('../../../Schemas/Giveaways');
 
 module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()

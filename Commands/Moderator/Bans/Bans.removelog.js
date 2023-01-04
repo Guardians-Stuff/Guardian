@@ -1,15 +1,13 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
-const Infractions = require('../../Schemas/Infractions');
+const Infractions = require('../../../Schemas/Infractions');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('removeban')
-        .setDMPermission(false)
-        .setDescription('Removes a ban from a member of the discord.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('removelog')
+        .setDescription('Removes a logged ban from a member of the discord.')
         .addUserOption(option => option
             .setName(`user`)
             .setDescription(`The user you'd like to remove a ban from.`)

@@ -1,15 +1,13 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
-const Infractions = require('../../Schemas/Infractions');
+const Infractions = require('../../../Schemas/Infractions');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('removetimeout')
-        .setDMPermission(false)
-        .setDescription('Removes a timeout from a member of the discord.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ModerateMembers)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('removelog')
+        .setDescription('Removes a logged timeout from a member of the discord.')
         .addUserOption(option => option
             .setName(`user`)
             .setDescription(`The user you'd like to remove a timeout from.`)

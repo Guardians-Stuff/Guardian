@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
-const Giveaways = require('../../Schemas/Giveaways');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
+
+const Giveaways = require('../../../Schemas/Giveaways');
 
 module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
@@ -15,7 +16,7 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
-     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
+     * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
         const id = interaction.options.getString('id', true);
