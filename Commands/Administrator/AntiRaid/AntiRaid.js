@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 
-const AntiRaidSetup = require('./AntiRaid/AntiRaid.setup');
-const AntiRaidDisable = require('./AntiRaid/AntiRaid.disable');
-const AntiRaidStartRaid = require('./AntiRaid/AntiRaid.StartRaid');
-const AntiRaidStopRaid = require('./AntiRaid/AntiRaid.StopRaid');
+const AntiRaidSetup = require('./AntiRaid.setup');
+const AntiRaidDisable = require('./AntiRaid.disable');
+const AntiRaidStartRaid = require('./AntiRaid.StartRaid');
+const AntiRaidStopRaid = require('./AntiRaid.StopRaid');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

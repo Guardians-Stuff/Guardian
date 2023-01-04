@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const KicksView = require('./Kicks/Kicks.view');
-const KicksRemoveLog = require('./Kicks/Kicks.removelog');
+const KicksView = require('./Kicks.view');
+const KicksRemoveLog = require('./Kicks.removelog');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

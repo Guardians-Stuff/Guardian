@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const TimeoutsView = require('./Timeouts/Timeouts.view');
-const TimeoutsRemoveLog = require('./Timeouts/Timeouts.removelog');
+const TimeoutsView = require('./Timeouts.view');
+const TimeoutsRemoveLog = require('./Timeouts.removelog');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

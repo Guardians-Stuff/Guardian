@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
-const BansView = require('./Bans/Bans.view');
-const BansRemoveLog = require('./Bans/Bans.removelog');
+const BansView = require('./Bans.view');
+const BansRemoveLog = require('./Bans.removelog');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

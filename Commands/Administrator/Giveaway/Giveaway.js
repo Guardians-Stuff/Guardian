@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 
-const GiveawayCreate = require('./Giveaway/Giveaway.create');
-const GiveawayCancel = require('./Giveaway/Giveaway.cancel');
-const GiveawayEnd = require('./Giveaway/Giveaway.end');
-const GiveawayReroll = require('./Giveaway/Giveaway.reroll');
+const GiveawayCreate = require('./Giveaway.create');
+const GiveawayCancel = require('./Giveaway.cancel');
+const GiveawayEnd = require('./Giveaway.end');
+const GiveawayReroll = require('./Giveaway.reroll');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
