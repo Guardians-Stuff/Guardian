@@ -1,16 +1,14 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
-const Infractions = require('../../Schemas/Infractions');
+const Infractions = require('../../../Schemas/Infractions');
 
 module.exports = {
-    data: new Discord.SlashCommandBuilder()
-        .setName('kicks')
-        .setDMPermission(false)
-        .setDescription('View the kicks of a user.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.KickMembers)
+    data: new Discord.SlashCommandSubcommandBuilder()
+        .setName('view')
+        .setDescription('View the logged kicks of a user.')
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user you\'d like to view.')

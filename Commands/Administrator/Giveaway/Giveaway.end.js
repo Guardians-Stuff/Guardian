@@ -1,14 +1,14 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
-const { pickUnique } = require('../../Functions/pickUnique');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
+const { pickUnique } = require('../../../Functions/pickUnique');
 
-const Giveaways = require('../../Schemas/Giveaways');
+const Giveaways = require('../../../Schemas/Giveaways');
 
 module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
-        .setName('reroll')
-        .setDescription('Reroll a giveaway.')
+        .setName('end')
+        .setDescription('Manually end a giveaway.')
         .addStringOption(option => option
             .setName('id')
             .setDescription('Discord message ID of the giveaway')
@@ -24,8 +24,7 @@ module.exports = {
 
         const giveaway = await Giveaways.findOne({ guild: interaction.guild.id, giveaway: id });
         if(!giveaway) return { embeds: [ EmbedGenerator.errorEmbed('Giveaway not found.') ], ephemeral: true };
-        if(giveaway.active) return { embeds: [ EmbedGenerator.errorEmbed('That giveaway is currently active.') ], ephemeral: true };
-        if(giveaway.entries.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('There were no entries in the giveaway.') ], ephemeral: true };
+        if(!giveaway.active) return { embeds: [ EmbedGenerator.errorEmbed('That giveaway is not active.') ], ephemeral: true };
 
         /** @type {Discord.TextChannel} */ const channel = await interaction.guild.channels.fetch(giveaway.channel).catch(() => null);
         if(!channel) return { embeds: [ EmbedGenerator.errorEmbed('Unable to fetch the channel.') ], ephemeral: true };
@@ -40,18 +39,26 @@ module.exports = {
             giveaway.description ? giveaway.description : null,
             giveaway.description ? '' : null,
             `Winners: **${giveaway.winners}**, Entries: **${giveaway.entries.length}**`,
-            `Status: Rerolled`
+            `Status: Manually ended`
         ].filter(text => text !== null).join('\n'));
 
         await message.edit({ embeds: [ embed ], components: [] });
 
-        await channel.send({
-            content: winners.map(id => `<@${id}>`).join(' '),
-            embeds: [ EmbedGenerator.basicEmbed(`The giveaway has been rerolled, congratulations winners!`) ],
-            reply: { messageReference: message }
-        });
+        if(winners.length == 0){
+            await channel.send({
+                embeds: [ EmbedGenerator.errorEmbed(`💔 | Nobody entered the giveaway, there are no winners!`) ],
+                reply: { messageReference: message }
+            });
+        }else{
+            await channel.send({
+                content: winners.map(id => `<@${id}>`).join(' '),
+                embeds: [ EmbedGenerator.basicEmbed(`Congratulations winners!`) ],
+                reply: { messageReference: message }
+            });
+        }
 
 
-        return { embeds: [ EmbedGenerator.basicEmbed('Giveaway rerolled.') ], ephemeral: true };
+        await Giveaways.updateOne({ guild: interaction.guild.id, giveaway: id }, { $set: { active: false } });
+        return { embeds: [ EmbedGenerator.basicEmbed('Giveaway ended.') ], ephemeral: true };
     }
 }

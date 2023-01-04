@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const EmbedGenerator = require('../../../Functions/embedGenerator');
 
 module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
