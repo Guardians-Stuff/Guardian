@@ -1,95 +1,71 @@
-// COMMAND UNDER CONSTRUCTION
-
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChatInputCommandInteraction, Client } = require("discord.js")
+const Discord = require('discord.js');
 const Transcripts = require("discord-html-transcripts")
 
+const { GuildsManager } = require('../../Classes/GuildsManager');
 const EmbedGenerator = require('../../Functions/embedGenerator');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("clear")
+    data: new Discord.SlashCommandBuilder()
+        .setName('clear')
         .setDMPermission(false)
-        .setDescription("Bulk delete messages")
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-        .setDMPermission(false)
-        .addNumberOption(options => options
-            .setName("amount")
-            .setDescription("Amount of messages you want deleted.")
+        .setDescription('Bulk delete messages')
+        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ManageMessages)
+        .addNumberOption(option => option
+            .setName('amount')
+            .setDescription('Amount of messages to delete.')
             .setMinValue(1)
             .setMaxValue(100)
             .setRequired(true)
-        )
-        .addStringOption(options => options
-            .setName("reason")
-            .setDescription("Provide a valid reason.")
+        ).addStringOption(option => option
+            .setName('reason')
+            .setDescription('Reason for deleting.')
             .setRequired(true)
-        )
-        .addUserOption(options => options
-            .setName("target")
-            .setDescription("Provide a target.")
+        ).addUserOption(option => option
+            .setName('target')
+            .setDescription('Only delete messages from this user.')
         ),
     /**
-     * @param {ChatInputCommandInteraction} interaction
-     * @param {Client} client
+     * @param {Discord.ChatInputCommandInteraction} interaction
+     * @param {Discord.Client} client
+     * @param {GuildsManager} dbGuild
      */
-    async execute(interaction, client) {
-        const Amount = interaction.options.getNumber("amount")
-        const Reason = interaction.options.getString("reason")
-        const Target = interaction.options.getUser("target")
+    async execute(interaction, client, dbGuild) {
+        const amount = interaction.options.getNumber('amount', true);
+        const reason = interaction.options.getString('reason', true);
+        const target = interaction.options.getUser('target');
 
-        const channelMessages = await interaction.channel.messages.fetch()
-        const logChannel = interaction.guild.channels.cache.get("1056720695167569961")
+        /** @type {Discord.Collection<string, Discord.Message>} */ const messages = await interaction.channel.messages.fetch({ limit: amount });
+        if(target) messages.filter(message => message.author.id == target.id);
+        if(messages.size == 0) return { embeds: [ EmbedGenerator.errorEmbed('No messages found.') ], ephemeral: true };
 
-        const responseEmbed = new EmbedBuilder().setColor("DarkBlue")
-        const logEmbed = new EmbedBuilder().setColor("DarkAqua")
-            .setAuthor({ name: "CLEAR COMMAND USED" })
+        
+        /** @type {Discord.TextChannel} */ (interaction.channel).bulkDelete(messages, true).then(async deleted => {
+            interaction.reply({
+                embeds: [ EmbedGenerator.basicEmbed(`Cleared \`${messages.size}\` messages${target ? ` from ${target}` : ''}.`) ],
+                ephemeral: true
+            });
+            
+            if(dbGuild.logs.enabled){
+                const channel = await interaction.guild.channels.fetch(dbGuild.logs.moderator);
+                if(channel && channel instanceof Discord.TextChannel){
+                    const transcript = await Transcripts.generateFromMessages(messages, interaction.channel);
 
-        let logEmbedDescription = [
-            `- Moderator: ${interaction.member}`,
-            `- Target: ${Target || "None"}`,
-            `- Channel: ${interaction.channel}`,
-            `- Reason: ${Reason}`
-        ]
-
-        if (Target) {
-            let i = 0
-            let messagesToDelete = []
-            channelMessages.filter((message) => {
-                if (message.author.id === Target.id && Amount > i) {
-                    messagesToDelete.push(message)
-                    i++
+                    channel.send({
+                        embeds: [
+                            EmbedGenerator.basicEmbed([
+                                `- Moderator: ${interaction.member}`,
+                                `- Target: ${target || "None"}`,
+                                `- Channel: ${interaction.channel}`,
+                                `- Reason: ${reason}`
+                            ].join('\n'))
+                            .setTitle('`/clear` command used')
+                        ],
+                        files: [ transcript ]
+                    });
                 }
-            })
-
-            const Transcript = Transcripts.generateFromMessages(messagesToDelete, interaction.channel)
-
-            interaction.channel.bulkDelete(messagesToDelete, true).then((messages) => {
-                interaction.reply({
-                    embeds: [responseEmbed.setDescription(`Cleared \`${messages.size}\` messages from ${Target}`)],
-                    ephemeral: true
-                })
-
-                logEmbedDescription.push(`- Total Messages: ${messages.size}`)
-                logChannel.send({
-                    embeds: [logEmbed.setDescription(logEmbedDescription.join("\n"))],
-                    files: [Transcript]
-                })
-            })
-        } else {
-            const Transcript = await Transcripts.createTranscript(interaction.channel, { limit: Amount })
-
-            interaction.channel.bulkDelete(Amount, true).then((messages) => {
-                interaction.reply({
-                    embeds: [responseEmbed.setDescription(`Cleared \`${messages.size}\` messages.`)],
-                    ephemeral: true
-                })
-
-                logEmbedDescription.push(`- Total Messages: ${messages.size}`)
-                logChannel.send({
-                    embeds: [logEmbed.setDescription(logEmbedDescription.join("\n"))],
-                    files: [Transcript]
-                })
-            })
-        }
+            }
+        }).catch(() => {
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true });
+        });
     }
 } 
