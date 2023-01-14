@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const Mongoose = require('mongoose');
+const Moment = require('moment');
 
 const ExpiringDocumentManager = require('./Classes/ExpiringDocumentManager');
 const EmbedGenerator = require('./Functions/embedGenerator');
@@ -9,6 +10,7 @@ const config = require('./config.json');
 
 const Infractions = require('./Schemas/Infractions');
 const Giveaways = require('./Schemas/Giveaways');
+const Reminders = require('./Schemas/Reminders');
 
 const client = new Discord.Client({
     intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMembers, Discord.GatewayIntentBits.GuildMessages ],
@@ -30,6 +32,7 @@ client.expiringDocumentsManager = {
     giveaways: new ExpiringDocumentManager(Giveaways, 'expires', async giveaway => {
         const guild = await client.guilds.fetch({ guild: giveaway.guild }).catch(() => null);
         if(guild){
+            console.log(guild);
             /** @type {Discord.TextChannel} */ const channel = await guild.channels.fetch(giveaway.channel).catch(() => null);
             if(channel){
                 const message = await channel.messages.fetch({ message: giveaway.giveaway }).catch(() => null);
@@ -65,7 +68,28 @@ client.expiringDocumentsManager = {
 
         giveaway.active = false;
         await giveaway.save();
-    }, { active: true })
+    }, { active: true }),
+    reminders: new ExpiringDocumentManager(Reminders, 'expires', async reminder => {
+        const user = await client.users.fetch(reminder.user);
+        if(user){
+            const embed = EmbedGenerator.basicEmbed(reminder.reminder).setAuthor({ name: 'Guardian Reminder', iconURL: client.user.displayAvatarURL() });
+            if(reminder.repeating){
+                const ends = Moment().add(reminder.duration);
+                embed.setDescription(`${embed.data.description}\n\nYou will be reminded again in <t:${ends.unix()}:R>(<t:${ends.unix()}:f>)`);
+            }
+
+            await user.send({ embeds: [ embed ] });
+        }
+
+        if(reminder.repeating){
+            reminder.time = Date.now();
+            reminder.expires = reminder.time + reminder.duration;
+
+            return await reminder.save();
+        }else{
+            await reminder.delete();
+        }
+    })
 };
 
 Mongoose.connect(config.DatabaseURL).then(async () => {

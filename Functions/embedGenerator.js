@@ -23,10 +23,11 @@ function errorEmbed(description = 'There was an error.'){
  * 
  * @param {Discord.ChatInputCommandInteraction} interaction 
  * @param {Array<Discord.MessageEmbed>} embeds
+ * @param {Boolean} ephemeral
  */
-async function pagesEmbed(interaction, embeds){
+async function pagesEmbed(interaction, embeds, ephemeral = false){
     if(embeds.length == 0) return interaction.reply({ content: 'There was an error.', ephemeral: true });
-    if(embeds.length == 1) return interaction.reply({ embeds: [ embeds[0].setFooter({ text: 'Page 1/1' }) ] });
+    if(embeds.length == 1) return interaction.reply({ embeds: [ embeds[0].setFooter({ text: 'Page 1/1' }) ], ephemeral: ephemeral });
 
     let page = 0;
     const sent = await interaction.reply({
@@ -35,6 +36,7 @@ async function pagesEmbed(interaction, embeds){
             new Discord.ButtonBuilder().setCustomId('previous').setEmoji('◀️').setStyle(Discord.ButtonStyle.Primary),
             new Discord.ButtonBuilder().setCustomId('next').setEmoji('▶️').setStyle(Discord.ButtonStyle.Primary)
         ]) ],
+        ephemeral: ephemeral,
         fetchReply: true
     });
     const filter = (/** @type {Discord.MessageComponentInteraction} */ i) => [ 'previous', 'next' ].includes(i.customId) && i.message.id == sent.id && interaction.member.id == i.user.id;
