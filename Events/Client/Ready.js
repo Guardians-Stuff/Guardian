@@ -12,6 +12,7 @@ module.exports = {
         await loadCommands(client);
         await client.expiringDocumentsManager.infractions.init();
         await client.expiringDocumentsManager.giveaways.init();
+        await client.expiringDocumentsManager.reminders.init();
         
         console.log("The client is now ready.")
     }
