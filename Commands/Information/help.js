@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const fs = require('fs');
 
 const EmbedGenerator = require('../../Functions/embedGenerator');
+const { loadFiles } = require('../../Functions/fileLoader');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -12,8 +12,8 @@ module.exports = {
             .setName('category')
             .setDescription('The category to get help for')
             .addChoices(
+                { name: 'Public', value: 'Public' },
                 { name: 'Fun', value: 'Fun' },
-                //{ name: "Giveaways", value: "Giveaways" },
                 { name: 'Information', value: 'Information' },
                 { name: 'Moderation', value: 'Moderator' },
                 { name: 'Utility', value: 'Public' },
@@ -27,11 +27,11 @@ module.exports = {
     async execute(interaction) {
         const category = interaction.options.getString('category', true);   
 
-        const commandFiles = fs.readdirSync(`${__dirname}/../../Commands/${category}`).filter(file => file.endsWith('.js'));
+        const commandFiles = await loadFiles(`Commands/${category}/`);
 
         const commands = {};
         for(const commandFile of commandFiles){
-            const command = require(`../../Commands/${category}/${commandFile}`);
+            const command = require(commandFile);
             if(command.data instanceof Discord.SlashCommandSubcommandBuilder) continue;
 
             if(command.subCommands) for(const subcommand of command.subCommands){
