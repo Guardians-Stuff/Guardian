@@ -13,11 +13,11 @@ module.exports = {
      */
     async execute(interaction, client, dbGuild) {
         dbGuild.antiraid.enabled = false;
-        dbGuild.antiraid.joinWithin = 2;
-        dbGuild.antiraid.joinAmount = 20;
-        dbGuild.antiraid.lockdown.enabled = true;
+        dbGuild.antiraid.joinWithin = null;
+        dbGuild.antiraid.joinAmount = null;
+        dbGuild.antiraid.lockdown.enabled = false;
         dbGuild.antiraid.channel = null;
-        dbGuild.antiraid.action = 'kick';
+        dbGuild.antiraid.action = null;
 
         return EmbedGenerator.basicEmbed('🔓 | Anti-raid protection has been disabled!');
     }
