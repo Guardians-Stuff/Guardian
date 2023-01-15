@@ -69,28 +69,28 @@ module.exports = {
             }
         }
 
-        if(guild.verification.enabled){
+        if (guild.verification.enabled) {
             const role = await member.guild.roles.fetch(guild.verification.role);
-            if(role && role instanceof Discord.Role) member.roles.add(role).catch(() => null);
+            if (role && role instanceof Discord.Role) member.roles.add(role).catch(() => null);
         }
 
         let assignedRole;
-        if(guild.autorole.enabled){
+        if (guild.autorole.enabled) {
             const role = await member.guild.roles.fetch(member.user.bot ? guild.autorole.bot : guild.autorole.member);
-            if(!role || !(role instanceof Discord.Role)){
+            if (!role || !(role instanceof Discord.Role)) {
                 assignedRole = 'Failed to fetch role.';
-            }else{
-                member.roles.add(role).then(() => {
+            } else {
+                await member.roles.add(role).then(() => {
                     assignedRole = role.id;
                 }).catch(() => {
                     assignedRole = 'Failed due to higher role hierarchy.';
                 });
             }
-        }else{
+        } else {
             assignedRole = 'Not configured.'
         }
 
-        if(guild.logs.enabled){
+        if (guild.logs.enabled) {
             const logChannel = await member.guild.channels.fetch(guild.logs.basic);
             if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
 
@@ -128,7 +128,7 @@ module.exports = {
                         .setDescription([
                             `• User: ${member.user}`,
                             `• Account Type: ${member.user.bot ? 'Bot' : 'User'}`,
-                            `• Role Assigned: ${assignedRole}`,
+                            `• Role Assigned: <&${assignedRole}>`,
                             `• Risk Level: ${risk}\n`,
                             `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
                             `• Account Joined: <t:${joiningTime}:D> | <t:${joiningTime}:R>`,
