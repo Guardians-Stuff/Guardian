@@ -21,36 +21,24 @@ module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
     antiraid: {
         enabled: { type: Boolean, default: false },
         raid: { type: Boolean, default: false },
-        joinAmount: { type: Number, default: 20 },
-        joinWithin: { type: Number, default: 2 },
-        action: { type: String, enum: [ null, 'kick', 'ban' ], default: 'kick' },
+        joinAmount: { type: Number, default: null },
+        joinWithin: { type: Number, default: null },
+        action: { type: String, enum: [ null, 'kick', 'ban' ], default: null },
         lockdown: {
-            enabled: { type: Boolean, default: true },
+            enabled: { type: Boolean, default: false },
             active: { type: Boolean, default: false }
         },
         channel: { type: String, default: null }
+    },
+    suggestion: {
+        enabled: { type: Boolean, default: false },
+        channel: { type: String, default: null },
+        reactions: { type: Boolean, default: false }
     }
 }));
 
 /**
  * --plan--
- * guild: id
- * verification: {
- *  enabled: boolean
- *  version: button | command | captcha
- *  role: id
- *  channel: id
- * },
- * logs: {
- *  enabled: boolean
- *  basic: id
- *  moderator: id
- * },
- * autorole: {
- *  enabled: boolean
- *  members: id
- *  bots: id
- * },
  * join: {
  *  enabled: boolean
  *  channel: id
