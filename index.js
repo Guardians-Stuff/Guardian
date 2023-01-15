@@ -13,8 +13,8 @@ const Giveaways = require('./Schemas/Giveaways');
 const Reminders = require('./Schemas/Reminders');
 
 const client = new Discord.Client({
-    intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMembers, Discord.GatewayIntentBits.GuildMessages ],
-    partials: [ Discord.Partials, Discord.Partials.Message, Discord.Partials.GuildMember, Discord.Partials.ThreadMember ]
+    intents: [ Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMembers, Discord.GatewayIntentBits.GuildMessages, Discord.GatewayIntentBits.GuildMessageReactions ],
+    partials: [ Discord.Partials, Discord.Partials.Message, Discord.Partials.GuildMember, Discord.Partials.ThreadMember, Discord.Partials.Reaction ]
 });
 
 client.commands = new Discord.Collection();
