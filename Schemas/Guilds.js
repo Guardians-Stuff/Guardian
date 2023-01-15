@@ -29,6 +29,11 @@ module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
             active: { type: Boolean, default: false }
         },
         channel: { type: String, default: null }
+    },
+    suggestion: {
+        enabled: { type: Boolean, default: false },
+        channel: { type: String, default: null },
+        reactions: { type: Boolean, default: false }
     }
 }));
 

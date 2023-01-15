@@ -319,6 +319,60 @@ class GuildsManagerAntiRaidLockdown{
     }
 }
 
+class GuildsManagerSuggestion{
+    /**
+     * @param {GuildsManager} parent
+     */
+    constructor(parent){
+        this.parent = parent;
+    }
+
+    /**
+     * @type {Boolean}
+     */
+    get enabled(){
+        return this.parent.document.suggestion.enabled;
+    }
+
+    /**
+     * @param {Boolean} enabled
+     */
+    set enabled(enabled){
+        this.parent.document.suggestion.enabled = enabled;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'suggestion.enabled': enabled } }).then(() => null);
+    }
+
+    /**
+     * @type {String}
+     */
+     get channel(){
+        return this.parent.document.suggestion.channel;
+    }
+
+    /**
+     * @param {String} channel
+     */
+    set channel(channel){
+        this.parent.document.suggestion.channel = channel;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'suggestion.channel': channel } }).then(() => null);
+    }
+
+    /**
+     * @type {Boolean}
+     */
+     get reactions(){
+        return this.parent.document.suggestion.reactions;
+    }
+
+    /**
+     * @param {Boolean} reactions
+     */
+    set reactions(reactions){
+        this.parent.document.suggestion.reactions = reactions;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'suggestion.reactions': reactions } }).then(() => null);
+    }
+}
+
 class GuildsManager{
     /**
      * @param {string} id
@@ -330,6 +384,7 @@ class GuildsManager{
         this.logs = new GuildsManagerLogs(this);
         this.autorole = new GuildsManagerAutoRole(this);
         this.antiraid = new GuildsManagerAntiRaid(this);
+        this.suggestion = new GuildsManagerSuggestion(this);
     }
 
     /**
