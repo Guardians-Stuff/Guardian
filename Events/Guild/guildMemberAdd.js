@@ -128,7 +128,7 @@ module.exports = {
                         .setDescription([
                             `• User: ${member.user}`,
                             `• Account Type: ${member.user.bot ? 'Bot' : 'User'}`,
-                            `• Role Assigned: <&${assignedRole}>`,
+                            `• Role Assigned: <@&${assignedRole}>`,
                             `• Risk Level: ${risk}\n`,
                             `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
                             `• Account Joined: <t:${joiningTime}:D> | <t:${joiningTime}:R>`,
