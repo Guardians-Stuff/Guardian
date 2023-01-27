@@ -20,7 +20,7 @@ module.exports = {
             const itemsJSON = JSON.parse(data);
 
             const shopEmbed = new EmbedBuilder()
-                .setTitle("Shop")
+                .setTitle("Guardian's Economy Shop")
                 .setDescription(`Page ${page} of ${Math.ceil(itemsJSON.length / 5)}`)
                 .setColor(0x00ff00);
 
@@ -32,7 +32,7 @@ module.exports = {
                     shopEmbed.addFields({
                         name: `${itemsJSON[i + (page - 1) * 5].name} - ${itemsJSON[i + (page - 1) * 5].id
                             }`,
-                        value: `${itemsJSON[i + (page - 1) * 5].description} - ₳${itemsJSON[i + (page - 1) * 5].price
+                        value: `${itemsJSON[i + (page - 1) * 5].description} - $${itemsJSON[i + (page - 1) * 5].price
                             }`,
                         inline: false,
                     });
