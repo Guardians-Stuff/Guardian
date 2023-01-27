@@ -13,6 +13,7 @@
     "canvacord": "^5.4.8",
     "discord-html-transcripts": "^3.1.2",
     "discord.js": "^14.7.1",
+    "fs": "^0.0.1-security",
     "glob": "^8.0.3",
     "moment": "^2.29.4",
     "mongoose": "^6.8.1",
