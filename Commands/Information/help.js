@@ -18,7 +18,8 @@ module.exports = {
                 { name: 'Moderation', value: 'Moderator' },
                 { name: 'Utility', value: 'Utility' },
                 { name: 'Admin', value: 'Administrator' },
-                { name: 'Crisis', value: 'Crisis' }
+                { name: 'Crisis', value: 'Crisis' },
+                { name: 'Economy', value: 'Economy' }
             )
             .setRequired(true)
         ),
