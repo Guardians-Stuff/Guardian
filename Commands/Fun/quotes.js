@@ -30,7 +30,7 @@ module.exports = {
                 fileSize = 0;
         }
 
-        txtfile = fs.readFileSync(`./quotes/${category}`);
+        txtfile = fs.readFileSync(`./data/quotes/${category}`);
         txtfile = txtfile.toString();
         txtfile = txtfile.split("\n");
         randomNum = Math.floor(Math.random() * fileSize);
