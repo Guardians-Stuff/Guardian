@@ -1,4 +1,4 @@
 {
-  "token": "MTA1MzczNjA2NzEyOTQyMTg4NA.G2im4R.yx9fYZnlPeQvoBfqGNIhTqAABuwbDRrv3-JmBo",
-  "DatabaseURL": "mongodb+srv://admin:admin@cluster0.qro2b.mongodb.net/GuardianV2"
+  "token": "token",
+  "DatabaseURL": "mongodb url"
 }
