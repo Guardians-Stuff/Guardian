@@ -25,6 +25,7 @@ module.exports = {
         const reactions = interaction.options.getBoolean('add_reactions') || false;
 
         dbGuild.suggestion.enabled = true;
+        dbGuild.suggestion.channel = channel.id;
         dbGuild.suggestion.reactions = reactions;
 
         return EmbedGenerator.basicEmbed('The Suggestion system has enabled.');

@@ -21,25 +21,27 @@ module.exports = {
     async execute(interaction, client, dbGuild) {
         const suggestion = interaction.options.getString('suggestion', true);
 
-        if(!dbGuild.suggestion.enabled) return { embeds: [ EmbedGenerator.errorEmbed('This guild has not enabled the Suggestion system.') ], ephemeral: true };
+        if (!dbGuild.suggestion.enabled) return { embeds: [EmbedGenerator.errorEmbed('This guild has not enabled the Suggestion system.')], ephemeral: true };
 
         const channel = await interaction.guild.channels.fetch(dbGuild.suggestion.channel);
-        if(!channel || !(channel instanceof Discord.TextChannel)) return { embeds: [ EmbedGenerator.errorEmbed('Unable to fetch suggestion channel.') ], ephemeral: true };
+        //console.log(channel)
+        if (!channel || !(channel instanceof Discord.TextChannel)) return { embeds: [EmbedGenerator.errorEmbed('Unable to fetch suggestion channel.')], ephemeral: true };
 
-        channel.send({ embeds: [
-            EmbedGenerator.basicEmbed(suggestion)
-                .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
-                .setTimestamp()
+        channel.send({
+            embeds: [
+                EmbedGenerator.basicEmbed(suggestion)
+                    .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL() })
+                    .setTimestamp()
             ]
         }).then(async sent => {
-            if(dbGuild.suggestion.reactions){
+            if (dbGuild.suggestion.reactions) {
                 await sent.react('✅')
                 await sent.react('❌');
             }
 
-            interaction.reply({ embeds: [ EmbedGenerator.basicEmbed('Suggested.') ], ephemeral: true });
+            interaction.reply({ embeds: [EmbedGenerator.basicEmbed('Suggested.')], ephemeral: true });
         }).catch(() => {
-            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true });
+            interaction.reply({ embeds: [EmbedGenerator.errorEmbed()], ephemeral: true });
         });
     }
 };
