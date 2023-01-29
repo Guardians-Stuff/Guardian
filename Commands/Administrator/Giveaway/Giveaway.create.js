@@ -35,7 +35,7 @@ module.exports = {
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
-     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
+     * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
         const prize = interaction.options.getString('prize', true);
