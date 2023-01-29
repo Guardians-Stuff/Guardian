@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 
 const { GuildsManager } = require('../../Classes/GuildsManager');
+const { UsersManager } = require('../../Classes/UsersManager');
 
 module.exports = {
     name: 'interactionCreate',
@@ -17,11 +18,12 @@ module.exports = {
         if(!command) return interaction.reply({ content: 'This command is outdated.', ephemeral: true });
         executeFunction = command.execute;
 
-        if (command.developer && interaction.user.id !== '1049140383122194452')
+        if (command.developer && interaction.user.id !== '1049140383122194452'){
             return interaction.reply({
                 content: 'This command is only available to the developer.',
                 ephemeral: true
             });
+        }
 
         const subCommand = interaction.options.getSubcommand(false);
         if (subCommand) {
@@ -32,7 +34,8 @@ module.exports = {
         }
 
         const dbGuild = await GuildsManager.fetch(interaction.guild.id);
-        const response = await executeFunction(interaction, client, dbGuild);
+        const dbUser = await UsersManager.fetch(interaction.user.id, interaction.guild.id);
+        const response = await executeFunction(interaction, client, dbGuild, dbUser);
 
         if(response){
             const parsedResponse = {
