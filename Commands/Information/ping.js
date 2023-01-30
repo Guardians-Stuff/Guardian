@@ -9,8 +9,8 @@ module.exports = {
         .setDescription("Pong!"),
     /**
      * 
-     * @param {ChatInputCommandInteraction} interaction 
-     * @param {Client} client 
+     * @param {ChatInputCommandInteraction} interaction
+     * @param {Client} client
      */
     execute(interaction, client) {
         return { content: 'Pong!', ephemeral: true };
