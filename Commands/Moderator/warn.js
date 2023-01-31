@@ -24,30 +24,23 @@ module.exports = {
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
-        const member = await interaction.guild.members.fetch(user.id).catch(() => null);
+        const member = await interaction.guild.members.fetch({ user: user.id }).catch(() => null);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
         if (!member) return { embeds: [EmbedGenerator.errorEmbed('That user is no longer in the server.')], ephemeral: true };
 
-        await member.send({
-            embeds: [EmbedGenerator.basicEmbed(`You have been warned from ${interaction.guild.name} | ${reason}`)]
-        }).catch(() => null);
+        const infractionEmbed = EmbedGenerator.infractionEmbed(interaction.guild, interaction.user.id, 'Warning', null, null, reason);
+        await member.send({ embeds: [ infractionEmbed ] }).catch(() => null);
 
         await Infractions.create({
             guild: interaction.guild.id,
             user: member.id,
             issuer: interaction.user.id,
             type: 'warning',
-            reason: reason
+            reason: reason,
+            active: false
         });
 
-        return EmbedGenerator.basicEmbed()
-            .setAuthor({ name: 'Warning issued', iconURL: interaction.guild.iconURL() })
-            .setDescription([
-                `<@${member.id}> was issued a warning by ${interaction.member}`,
-                `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                `Reason: \`${reason}\``
-            ].join('\n'))
-            .setTimestamp()
+        return infractionEmbed;
     }
 }

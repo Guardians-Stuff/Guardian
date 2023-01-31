@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const Moment = require('moment');
+const ms = require('ms');
 
 /**
  * @param {String} [description]
@@ -17,6 +19,44 @@ function errorEmbed(description = 'There was an error.'){
     return new Discord.EmbedBuilder()
         .setColor('Red')
         .setDescription(description);
+}
+
+/**
+ * @param {Discord.Guild} guild
+ * @param {String} issuer
+ * @param {String} type
+ * @param {Number | null} duration
+ * @param {Number | null} expires
+ * @param {String} reason
+ */
+function infractionEmbed(guild, issuer, type, duration, expires, reason = 'Unspecified reason.'){
+    let durationString;
+    let expiresString;
+
+    if(!duration || isNaN(duration)){
+        durationString = 'N/A';
+        expiresString = 'N/A';
+    }else if(!isFinite(duration)){
+        durationString = 'Permanent';
+        expiresString = 'N/A';
+    }else{
+        durationString = ms(duration, { long: true });
+        expiresString = `<t:${Moment(expires).unix()}:R>(<t:${Moment(expires).unix()}:f>)`
+    }
+
+    return new Discord.EmbedBuilder()
+        .setColor('Blue')
+        .setTitle(`${type} | Infraction`)
+        .setThumbnail(guild.iconURL())
+        .setDescription([
+            `You have been issued a ${type.toLowerCase()} in **${guild.name}**`,
+            '',
+            `**Issuer**: <@${issuer}>`,
+            `**Duration**: ${durationString}`,
+            `**Expires**: ${expiresString}`,
+            `**Reason**: ${reason}`
+        ].join('\n'))
+        .setTimestamp();
 }
 
 /**
@@ -56,5 +96,6 @@ async function pagesEmbed(interaction, embeds, ephemeral = false){
 module.exports = {
     basicEmbed,
     errorEmbed,
+    infractionEmbed,
     pagesEmbed
 }

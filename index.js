@@ -1,20 +1,37 @@
 const Discord = require('discord.js')
 const Mongoose = require('mongoose');
 const Moment = require('moment');
+const Express = require('express');
+const https = require('https');
+const http = require('http');
+const fs = require('fs');
 
 const ExpiringDocumentManager = require('./Classes/ExpiringDocumentManager');
 const EmbedGenerator = require('./Functions/embedGenerator');
 const { loadEvents } = require('./Handlers/eventHandler');
 const { pickUnique } = require('./Functions/pickUnique');
 const config = require('./config.json');
+const router = require('./server');
 
 const Infractions = require('./Schemas/Infractions');
 const Giveaways = require('./Schemas/Giveaways');
 const Reminders = require('./Schemas/Reminders');
 
 const client = new Discord.Client({
-    intents: [Discord.GatewayIntentBits.Guilds, Discord.GatewayIntentBits.GuildMembers, Discord.GatewayIntentBits.GuildMessages, Discord.GatewayIntentBits.GuildMessageReactions],
-    partials: [Discord.Partials, Discord.Partials.Message, Discord.Partials.GuildMember, Discord.Partials.ThreadMember, Discord.Partials.Reaction]
+    intents: [
+        Discord.GatewayIntentBits.Guilds,
+        Discord.GatewayIntentBits.GuildMembers,
+        Discord.GatewayIntentBits.GuildMessages,
+        Discord.GatewayIntentBits.GuildMessageReactions,
+        Discord.GatewayIntentBits.MessageContent
+    ],
+    partials: [
+        Discord.Partials,
+        Discord.Partials.Message,
+        Discord.Partials.GuildMember,
+        Discord.Partials.ThreadMember,
+        Discord.Partials.Reaction
+    ]
 });
 
 client.commands = new Discord.Collection();
@@ -91,6 +108,25 @@ client.expiringDocumentsManager = {
         }
     })
 };
+
+const app = Express();
+let server;
+
+if(config.live){
+    server = https.createServer({ key: fs.readFileSync(`${__dirname}/data/server/privkey.pem`), cert: fs.readFileSync(`${__dirname}/data/server/fullchain.pem`) }, app);
+}else{
+    server = http.createServer(app);
+}
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,POST');
+    next();
+});
+app.use('/', router);
+
+module.exports.client = client;
+module.exports.server = server;
 
 Mongoose.connect(config.DatabaseURL).then(async () => {
     console.log('Client is connected to the database.');

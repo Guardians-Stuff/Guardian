@@ -42,7 +42,7 @@ module.exports = {
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
-        const member = await interaction.guild.members.fetch(user.id);
+        const member = await interaction.guild.members.fetch({ user: user.id }).catch(() => null);
         const deleteMessages = interaction.options.getString('delete_messages', true);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
@@ -54,15 +54,14 @@ module.exports = {
         if (!member) return { embeds: [EmbedGenerator.errorEmbed('That user is no longer in the server.')], ephemeral: true };
         if (!member.bannable) return { embeds: [EmbedGenerator.errorEmbed('User cannot be banned.')], ephemeral: true };
 
-        await member.send({
-            embeds: [EmbedGenerator.basicEmbed(`You have been banned from ${interaction.guild.name} for ${ms(durationMs, { long: true })} | ${reason}`)]
-        }).catch(() => null);
+        const infractionEmbed = EmbedGenerator.infractionEmbed(interaction.guild, interaction.user.id, 'Temp-Ban', durationMs, Date.now() + durationMs, reason);
+        await member.send({ embeds: [ infractionEmbed ] }).catch(() => null);
 
         member.ban({
             reason: reason,
             deleteMessageSeconds: ms(deleteMessages) / 1000
         }).then(async () => {
-            await client.expiringDocumentsManager.punishments.addNewDocument(await Infractions.create({
+            await client.expiringDocumentsManager.infractions.addNewDocument(await Infractions.create({
                 guild: interaction.guild.id,
                 user: member.id,
                 issuer: interaction.user.id,
@@ -75,15 +74,12 @@ module.exports = {
                 embeds: [
                     EmbedGenerator.basicEmbed()
                         .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
-                        .setDescription([
-                            `<@${member.id}> was issued a temporary ban by ${interaction.member}`,
-                            `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                            `Duration: **${ms(durationMs, { long: true })}**`,
-                            `Reason: \`${reason}\``,
-                        ].join('\n'))
+                        .setDescription([ infractionEmbed ].join('\n'))
                         .setTimestamp()
                 ]
             })
+        }).catch(() => {
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true })
         });
     }
 }

@@ -38,16 +38,15 @@ module.exports = {
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
-        const member = await interaction.guild.members.fetch(user.id);
+        const member = await interaction.guild.members.fetch({ user: user.id }).catch(() => null);
         const deleteMessages = interaction.options.getString('delete_messages', true);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
         if (!member) return interaction.reply({ content: 'That user is no longer in the server.', ephemeral: true });
         if (!member.bannable) return interaction.reply({ content: 'User cannot be banned.', ephemeral: true });
 
-        await member.send({
-            embeds: [EmbedGenerator.basicEmbed(`You have been banned from ${interaction.guild.name} | ${reason}`)]
-        }).catch(() => null);
+        const infractionEmbed = EmbedGenerator.infractionEmbed(interaction.guild, interaction.user.id, 'Ban', null, null, reason);
+        await member.send({ embeds: [ infractionEmbed ] }).catch(() => null);
 
         member.ban({
             reason: reason,
@@ -59,21 +58,11 @@ module.exports = {
                 issuer: interaction.user.id,
                 type: 'ban',
                 reason: reason
-            })
+            });
 
-            interaction.reply({
-                embeds: [
-                    EmbedGenerator.basicEmbed([
-                        `<@${member.id}> was issued a permenant ban by ${interaction.member}`,
-                        `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                        `Reason: \`${reason}\``
-                    ].join('\n'))
-                        .setAuthor({ name: 'Ban issued', iconURL: interaction.guild.iconURL() })
-                        .setTimestamp()
-                ]
-            })
+            interaction.reply({ embeds: [ infractionEmbed ] })
         }).catch(() => {
-            interaction.reply({ embeds: [EmbedGenerator.errorEmbed()], ephemeral: true })
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true })
         });
     }
 }

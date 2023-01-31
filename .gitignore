@@ -2,3 +2,5 @@ node_modules
 yarn.lock 
 ./Commands/Utility/setup
 config.json
+data/server/fullchain.pem
+data/server/privkey.pem

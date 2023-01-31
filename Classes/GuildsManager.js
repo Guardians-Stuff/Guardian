@@ -373,6 +373,75 @@ class GuildsManagerSuggestion{
     }
 }
 
+class GuildsManagerTickets{
+    /**
+     * @param {GuildsManager} parent
+     */
+     constructor(parent){
+        this.parent = parent;
+    }
+
+    /**
+     * @type {Boolean}
+     */
+    get enabled(){
+        return this.parent.document.tickets.enabled;
+    }
+
+    /**
+     * @param {Boolean} enabled
+     */
+    set enabled(enabled){
+        this.parent.document.tickets.enabled = enabled;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'tickets.enabled': enabled } }).then(() => null);
+    }
+
+    /**
+     * @type {String}
+     */
+     get category(){
+        return this.parent.document.tickets.category;
+    }
+
+    /**
+     * @param {String} category
+     */
+    set category(category){
+        this.parent.document.tickets.category = category;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'tickets.category': category } }).then(() => null);
+    }
+
+    /**
+     * @type {String}
+     */
+    get channel(){
+        return this.parent.document.tickets.channel;
+    }
+
+    /**
+     * @param {String} channel
+     */
+    set channel(channel){
+        this.parent.document.tickets.channel = channel;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'tickets.channel': channel } }).then(() => null);
+    }
+
+    /**
+     * @type {String}
+     */
+    get role(){
+        return this.parent.document.tickets.role;
+    }
+
+    /**
+     * @param {String} role
+     */
+    set role(role){
+        this.parent.document.tickets.role = role;
+        Guilds.updateOne({ guild: this.parent.id }, { $set: { 'tickets.role': role } }).then(() => null);
+    }
+}
+
 class GuildsManager{
     /**
      * @param {string} id
@@ -385,6 +454,7 @@ class GuildsManager{
         this.autorole = new GuildsManagerAutoRole(this);
         this.antiraid = new GuildsManagerAntiRaid(this);
         this.suggestion = new GuildsManagerSuggestion(this);
+        this.tickets = new GuildsManagerTickets(this);
     }
 
     /**

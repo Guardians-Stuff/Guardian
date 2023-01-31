@@ -38,16 +38,15 @@ module.exports = {
      */
     async execute(interaction, client) {
         const user = interaction.options.getUser('user', true);
-        const member = await interaction.guild.members.fetch(user.id);
+        const member = await interaction.guild.members.fetch({ user: user.id }).catch(() => null);
         const deleteMessages = interaction.options.getString('delete_messages', true);
         const reason = interaction.options.getString('reason') || 'Unspecified reason.';
 
         if (!member) return { content: 'That user is no longer in the server.', ephemeral: true };
         if (!member.bannable) return { content: 'User cannot be banned.', ephemeral: true };
 
-        await member.send({
-            embeds: [ EmbedGenerator.basicEmbed(`You have been soft-banned from ${interaction.guild.name} | ${reason}\nYou may rejoin anytime`) ]
-        }).catch(() => null);
+        const infractionEmbed = EmbedGenerator.infractionEmbed(interaction.guild, interaction.user.id, 'Soft-Ban', 0, Date.now(), reason);
+        await member.send({ embeds: [ infractionEmbed ] }).catch(() => null);
 
         member.ban({
             reason: reason,
@@ -64,22 +63,12 @@ module.exports = {
             });
 
             await interaction.guild.members.unban(user.id).then(async () => {
-                interaction.reply({
-                    embeds: [
-                        EmbedGenerator.basicEmbed([
-                            `<@${member.id}> was issued a soft-ban by ${interaction.member}`,
-                            `Total Infractions: \`${(await Infractions.find({ guild: interaction.guild.id, user: member.id })).length}\``,
-                            `Reason: \`${reason}\``
-                        ].join('\n'))
-                            .setAuthor({ name: 'Soft-ban issued', iconURL: interaction.guild.iconURL() })
-                            .setTimestamp()
-                    ]
-                });
+                interaction.reply({ embeds: [ infractionEmbed ] });
             }).catch(() => {
                 interaction.reply({ embeds: [ EmbedGenerator.errorEmbed(`There was an error while un-banning the user\nPlease manually run \`/unban ${user.id}\``) ] })
             });
         }).catch(() => {
-            interaction.reply({ embeds: [EmbedGenerator.errorEmbed()], ephemeral: true })
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed() ], ephemeral: true })
         });
     }
 }

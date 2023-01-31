@@ -24,7 +24,7 @@ async function loadEvents(client) {
             }
         }
 
-        table.addRow(event.name, '✅');
+        table.addRow(file.split('/').pop(), '✅');
     });
 
     return console.log(table.toString(), '\nLoaded Events.');
