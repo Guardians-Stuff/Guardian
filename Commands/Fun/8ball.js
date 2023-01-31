@@ -1,45 +1,26 @@
-const { SlashCommandBuilder, ChatInputCommandInteraction, Client } = require("discord.js");
-
-const EmbedGenerator = require('../../Functions/embedGenerator');
+const { PermissionFlagsBits, SlashCommandBuilder } = require("discord.js");
+const fs = require("fs");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("8ball")
         .setDescription("Ask the magic 8ball a question")
-        .setDMPermission(false)
         .addStringOption((option) =>
             option
                 .setName("question")
-                .setDescription("The question you want to ask the magic 8ball")
+                .setDescription("The question to ask")
                 .setRequired(true)
         ),
-    /**
-     * @param {ChatInputCommandInteraction} interaction
-     * @param {Client} client
-     */
-    async execute(interaction, client) {
-        const question = interaction.options.getString("question");
+    async execute(interaction) {
+        eightballTxt = fs.readFileSync("./data/8ballresponses.txt");
+        eightballTxt = eightballTxt.toString();
+        eightballTxt = eightballTxt.split("\n");
+        randomNum = Math.floor(Math.random() * 20);
 
-        const options = [
-            "It is certain.",
-            "It is decidedly so.",
-            "Without a doubt.",
-            "Yes - definitely.",
-            "You may rely on it.",
-            "No"
-        ]
-
-        const randomoption = options[Math.floor(Math.random() * options.length)];
-
-        return EmbedGenerator.basicEmbed(`\`\`\`${question}\`\`\``)
-            .setTitle(`8ball` + ` - ${interaction.user.username}`)
-            .addFields(
-                { name: 'Answer', value: `${randomoption}` },
-            )
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
-            })
-            .setTimestamp();
-    }
+        interaction.reply({
+            content: `\`${interaction.options.getString("question")}\`\n:8ball: ${eightballTxt[randomNum]
+                }`,
+            ephemeral: true,
+        });
+    },
 };
