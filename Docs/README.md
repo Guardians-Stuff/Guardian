@@ -44,4 +44,4 @@ yarn install
 <br>
 I am remaking Guardian bot. V2 code has been pushed to this repo but barley any commands yet.
 
-If you want to stay updated, join the Discord! https://discord.gg/NP8jMjW84F
+If you want to stay updated, join the Discord! https://discord.gg/BuBex4PxJj
