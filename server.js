@@ -16,6 +16,7 @@ router.get('/ticket', async (req, res) => {
     if(!req.query.id) return res.sendStatus(400);
 
     Tickets.findById(req.query.id).then(async ticket => {
+        if(!ticket) return res.sendStatus(404);
         /** @type {Map<string, Discord.User | null>} */ const members = new Map();
         for(const member of [ ...new Set(ticket.messages.map(message => message.user)) ]) members.set(member, await index.client.users.fetch(member).catch(() => null));
 

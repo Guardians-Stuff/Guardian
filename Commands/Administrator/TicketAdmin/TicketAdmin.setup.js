@@ -122,6 +122,6 @@ module.exports = {
         dbGuild.tickets.role = role.id;
 
         return EmbedGenerator.basicEmbed('🔒 | Ticket system has been enabled!')
-            .setFooter('(W.I.P) Please manually add access for Support Staff to use /ticket');
+            .setFooter({ text: '(W.I.P) Please manually add access for Support Staff to use /ticket' });
     }
 }
