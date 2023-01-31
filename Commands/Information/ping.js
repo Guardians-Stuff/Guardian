@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("ping")
         .setDMPermission(false)
-        .setDescription("Pong!"),
+        .setDescription("Ping pong!"),
     /**
      * 
      * @param {ChatInputCommandInteraction} interaction 
