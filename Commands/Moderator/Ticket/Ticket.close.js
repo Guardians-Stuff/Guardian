@@ -27,7 +27,7 @@ module.exports = {
 
         await interaction.deferReply();
         
-        const promises = [ ...new Set([ ticket.user, ...ticket.messages.map(message => message.user) ]) ].map(id => {
+        const promises = [ ...new Set([ interaction.user.id, ticket.user, ...ticket.messages.map(message => message.user) ]) ].map(id => {
             return new Promise(async resolve => {
                 const user = await client.users.fetch(id).catch(() => null);
                 if(user && !user.bot) await user.send({ embeds: [
