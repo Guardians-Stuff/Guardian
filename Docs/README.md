@@ -10,38 +10,40 @@
 <img src="https://img.shields.io/github/commit-activity/w/killerclaws12/Guardian?label=Commit%20Activity" alt="GitHub commit activity">
 </p>
 
-### Features
+## ❓ | What are the features?
+<ul>
+<li><b>Clean JavaScript code 📘</b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.4/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
+<li><b>Flexible and Customizable ⚙️</b></li>
+<li><b>Easy to use 👍</b></li>
+<li><b>Beginner Friendly 😄</b></li>
+<li><b>Moderation System ⚒️</b></li>
+<li><b>Administrative System ⚒️</b></li>
+<li><b>Economy System 💵</b></li>
+<li><b>Easy to setup Setup 🔧</b></li>
+</ul>
 
-- Strong automoderation system 
-- Useful moderation tools and utilities 
-- Secure
-- Fun commands
-- Active development & support
-  
- ### Setup for Custom Hosting
-
-# Installation
-
-To start, clone this github repository to your local machine:
-
-```
-git clone https://github.com/killerclaws12/Guardian
-```
-
-If you don't have git installed on your local machine, you can install it like so:
-
-```
-git --version
-```
-  
-To install the packages using [nodejs](https://nodejs.org/en/), you can use these commands:
-
-```sh-session
-npm install 
-yarn install 
+## 📂 | Installation
+<b>Note:</br><b>
+<b>Node.js v14.0.0 or newer is required.</b><br>
+```console
+$ npm i 
+$ yarn install
+$ pnpm install
 ```
 
+## 🤔 | Help
+<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = "https://discord.gg/BuBex4PxJj">Support Server</a>.</b>
+
+## ❗ | Useful Links
+<ul>
+<li><b><a href = "https://des-docs.js.org">Documentation</a></b></li>
+<li><b><a href = "https://github.com/Guardians-Stuff/Guardian">GitHub</a></b></li>
+<li><b><a href = "https://discord.gg/BuBex4PxJj">Discord Server</a></b></li>
+</ul>
 <br>
-I am remaking Guardian bot. V2 code has been pushed to this repo but barley any commands yet.
+<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = "https://discord.gg/BuBex4PxJj">Support Server</a>.</b>
+<br>
+<b>Bot Created by @Killerclaws12.</b>
 
-If you want to stay updated, join the Discord! https://discord.gg/BuBex4PxJj
+# ❤️ Thanks for using Guardian Bot ❤️
