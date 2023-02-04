@@ -37,7 +37,6 @@ $ pnpm install
 
 ## ❗ | Useful Links
 <ul>
-<li><b><a href = "https://des-docs.js.org">Documentation</a></b></li>
 <li><b><a href = "https://github.com/Guardians-Stuff/Guardian">GitHub</a></b></li>
 <li><b><a href = "https://discord.gg/BuBex4PxJj">Discord Server</a></b></li>
 </ul>
