@@ -5,6 +5,7 @@ const Express = require('express');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const dotenv = require("dotenv").config()
 
 const ExpiringDocumentManager = require('./Classes/ExpiringDocumentManager');
 const EmbedGenerator = require('./Functions/embedGenerator');
@@ -112,9 +113,9 @@ client.expiringDocumentsManager = {
 const app = Express();
 let server;
 
-if(config.live){
+if (config.live) {
     server = https.createServer({ key: fs.readFileSync(`${__dirname}/data/server/privkey.pem`), cert: fs.readFileSync(`${__dirname}/data/server/fullchain.pem`) }, app);
-}else{
+} else {
     server = http.createServer(app);
 }
 
@@ -128,11 +129,12 @@ app.use('/', router);
 module.exports.client = client;
 module.exports.server = server;
 
-Mongoose.connect(config.DatabaseURL).then(async () => {
+Mongoose.connect(process.env.DatabaseURL).then(async () => {
     console.log('Client is connected to the database.');
 
     await loadEvents(client);
-    client.login(config.token).then(() => {
-        // client.user.setActivity(`with ${client.guilds.cache.size} servers!`)
+    //client.login(config.token).then(() => {
+    // client.user.setActivity(`with ${client.guilds.cache.size} servers!`)
+    client.login(process.env.token).then(() => {
     });
 });
