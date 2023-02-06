@@ -4,7 +4,6 @@ const Express = require('express');
 const fs = require('fs');
 
 const index = require('./index');
-const config = require('./config.json');
 const Tickets = require('./Schemas/Tickets');
 
 const router = Express.Router();
@@ -60,7 +59,7 @@ router.get('/ticket', async (req, res) => {
 
 router.use((req, res, next) => {
     if(!req.headers.authorization) return res.sendStatus(403);
-    if(req.headers.authorization != `Bearer ${config.token}`) return res.sendStatus(401);
+    if(req.headers.authorization != `Bearer ${process.env.DISCORD_TOKEN}`) return res.sendStatus(401);
 
     next();
 });

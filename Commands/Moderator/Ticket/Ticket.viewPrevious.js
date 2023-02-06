@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 
 const EmbedGenerator = require('../../../Functions/embedGenerator');
-const config = require('../../../config.json');
 
 const Tickets = require('../../../Schemas/Tickets');
 
@@ -36,7 +35,7 @@ module.exports = {
         for (let i = 0; i < tickets.length; i += 10) {
             const ticketsSlice = tickets.slice(i, i + 10);
 
-            const embed = EmbedGenerator.basicEmbed(ticketsSlice.map(ticket => `[${ticket._id.toString()}](${config.live ? 'https://guardianbot.space' : 'http://localhost:3001'}/ticket?id=${ticket._id.toString()})`).join('\n'))
+            const embed = EmbedGenerator.basicEmbed(ticketsSlice.map(ticket => `[${ticket._id.toString()}](${process.env.LIVE === 'true' ? 'https://guardianbot.space' : 'http://localhost:3001'}/ticket?id=${ticket._id.toString()})`).join('\n'))
                 .setTitle(`Previous Tickets`)
                 .setTimestamp();
 

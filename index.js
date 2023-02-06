@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Discord = require('discord.js')
 const Mongoose = require('mongoose');
 const Moment = require('moment');
@@ -5,13 +7,11 @@ const Express = require('express');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const dotenv = require("dotenv").config()
 
 const ExpiringDocumentManager = require('./Classes/ExpiringDocumentManager');
 const EmbedGenerator = require('./Functions/embedGenerator');
 const { loadEvents } = require('./Handlers/eventHandler');
 const { pickUnique } = require('./Functions/pickUnique');
-const config = require('./config.json');
 const router = require('./server');
 
 const Infractions = require('./Schemas/Infractions');
@@ -113,7 +113,7 @@ client.expiringDocumentsManager = {
 const app = Express();
 let server;
 
-if (config.live) {
+if (process.env.LIVE === 'true') {
     server = https.createServer({ key: fs.readFileSync(`${__dirname}/data/server/privkey.pem`), cert: fs.readFileSync(`${__dirname}/data/server/fullchain.pem`) }, app);
 } else {
     server = http.createServer(app);
@@ -129,12 +129,12 @@ app.use('/', router);
 module.exports.client = client;
 module.exports.server = server;
 
-Mongoose.connect(process.env.DatabaseURL).then(async () => {
+Mongoose.connect(process.env.MONGODB_URL).then(async () => {
     console.log('Client is connected to the database.');
 
     await loadEvents(client);
     //client.login(config.token).then(() => {
     // client.user.setActivity(`with ${client.guilds.cache.size} servers!`)
-    client.login(process.env.token).then(() => {
+    client.login(process.env.DISCORD_TOKEN).then(() => {
     });
 });
