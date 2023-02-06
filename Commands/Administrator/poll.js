@@ -1,19 +1,11 @@
 const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require("discord.js");
 
-const requiredPerms = { // Might do perms like this for now on. Not too sure, i find it better imo.
-    type: "flags",
-    key: [
-        PermissionFlagsBits.SendMessages,
-        PermissionFlagsBits.EmbedLinks,
-        PermissionFlagsBits.AddReactions,
-        PermissionFlagsBits.Administrator
-    ],
-};
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")
         .setDescription("Start a poll")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption((option) =>
             option
                 .setName("message")
@@ -178,5 +170,4 @@ module.exports = {
             await new Promise((resolve) => setTimeout(resolve, 500));
         }
     },
-    requiredPerms: requiredPerms,
 };
