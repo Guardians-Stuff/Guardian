@@ -45,4 +45,8 @@ $ pnpm install
 <br>
 <b>Bot Created by @Killerclaws12.</b>
 
-# ❤️ Thanks for using Guardian Bot ❤️
+# ❤️ Special Thanks To: ❤️
+ <ul>
+<li><b><a href = "https://github.com/UndefinedToast">@Undefined Toast</a></b></li>
+<li><b><a href = "https://discord.gg/BuBex4PxJj">Discord Server</a></b></li>
+</ul>
