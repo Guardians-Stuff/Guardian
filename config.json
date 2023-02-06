@@ -1,5 +1,3 @@
 {
-    "live": false,
-    "token": "token",
-    "DatabaseURL": "mongodb url"
+    "live": false
 }
