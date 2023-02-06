@@ -48,5 +48,4 @@ $ pnpm install
 # ❤️ Special Thanks To: ❤️
  <ul>
 <li><b><a href = "https://github.com/UndefinedToast">@Undefined Toast</a> for the economy system</b></li>
-<li><b><a href = "https://discord.gg/BuBex4PxJj">Discord Server</a></b></li>
 </ul>
