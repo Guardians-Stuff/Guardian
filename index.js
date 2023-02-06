@@ -133,8 +133,6 @@ Mongoose.connect(process.env.MONGODB_URL).then(async () => {
     console.log('Client is connected to the database.');
 
     await loadEvents(client);
-    //client.login(config.token).then(() => {
-    // client.user.setActivity(`with ${client.guilds.cache.size} servers!`)
     client.login(process.env.DISCORD_TOKEN).then(() => {
     });
 });
