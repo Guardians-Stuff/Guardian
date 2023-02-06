@@ -31,9 +31,9 @@ module.exports = {
         interaction.guild.members.unban(user, reason).then(async () => {
             await Infractions.updateMany({ type: 'ban' }, { $set: { active: false } });
 
-            return EmbedGenerator.basicEmbed(`<@${user.id}> has been unbanned. | ${reason}`);
+            interaction.reply({ embeds: [ EmbedGenerator.basicEmbed(`<@${user.id}> has been unbanned. | ${reason}`) ] });
         }).catch(() => {
-            return { embeds: [EmbedGenerator.errorEmbed()], ephemeral: true };
+            interaction.reply({ embeds: [ EmbedGenerator.errorEmbed()], ephemeral: true });
         });
     }
 }
