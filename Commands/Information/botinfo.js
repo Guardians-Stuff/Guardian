@@ -10,7 +10,7 @@ module.exports = {
         const hours = Math.floor(uptime / 3600) % 24;
         const minutes = Math.floor(uptime / 60) % 60;
         const seconds = Math.floor(uptime % 60);
-        const developerArray = ["Prince!", "Nyxa"];
+        //const developerArray = [`<@${1049140383122194452}>`, `<@${410862653419028481}>`];
         const replyEmbed = new EmbedBuilder()
             .addFields(
                 {
@@ -25,7 +25,7 @@ module.exports = {
                 },
                 {
                     name: `Developers`,
-                    value: `${developerArray.join(", ") || "None"}`,
+                    value: `Maxxie & Nyxa`,
                     inline: true,
                 },
                 {
