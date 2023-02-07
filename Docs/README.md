@@ -24,7 +24,8 @@
 </ul>
 
 ## 📂 | Installation
-<b>Note:</br><b>
+Fill out `.env.example` and rename to `.env`
+
 <b>Node.js v14.0.0 or newer is required.</b><br>
 ```console
 $ npm i 
