@@ -16,7 +16,7 @@ module.exports = {
                 { name: 'Fun', value: 'Fun' },
                 { name: 'Information', value: 'Information' },
                 { name: 'Moderation', value: 'Moderator' },
-                { name: 'Utility', value: 'Utility' },
+                //{ name: 'Utility', value: 'Utility' },
                 { name: 'Admin', value: 'Administrator' },
                 { name: 'Crisis', value: 'Crisis' },
                 //{ name: 'Economy', value: 'Economy' }
