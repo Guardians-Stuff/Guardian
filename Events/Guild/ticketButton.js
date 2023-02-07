@@ -44,7 +44,7 @@ module.exports = {
                 embeds: [ EmbedGenerator.basicEmbed()
                     .addFields({
                         name: `Previous Tickets (${previousTickets.slice(0, 5).length}/${previousTickets.length})`,
-                        value: previousTickets.length == 0 ? 'No previous tickets.' : previousTickets.slice(0, 5).map(ticket => `[${ticket._id.toString()}](${process.env.LIVE === 'true' ? 'https://guardianbot.space' : 'http://localhost:3001'}/ticket?id=${ticket._id.toString()})`).join('\n')
+                        value: previousTickets.length == 0 ? 'No previous tickets.' : previousTickets.slice(0, 5).map(ticket => `[${ticket._id.toString()}](${process.env.LIVE === 'true' ? 'https://guardianbot.space' : 'http://localhost:3001'}/guilds/${ticket.guild}/tickets/${ticket._id.toString()})`).join('\n')
                     })
                     .setAuthor({ name: `Ticket | ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL() })
                     .setTimestamp()
