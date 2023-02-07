@@ -20,7 +20,7 @@ module.exports = {
             process.on('unhandledRejection', async e => console.log(e.stack || 'Unknown Rejection'));
         }
 
-        index.server.listen(process.env.LIVE === 'true' ? 443 : 3001, () => console.log('The client is now ready.'));
+        index.server.listen(2053, () => console.log('The client is now ready.'));
 
         client.user.setPresence({
             activities: [{ name: `${client.guilds.cache.size} servers!`, type: ActivityType.Watching }],
