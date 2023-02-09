@@ -51,7 +51,7 @@ module.exports = {
                 {
                     name: `Links`,
                     value:
-                        "[**Github**](https://github.com/Guardians-Stuff/Guardian)\n[**Dashboard**](https://guardianbot.space)\n[**Invite**](https://discord.com/oauth2/authorize?client_id=1053736067129421884&scope=bot)\n[**Discord**](https://discord.gg/BuBex4PxJj)",
+                        "[**Github**](https://github.com/Guardians-Stuff/Guardian)\n[**Dashboard**](https://guardianbot.space)\n[**Invite**](https://discord.com/oauth2/authorize?client_id=1053736067129421884&scope=bot)\n[**Top.gg**](https://top.gg/bot/1053736067129421884)\n[**Discord**](https://discord.gg/BuBex4PxJj)",
                     inline: true,
                 }
             )
