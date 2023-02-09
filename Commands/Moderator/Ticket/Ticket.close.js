@@ -30,7 +30,7 @@ module.exports = {
             return new Promise(async resolve => {
                 const user = await client.users.fetch(id).catch(() => null);
                 if(user && !user.bot) await user.send({ embeds: [
-                    EmbedGenerator.basicEmbed(`A ticket you were involved in has been closed.\nYou can view an export of the ticket [here](${process.env.LIVE === 'true' ? 'https://guardianbot.space' : 'http://localhost:3001'}/ticket?id=${ticket._id.toString()}).`)
+                    EmbedGenerator.basicEmbed(`A ticket you were involved in has been closed.\nYou can view an export of the ticket [here](${process.env.LIVE === 'true' ? 'https://guardianbot.space' : 'http://localhost:3001'}/guilds/${ticket.guild}/tickets/${ticket._id.toString()}).`)
                     .setTitle(`${channel.name} | Closed`)
                 ] }).catch(() => null);
                 

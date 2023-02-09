@@ -12,6 +12,6 @@ module.exports = {
      * @param {Client} client
      */
     execute(interaction, client) {
-        return EmbedGenerator.basicEmbed(`[Click me for the invite to the bot!](https://discord.com/api/oauth2/authorize?client_id=1053736067129421884&permissions=8&scope=bot%20applications.commands)`);
+        return EmbedGenerator.basicEmbed(`[Click me for the invite to the bot!](https://discord.com/oauth2/authorize?client_id=1053736067129421884&scope=bot)`);
     }
 };
