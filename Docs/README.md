@@ -48,5 +48,5 @@ $ pnpm install
 
 # ❤️ Special Thanks To: ❤️
  <ul>
-<li><b><a href = "https://github.com/UndefinedToast">@Undefined Toast</a> for the economy system</b></li>
+<li><b><a href = "https://github.com/UndefinedToast">@Undefined Toast</a> for the genGradient functions</b></li>
 </ul>

@@ -2,7 +2,7 @@
   "name": "guardianv-two",
   "version": "1.7.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "Apache",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
