@@ -16,6 +16,27 @@ router.use((req, res, next) => {
     next();
 });
 
+router.get('/api/commands', async (req, res) => {
+    const commands = [];
+
+    for(var command of index.client.commands.values()){
+        commands.push({
+            name: command.data.name,
+            description: command.data.description,
+            category: command.category,
+            subcommands: command.subCommands?.map(subcommand => {
+                return {
+                    name: subcommand.data.name,
+                    description: subcommand.data.description
+                }
+            }) || []
+        });
+    }
+
+    res.status(200).json(commands);
+});
+
+
 router.get('/api/guilds', async (req, res) => {
     const guilds = await index.client.guilds.fetch().catch(() => null);
     if(!guilds) return res.sendStatus(500);

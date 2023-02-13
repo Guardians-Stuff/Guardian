@@ -3,6 +3,9 @@ const ascii = require('ascii-table');
 
 const { loadFiles } = require('../Functions/fileLoader');
 
+/**
+ * @param {Discord.Client} client
+ */
 async function loadCommands(client) {
     const table = new ascii().setHeading("Commands", "Status");
     const files = await loadFiles("Commands")
@@ -14,6 +17,9 @@ async function loadCommands(client) {
     files.forEach(file => {
         const command = require(file);
 
+        const category = file.match(/\/Commands\/(.*?)\//)[1].toLowerCase();
+        command.category = category;
+
         if(command.subCommands) for(const subcommand of command.subCommands) client.subCommands.set(`${command.data.name}.${subcommand.data.name}`, subcommand);
         if(command.data instanceof Discord.SlashCommandSubcommandBuilder) return;
 
@@ -23,7 +29,7 @@ async function loadCommands(client) {
         table.addRow(command.data.name, "✅");
     });
 
-    client.application.commands.set(commandsArray)
+    client.application.commands.set(commandsArray);
 
     return console.log(table.toString(), "\nCommands Loaded.")
 }
