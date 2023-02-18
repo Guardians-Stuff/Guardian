@@ -1,17 +1,26 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require("discord.js");
+const Discord = require('discord.js');
+const Mongoose = require('mongoose');
+
+const Members = require('../../Schemas/Members');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("botinfo")
-        .setDescription("Receive information about the bot"),
+    data: new Discord.SlashCommandBuilder()
+        .setName('botinfo')
+        .setDescription('Receive information about the bot')
+        .setDMPermission(false),
+    /**
+     * @param {Discord.ChatInputCommandInteraction} interaction
+     */
     async execute(interaction) {
         const uptime = process.uptime();
         const days = Math.floor(uptime / 86400);
         const hours = Math.floor(uptime / 3600) % 24;
         const minutes = Math.floor(uptime / 60) % 60;
         const seconds = Math.floor(uptime % 60);
-        //const developerArray = [`<@${1049140383122194452}>`, `<@${410862653419028481}>`];
-        const replyEmbed = new EmbedBuilder()
+
+        const members = await Members.find();
+
+        const replyEmbed = new Discord.EmbedBuilder()
             .addFields(
                 {
                     name: `Name`,
@@ -29,23 +38,23 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: "Total Guilds",
+                    name: 'Total Guilds',
                     value: `\`${interaction.client.guilds.cache.size}\``,
                     inline: true,
                 },
                 {
-                    name: "Total Users",
-                    value: `\`${interaction.client.users.cache.size}\``,
+                    name: 'Total Users',
+                    value: `\`${members.length}\``,
                     inline: true,
                 },
                 {
-                    name: "Uptime",
+                    name: 'Uptime',
                     value: `\`${days}d:${hours}h:${minutes}m:${seconds}s\``,
                     inline: true,
                 },
                 {
                     name: `Dependency versions`,
-                    value: `NodeJS: \`v18.12.0\`\nDiscord.JS: \`14.7.0\`\nMongoose: \`6.7.0\``,
+                    value: `NodeJS: \`v${process.version}\`\nDiscord.JS: \`${Discord.version}\`\nMongoose: \`${Mongoose.version}\``,
                     inline: true,
                 },
                 {
@@ -55,10 +64,9 @@ module.exports = {
                     inline: true,
                 }
             )
-            .setColor("Blue")
+            .setColor('Blue')
             .setTimestamp();
-        interaction.reply({
-            embeds: [replyEmbed],
-        });
+
+        return replyEmbed;
     },
 };

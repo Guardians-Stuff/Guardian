@@ -2,6 +2,7 @@ const { Discord, ActivityType } = require('discord.js');
 
 const index = require('../../index.js');
 const { loadCommands } = require('../../Handlers/commandHandler');
+const { fetchAllMembers } = require('../../Functions/memberTracking.js');
 
 module.exports = {
     name: 'ready',
@@ -26,5 +27,7 @@ module.exports = {
             activities: [{ name: `${client.guilds.cache.size} servers!`, type: ActivityType.Watching }],
             status: "online",
         });
+
+        await fetchAllMembers(client);
     }
 }
