@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const Mongoose = require('mongoose');
 
+const Guilds = require('../../Schemas/Guilds');
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('botinfo')
@@ -8,10 +10,8 @@ module.exports = {
         .setDMPermission(false),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
-     * @param {Discord.Client} client
-     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
-    async execute(interaction, client, dbGuild) {
+    async execute(interaction) {
         const uptime = process.uptime();
         const days = Math.floor(uptime / 86400);
         const hours = Math.floor(uptime / 3600) % 24;
@@ -42,7 +42,7 @@ module.exports = {
                 },
                 {
                     name: 'Total Users',
-                    value: `\`${dbGuild.members.length}\``,
+                    value: `\`${(await Guilds.aggregate([{ $unwind: { path: '$members' }}, { $group: { _id: null, totalMembers: { $sum: 1 }} }]))[0].totalMembers}\``,
                     inline: true,
                 },
                 {
