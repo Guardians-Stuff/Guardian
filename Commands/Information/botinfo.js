@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const Mongoose = require('mongoose');
 
-const Members = require('../../Schemas/Members');
-
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('botinfo')
@@ -10,15 +8,15 @@ module.exports = {
         .setDMPermission(false),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
+     * @param {Discord.Client} client
+     * @param {import('../../Classes/GuildsManager').GuildsManager} dbGuild
      */
-    async execute(interaction) {
+    async execute(interaction, client, dbGuild) {
         const uptime = process.uptime();
         const days = Math.floor(uptime / 86400);
         const hours = Math.floor(uptime / 3600) % 24;
         const minutes = Math.floor(uptime / 60) % 60;
         const seconds = Math.floor(uptime % 60);
-
-        const members = await Members.find();
 
         const replyEmbed = new Discord.EmbedBuilder()
             .addFields(
@@ -44,7 +42,7 @@ module.exports = {
                 },
                 {
                     name: 'Total Users',
-                    value: `\`${members.length}\``,
+                    value: `\`${dbGuild.members.length}\``,
                     inline: true,
                 },
                 {
@@ -54,7 +52,7 @@ module.exports = {
                 },
                 {
                     name: `Dependency versions`,
-                    value: `NodeJS: \`v${process.version}\`\nDiscord.JS: \`${Discord.version}\`\nMongoose: \`${Mongoose.version}\``,
+                    value: `NodeJS: \`${process.version}\`\nDiscord.JS: \`${Discord.version}\`\nMongoose: \`${Mongoose.version}\``,
                     inline: true,
                 },
                 {

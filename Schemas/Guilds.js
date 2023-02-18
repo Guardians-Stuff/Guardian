@@ -2,6 +2,7 @@ const Mongoose = require('mongoose');
 
 module.exports = Mongoose.model('Guilds', new Mongoose.Schema({
     guild: { type: String, required: true, index: true, immutable: true },
+    members: { type: [ String ], index: true, default: [] },
     verification: {
         enabled: { type: Boolean, default: false },
         version: { type: String, enum: [ null, 'button', 'command', 'captcha' ], default: null },

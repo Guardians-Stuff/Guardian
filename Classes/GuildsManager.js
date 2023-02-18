@@ -469,6 +469,21 @@ class GuildsManager{
         cache.set(this.id, this.document);
         return this;
     }
+
+    /**
+     * @type {Array<String>}
+     */
+     get members(){
+        return this.document.members;
+    }
+
+    /**
+     * @param {Array<String>} members
+     */
+    set members(members){
+        this.document.members = members;
+        Guilds.updateOne({ guild: this.id }, { $set: { members: members } }).then(() => null);
+    }
 }
 
 module.exports = { GuildsManager };

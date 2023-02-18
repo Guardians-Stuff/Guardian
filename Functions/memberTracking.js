@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-const Members = require('../Schemas/Members');
+const { GuildsManager } = require('../Classes/GuildsManager');
 
 /**
  * @param {Discord.Client} client
@@ -29,8 +29,8 @@ async function addGuild(guild, retries = 0){
         return await addGuild(guild, retries + 1);
     }
 
-    const promises = [ ...members.values() ].map(member => Members.updateOne({ member: member.id }, { $addToSet: { guilds: guild.id } }, { upsert: true }));
-    await Promise.all(promises);
+    const dbGuild = await GuildsManager.fetch(guild.id);
+    dbGuild.members = [ ...members.keys() ];
 
     console.log(`[Member Tracking]: Added guild ${guild.id} with ${members.size} members`);
 }
@@ -39,23 +39,29 @@ async function addGuild(guild, retries = 0){
  * @param {Discord.Guild} guild
  */
 async function removeGuild(guild){
-    const result = await Members.updateMany({ guilds: { $in: [ guild.id ] } }, { $pull: { guilds: guild.id } });
-    console.log(`[Member Tracking]: Removed guild ${guild.id} with ${result.matchedCount} members`);
+    const dbGuild = await GuildsManager.fetch(guild.id);
+    console.log(`[Member Tracking]: Removed guild ${guild.id} with ${dbGuild.members.length} members`);
+
+    guild.members = [];
 }
 
 /**
  * @param {Discord.GuildMember} member
  */
 async function addMember(member){
-    await Members.updateOne({ member: member.id }, { $addToSet: { guilds: member.guild.id } }, { upsert: true });
+    const dbGuild = await GuildsManager.fetch(member.guild.id);
+    if(!dbGuild.members.includes(member.id)) dbGuild.members.push(member.id);
+
     console.log(`[Member Tracking]: Added member ${member.id} from guild ${member.guild.id}`);
 }
 
 /**
- * @param {Discord.Client} client
+ * @param {Discord.GuildMember} member
  */
 async function removeMember(member){
-    await Members.updateOne({ member: member.id }, { $pull: { guilds: member.guild.id } }, { upsert: true });
+    const dbGuild = await GuildsManager.fetch(member.guild.id);
+    dbGuild.members = dbGuild.members.filter(id => id != member.id);
+
     console.log(`[Member Tracking]: Removed member ${member.id} from guild ${member.guild.id}`);
 }
 
