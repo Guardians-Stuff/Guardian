@@ -120,7 +120,10 @@ router.get('/api/guilds/:guild/members/:member', async (req, res) => {
         guildDisplayAvatarURL: member.displayAvatarURL({ forceStatic: true }),
 
         createdAt: member.user.createdTimestamp,
-        joinedAt: member.joinedTimestamp
+        joinedAt: member.joinedTimestamp,
+
+        owner: guild.ownerId == member.id,
+        administrator: member.permissions.has('Administrator')
     });
 });
 
