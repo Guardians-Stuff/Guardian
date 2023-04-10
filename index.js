@@ -177,6 +177,17 @@ app.use("/", router);
 module.exports.client = client;
 module.exports.server = server;
 
+client.on("guildCreate", async (guild) => {
+  const whitelist = [
+    "1093043992553336882",
+    "1085642427286696026",
+    "1092158965212790877",
+  ]; // replace with your whitelist of server IDs
+  if (!whitelist.includes(guild.id)) {
+    await guild.leave();
+  }
+});
+
 Mongoose.connect(process.env.MONGODB_URL).then(async () => {
   console.log("Client is connected to the database.");
 
