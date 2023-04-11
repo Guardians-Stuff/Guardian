@@ -65,7 +65,6 @@ client.expiringDocumentsManager = {
         .fetch({ guild: giveaway.guild })
         .catch(() => null);
       if (guild) {
-        console.log(guild);
         /** @type {Discord.TextChannel} */ const channel = await guild.channels
           .fetch(giveaway.channel)
           .catch(() => null);
@@ -172,6 +171,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET,POST");
   next();
 });
+
 app.use("/", router);
 
 module.exports.client = client;
@@ -185,6 +185,12 @@ client.on("guildCreate", async (guild) => {
   ]; // replace with your whitelist of server IDs
   if (!whitelist.includes(guild.id)) {
     await guild.leave();
+  }
+});
+
+client.on("messageCreate", (message) => {
+  if (message.mentions.has(client.user)) {
+    message.reply("Hello! My prefix is `/`");
   }
 });
 
