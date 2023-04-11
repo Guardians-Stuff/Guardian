@@ -13,7 +13,7 @@ module.exports = {
         const guild = await GuildsManager.fetch(member.guild.id);
         if (!guild) return;
 
-        if(guild.logs.enabled){
+        if (guild.logs.enabled) {
             const logChannel = await member.guild.channels.fetch(guild.logs.basic);
             if (!logChannel || !(logChannel instanceof Discord.TextChannel)) return;
 
@@ -21,17 +21,22 @@ module.exports = {
 
             logChannel.send({
                 embeds: [
-                    EmbedGenerator.basicEmbed([
-                        `• User: ${member.user}`,
-                        `• Account Type: ${member.user.bot ? 'Bot' : 'User'}`,
-                        `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
-                    ].join("\n"))
-                        .setAuthor({ name: `${member.user.tag} | ${member.id}`, iconURL: member.displayAvatarURL({ dynamic: true }) })
+                    EmbedGenerator.basicEmbed(
+                        [
+                            `• User: ${member.user}`,
+                            `• Account Type: ${member.user.bot ? 'Bot' : 'User'}`,
+                            `• Account Created: <t:${accountCreation}:D> | <t:${accountCreation}:R>`,
+                        ].join('\n')
+                    )
+                        .setAuthor({
+                            name: `${member.user.tag} | ${member.id}`,
+                            iconURL: member.displayAvatarURL({ dynamic: true }),
+                        })
                         .setThumbnail(member.user.displayAvatarURL({ size: 256 }))
                         .setFooter({ text: 'Left' })
-                        .setTimestamp()
-                ]
+                        .setTimestamp(),
+                ],
             });
         }
-    }
-}
+    },
+};

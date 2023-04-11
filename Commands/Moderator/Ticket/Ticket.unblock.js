@@ -9,10 +9,7 @@ module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
         .setName('unblock')
         .setDescription('Unblock a user from creating tickets.')
-        .addUserOption(option => option
-            .setName('user')
-            .setDescription('User to unblock')
-        ),
+        .addUserOption((option) => option.setName('user').setDescription('User to unblock')),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
@@ -20,19 +17,31 @@ module.exports = {
     async execute(interaction, client) {
         /** @type {Discord.TextChannel} */ let user = interaction.options.getUser('user');
 
-        if(!user){
-            const ticket = await Tickets.findOne({ guild: interaction.guild.id, channel: interaction.channel.id });
-            if(!ticket) return EmbedGenerator.errorEmbed('User not found.');
+        if (!user) {
+            const ticket = await Tickets.findOne({
+                guild: interaction.guild.id,
+                channel: interaction.channel.id,
+            });
+            if (!ticket) return EmbedGenerator.errorEmbed('User not found.');
 
             user = await client.users.fetch(ticket.user).catch(() => null);
-            if(!user) return EmbedGenerator.errorEmbed('User not found.');
+            if (!user) return EmbedGenerator.errorEmbed('User not found.');
         }
 
-        const blocked = await Infractions.findOne({ guild: interaction.guild.id, user: interaction.user.id, type: 'block', active: true });
-        if(!blocked) return EmbedGenerator.errorEmbed('That user isn\'t blocked from creating tickets.');
+        const blocked = await Infractions.findOne({
+            guild: interaction.guild.id,
+            user: interaction.user.id,
+            type: 'block',
+            active: true,
+        });
+        if (!blocked)
+            return EmbedGenerator.errorEmbed("That user isn't blocked from creating tickets.");
 
-        await Infractions.updateMany({ guild: interaction.guild.id, user: interaction.user.id, type: 'block', active: true }, { $set: { active: false } });
+        await Infractions.updateMany(
+            { guild: interaction.guild.id, user: interaction.user.id, type: 'block', active: true },
+            { $set: { active: false } }
+        );
 
         return EmbedGenerator.basicEmbed('User unblocked.');
-    }
-}
+    },
+};

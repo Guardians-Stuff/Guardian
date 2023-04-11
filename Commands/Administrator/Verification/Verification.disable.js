@@ -12,7 +12,8 @@ module.exports = {
      * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
-        if(!dbGuild.verification.enabled) return EmbedGenerator.errorEmbed('The verification system is not enabled!');
+        if (!dbGuild.verification.enabled)
+            return EmbedGenerator.errorEmbed('The verification system is not enabled!');
 
         dbGuild.verification.enabled = false;
         dbGuild.verification.version = null;
@@ -20,5 +21,5 @@ module.exports = {
         dbGuild.verification.role = null;
 
         return EmbedGenerator.basicEmbed('🔓 | Member verification has been disabled.');
-    }
-}
+    },
+};

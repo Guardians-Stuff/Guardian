@@ -6,13 +6,14 @@ module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
         .setName('setup')
         .setDescription('Configure the auto-role system.')
-        .addRoleOption(option => option
-            .setName('member')
-            .setDescription('Select the role given to new members.')
-            .setRequired(true)
-        ).addRoleOption(option => option
-            .setName('bot')
-            .setDescription('Select the role given to new bots.')
+        .addRoleOption((option) =>
+            option
+                .setName('member')
+                .setDescription('Select the role given to new members.')
+                .setRequired(true)
+        )
+        .addRoleOption((option) =>
+            option.setName('bot').setDescription('Select the role given to new bots.')
         ),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
@@ -27,11 +28,13 @@ module.exports = {
         dbGuild.autorole.member = memberRole.id;
         dbGuild.autorole.bot = botRole?.id;
 
-        return EmbedGenerator.basicEmbed([
-            '🔒 | The Auto-Role system has been enabled!',
-            '',
-            `• Member Auto-Role Updated: <@&${memberRole.id}>`,
-            `• Bot Auto-Role Updated: ${botRole ? `<@&${botRole.id}>` : 'Not Specified.'}`,
-        ].join("\n"));
-    }
-}
+        return EmbedGenerator.basicEmbed(
+            [
+                '🔒 | The Auto-Role system has been enabled!',
+                '',
+                `• Member Auto-Role Updated: <@&${memberRole.id}>`,
+                `• Bot Auto-Role Updated: ${botRole ? `<@&${botRole.id}>` : 'Not Specified.'}`,
+            ].join('\n')
+        );
+    },
+};

@@ -15,10 +15,5 @@ module.exports = {
         .addSubcommand(GiveawayCancel.data)
         .addSubcommand(GiveawayEnd.data)
         .addSubcommand(GiveawayReroll.data),
-    subCommands: [
-        GiveawayCreate,
-        GiveawayCancel,
-        GiveawayEnd,
-        GiveawayReroll
-    ]
-}
+    subCommands: [GiveawayCreate, GiveawayCancel, GiveawayEnd, GiveawayReroll],
+};

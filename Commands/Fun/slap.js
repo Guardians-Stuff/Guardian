@@ -5,10 +5,7 @@ module.exports = {
         .setName('slap')
         .setDescription('Slap someone.')
         .setDMPermission(false)
-        .addUserOption(option => option
-            .setName('member')
-            .setDescription('Member to slap')
-        ),
+        .addUserOption((option) => option.setName('member').setDescription('Member to slap')),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
      * @param {Discord.Client} client
@@ -16,6 +13,8 @@ module.exports = {
     async execute(interaction, client) {
         const member = interaction.options.getUser('member', true);
 
-        return { content: `👏🔥 | <@${member.id}> you've been slapped by <@${interaction.user.id}>!` };
-    }
-}
+        return {
+            content: `👏🔥 | <@${member.id}> you've been slapped by <@${interaction.user.id}>!`,
+        };
+    },
+};

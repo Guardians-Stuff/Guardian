@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(VerificationSetup.data)
         .addSubcommand(VerificationDisable.data),
-    subCommands: [
-        VerificationSetup,
-        VerificationDisable
-    ]
-}
+    subCommands: [VerificationSetup, VerificationDisable],
+};

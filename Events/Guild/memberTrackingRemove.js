@@ -9,5 +9,5 @@ module.exports = {
      */
     async execute(member, client) {
         await removeMember(member);
-    }
+    },
 };

@@ -16,7 +16,8 @@ module.exports = {
      */
     async execute(interaction, client, dbGuild) {
         const reminders = await Reminders.find({ user: interaction.user.id }).sort({ expires: 1 });
-        if (reminders.length == 0) return { embeds: [ EmbedGenerator.errorEmbed('No reminders found.') ], ephemeral: true };
+        if (reminders.length == 0)
+            return { embeds: [EmbedGenerator.errorEmbed('No reminders found.')], ephemeral: true };
 
         const embeds = [];
 
@@ -24,15 +25,22 @@ module.exports = {
             const remindersSlice = reminders.slice(i, i + 10);
             const embed = EmbedGenerator.basicEmbed()
                 .setAuthor({ name: 'Guardian Reminders', iconURL: client.user.displayAvatarURL() })
-                .setDescription(remindersSlice.map((reminder, index) => {
-                    const ends = Moment(reminder.expires);
-                    return `**${i + index + 1}** • <t:${ends.unix()}:R>(<t:${ends.unix()}:f>) • ${reminder.reminder}`;
-                }
-            ).join('\n'));
+                .setDescription(
+                    remindersSlice
+                        .map((reminder, index) => {
+                            const ends = Moment(reminder.expires);
+                            return `**${
+                                i + index + 1
+                            }** • <t:${ends.unix()}:R>(<t:${ends.unix()}:f>) • ${
+                                reminder.reminder
+                            }`;
+                        })
+                        .join('\n')
+                );
 
             embeds.push(embed);
         }
 
         await EmbedGenerator.pagesEmbed(interaction, embeds, true);
-    }
-}
+    },
+};
