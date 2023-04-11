@@ -9,5 +9,5 @@ module.exports = {
      */
     async execute(member, client) {
         await addMember(await member.fetch());
-    }
+    },
 };

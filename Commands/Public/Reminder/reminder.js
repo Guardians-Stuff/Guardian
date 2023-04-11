@@ -12,9 +12,5 @@ module.exports = {
         .addSubcommand(ReminderCreate.data)
         .addSubcommand(ReminderList.data)
         .addSubcommand(ReminderDelete.data),
-    subCommands: [
-        ReminderCreate,
-        ReminderList,
-        ReminderDelete
-    ]
-}
+    subCommands: [ReminderCreate, ReminderList, ReminderDelete],
+};

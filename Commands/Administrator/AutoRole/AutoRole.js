@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(AutoRoleSetup.data)
         .addSubcommand(AutoRoleDisable.data),
-    subCommands: [
-        AutoRoleSetup,
-        AutoRoleDisable
-    ]
-}
+    subCommands: [AutoRoleSetup, AutoRoleDisable],
+};

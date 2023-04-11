@@ -16,5 +16,5 @@ module.exports = {
         dbGuild.suggestion.reactions = false;
 
         return EmbedGenerator.basicEmbed('The Suggestion system has disabled.');
-    }
-}
+    },
+};

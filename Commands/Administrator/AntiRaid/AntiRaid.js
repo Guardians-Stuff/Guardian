@@ -15,10 +15,5 @@ module.exports = {
         .addSubcommand(AntiRaidDisable.data)
         .addSubcommand(AntiRaidStartRaid.data)
         .addSubcommand(AntiRaidStopRaid.data),
-    subCommands: [
-        AntiRaidSetup,
-        AntiRaidDisable,
-        AntiRaidStartRaid,
-        AntiRaidStopRaid
-    ]
-}
+    subCommands: [AntiRaidSetup, AntiRaidDisable, AntiRaidStartRaid, AntiRaidStopRaid],
+};

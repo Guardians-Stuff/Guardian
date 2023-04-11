@@ -9,16 +9,21 @@ module.exports = {
         .setDMPermission(false)
         .setDescription('View the bots uptime.'),
     /**
-     * 
-     * @param {Discord.ChatInputCommandInteraction} interaction 
-     * @param {Discord.Client} client 
+     *
+     * @param {Discord.ChatInputCommandInteraction} interaction
+     * @param {Discord.Client} client
      */
     execute(interaction, client) {
         return {
             embeds: [
-                EmbedGenerator.basicEmbed(`The bot has been online for \`${ms(client.uptime, { long: true })}\``)
-                    .setAuthor({ name: `${client.user.tag} | Uptime`, iconURL: client.user.displayAvatarURL() })
-            ], ephemeral: true
+                EmbedGenerator.basicEmbed(
+                    `The bot has been online for \`${ms(client.uptime, { long: true })}\``
+                ).setAuthor({
+                    name: `${client.user.tag} | Uptime`,
+                    iconURL: client.user.displayAvatarURL(),
+                }),
+            ],
+            ephemeral: true,
         };
-    }
-}
+    },
+};

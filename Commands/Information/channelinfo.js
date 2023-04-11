@@ -3,18 +3,18 @@ const {
     ChannelType,
     PermissionFlagsBits,
     time,
-    SlashCommandBuilder
-} = require("discord.js");
+    SlashCommandBuilder,
+} = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("channelinfo")
-        .setDescription("Receive information about the current channel"),
+        .setName('channelinfo')
+        .setDescription('Receive information about the current channel'),
     async execute(interaction) {
         const channel = interaction.channel;
 
         const replyEmbed = new EmbedBuilder()
-            .setColor("blue")
+            .setColor('blue')
             .setAuthor({
                 name: `${channel.name}`,
                 iconURL: interaction.guild.iconURL(),
@@ -33,7 +33,7 @@ module.exports = {
                 },
                 {
                     name: `Created at`,
-                    value: `${time(Math.round(channel.createdTimestamp / 1000), "D")}`,
+                    value: `${time(Math.round(channel.createdTimestamp / 1000), 'D')}`,
                     inline: true,
                 },
                 {

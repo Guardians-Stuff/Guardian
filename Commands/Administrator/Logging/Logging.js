@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(LoggingSetup.data)
         .addSubcommand(LoggingDisable.data),
-    subCommands: [
-        LoggingSetup,
-        LoggingDisable
-    ]
-}
+    subCommands: [LoggingSetup, LoggingDisable],
+};

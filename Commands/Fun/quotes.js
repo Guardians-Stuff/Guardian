@@ -1,29 +1,29 @@
-const { PermissionFlagsBits, SlashCommandBuilder } = require("discord.js");
-const fs = require("fs");
+const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
+const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("quote")
-        .setDescription("Receive a random joke from a category")
+        .setName('quote')
+        .setDescription('Receive a random joke from a category')
         .addStringOption((option) =>
             option
-                .setName("category")
-                .setDescription("The category of the joke")
+                .setName('category')
+                .setDescription('The category of the joke')
                 .setRequired(true)
                 .addChoices(
-                    { name: "Motivational", value: "Motivationalquotes.txt" },
-                    { name: "Scientific", value: "Scientific.txt" }
+                    { name: 'Motivational', value: 'Motivationalquotes.txt' },
+                    { name: 'Scientific', value: 'Scientific.txt' }
                 )
         ),
     async execute(interaction) {
-        const category = interaction.options.getString("category");
+        const category = interaction.options.getString('category');
         let fileSize = 0;
 
         switch (category) {
-            case "Motivationalquotes.txt":
+            case 'Motivationalquotes.txt':
                 fileSize = 418;
                 break;
-            case "Scientific.txt":
+            case 'Scientific.txt':
                 fileSize = 25;
                 break;
             default:
@@ -32,7 +32,7 @@ module.exports = {
 
         txtfile = fs.readFileSync(`./data/quotes/${category}`);
         txtfile = txtfile.toString();
-        txtfile = txtfile.split("\n");
+        txtfile = txtfile.split('\n');
         randomNum = Math.floor(Math.random() * fileSize);
 
         interaction.reply({ content: txtfile[randomNum], ephemeral: true });

@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(WarnsView.data)
         .addSubcommand(WarnsRemoveLog.data),
-    subCommands: [
-        WarnsView,
-        WarnsRemoveLog
-    ]
-}
+    subCommands: [WarnsView, WarnsRemoveLog],
+};

@@ -1,0 +1,9 @@
+node_modules/
+*.min.*
+*.bundle.*
+._*
+*bootstrap*
+*bootstrap*
+*vendor*
+*.md
+*.txt

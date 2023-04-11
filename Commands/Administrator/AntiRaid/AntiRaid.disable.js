@@ -20,5 +20,5 @@ module.exports = {
         dbGuild.antiraid.action = null;
 
         return EmbedGenerator.basicEmbed('🔓 | Anti-raid protection has been disabled!');
-    }
-}
+    },
+};

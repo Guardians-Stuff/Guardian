@@ -12,12 +12,13 @@ module.exports = {
      * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
-        if(!dbGuild.logs.enabled) return EmbedGenerator.errorEmbed('The logging system is not enabled!');
+        if (!dbGuild.logs.enabled)
+            return EmbedGenerator.errorEmbed('The logging system is not enabled!');
 
         dbGuild.logs.enabled = true;
         dbGuild.logs.basic = null;
         dbGuild.logs.moderator = null;
 
         return EmbedGenerator.basicEmbed('🔓 | The logging system has been disabled!');
-    }
-}
+    },
+};
