@@ -13,6 +13,7 @@ const EmbedGenerator = require("./Functions/embedGenerator");
 const { loadEvents } = require("./Handlers/eventHandler");
 const { pickUnique } = require("./Functions/pickUnique");
 const router = require("./server");
+const { processErrorHandler } = require("./Handlers/errorHandler");
 
 const Infractions = require("./Schemas/Infractions");
 const Giveaways = require("./Schemas/Giveaways");
@@ -34,6 +35,8 @@ const client = new Discord.Client({
     Discord.Partials.Reaction,
   ],
 });
+
+processErrorHandler();
 
 client.commands = new Discord.Collection();
 client.subCommands = new Discord.Collection();
