@@ -185,11 +185,20 @@ client.on("guildCreate", async (guild) => {
     "1093043992553336882",
     "1085642427286696026",
     "1092158965212790877",
+    "992340846328434798",
   ]; // replace with your whitelist of server IDs
   if (!whitelist.includes(guild.id)) {
     await guild.leave();
   }
 });
+
+/*client.on("guildCreate", async (guild) => {
+  const whitelist = await Whitelist.find({}, { _id: 0, serverID: 1 }).lean();
+  const serverID = whitelist.map((w) => w.serverID);
+  if (!serverID.includes(guild.id)) {
+    await guild.leave();
+  }
+});*/ //Soon
 
 client.on("messageCreate", (message) => {
   if (message.mentions.has(client.user)) {
