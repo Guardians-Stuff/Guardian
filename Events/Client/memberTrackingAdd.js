@@ -9,5 +9,5 @@ module.exports = {
      */
     async execute(guild, client) {
         await addGuild(await guild.fetch());
-    }
+    },
 };

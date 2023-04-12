@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(TimeoutsView.data)
         .addSubcommand(TimeoutsRemoveLog.data),
-    subCommands: [
-        TimeoutsView,
-        TimeoutsRemoveLog
-    ]
-}
+    subCommands: [TimeoutsView, TimeoutsRemoveLog],
+};

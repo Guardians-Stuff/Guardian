@@ -18,5 +18,5 @@ module.exports = {
         dbGuild.tickets.role = null;
 
         return EmbedGenerator.basicEmbed('🔓 | Ticket system has been disabled!');
-    }
-}
+    },
+};

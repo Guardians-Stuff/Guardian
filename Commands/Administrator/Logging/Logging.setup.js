@@ -6,15 +6,18 @@ module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
         .setName('setup')
         .setDescription('Configure the logging system.')
-        .addChannelOption(option => option
-            .setName('log_channel')
-            .setDescription('Select the basic logging channel for this system.')
-            .addChannelTypes(Discord.ChannelType.GuildText)
-            .setRequired(true)
-        ).addChannelOption(option => option
-            .setName('modlog_channel')
-            .setDescription('Select the moderator logging channel for this system.')
-            .addChannelTypes(Discord.ChannelType.GuildText)
+        .addChannelOption((option) =>
+            option
+                .setName('log_channel')
+                .setDescription('Select the basic logging channel for this system.')
+                .addChannelTypes(Discord.ChannelType.GuildText)
+                .setRequired(true)
+        )
+        .addChannelOption((option) =>
+            option
+                .setName('modlog_channel')
+                .setDescription('Select the moderator logging channel for this system.')
+                .addChannelTypes(Discord.ChannelType.GuildText)
         ),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
@@ -29,11 +32,15 @@ module.exports = {
         dbGuild.logs.basic = logChannel.id;
         dbGuild.logs.moderator = modLogChannel?.id;
 
-        return EmbedGenerator.basicEmbed([
-            '🔒 | The logging system has been enabled!',
-            '',
-            `• Basic Logging Channel Updated: <#${logChannel.id}>`,
-            `• Moderator Logging Channel Updated: ${modLogChannel ? `<#${modLogChannel.id}>` : 'Not Specified.'}`,
-        ].join("\n"));
-    }
-}
+        return EmbedGenerator.basicEmbed(
+            [
+                '🔒 | The logging system has been enabled!',
+                '',
+                `• Basic Logging Channel Updated: <#${logChannel.id}>`,
+                `• Moderator Logging Channel Updated: ${
+                    modLogChannel ? `<#${modLogChannel.id}>` : 'Not Specified.'
+                }`,
+            ].join('\n')
+        );
+    },
+};

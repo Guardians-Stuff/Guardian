@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(SuggestionSetup.data)
         .addSubcommand(SuggestionDisable.data),
-    subCommands: [
-        SuggestionSetup,
-        SuggestionDisable
-    ]
-}
+    subCommands: [SuggestionSetup, SuggestionDisable],
+};

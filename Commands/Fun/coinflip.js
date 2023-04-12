@@ -13,5 +13,5 @@ module.exports = {
      */
     async execute(interaction, client) {
         return EmbedGenerator.basicEmbed(Math.random() > 0.5 ? 'Heads' : 'Tails');
-    }
-}
+    },
+};

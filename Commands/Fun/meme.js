@@ -11,5 +11,5 @@ module.exports = {
      */
     async execute(interaction, client) {
         return { content: '🪞' };
-    }
-}
+    },
+};

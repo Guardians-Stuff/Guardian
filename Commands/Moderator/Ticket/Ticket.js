@@ -25,6 +25,6 @@ module.exports = {
         TicketUnblock,
         TicketViewPrevious,
         TicketAddUser,
-        TicketRemoveUser
-    ]
-}
+        TicketRemoveUser,
+    ],
+};

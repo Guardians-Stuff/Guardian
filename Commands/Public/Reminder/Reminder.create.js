@@ -10,18 +10,23 @@ module.exports = {
     data: new Discord.SlashCommandSubcommandBuilder()
         .setName('create')
         .setDescription('Create a reminder.')
-        .addStringOption(option => option
-            .setName('reminder')
-            .setDescription('Reminder to send you.')
-            .setRequired(true)
-            .setMaxLength(400)
-        ).addStringOption(option => option
-            .setName('duration')
-            .setDescription('How long until you should be reminded.')
-            .setRequired(true)
-        ).addBooleanOption(option => option
-            .setName('repeating')
-            .setDescription('Whether this reminder should repeat until deleted.')
+        .addStringOption((option) =>
+            option
+                .setName('reminder')
+                .setDescription('Reminder to send you.')
+                .setRequired(true)
+                .setMaxLength(400)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('duration')
+                .setDescription('How long until you should be reminded.')
+                .setRequired(true)
+        )
+        .addBooleanOption((option) =>
+            option
+                .setName('repeating')
+                .setDescription('Whether this reminder should repeat until deleted.')
         ),
     /**
      * @param {Discord.ChatInputCommandInteraction} interaction
@@ -34,16 +39,26 @@ module.exports = {
         const repeating = interaction.options.getBoolean('repeating') || false;
 
         const durationMs = ms(duration);
-        if(!durationMs) return { embeds: [ EmbedGenerator.errorEmbed('Invalid duration.') ], ephemeral: true };
+        if (!durationMs)
+            return { embeds: [EmbedGenerator.errorEmbed('Invalid duration.')], ephemeral: true };
         const ends = Moment().add(durationMs);
 
-        await client.expiringDocumentsManager.reminders.addNewDocument(await Reminders.create({
-            user: interaction.user.id,
-            reminder: reminder,
-            repeating: repeating,
-            duration: durationMs
-        }));
+        await client.expiringDocumentsManager.reminders.addNewDocument(
+            await Reminders.create({
+                user: interaction.user.id,
+                reminder: reminder,
+                repeating: repeating,
+                duration: durationMs,
+            })
+        );
 
-        return { embeds: [ EmbedGenerator.basicEmbed(`Reminder created.\nYou will be reminded in <t:${ends.unix()}:R>(<t:${ends.unix()}:f>)`) ], ephemeral: true };
-    }
-}
+        return {
+            embeds: [
+                EmbedGenerator.basicEmbed(
+                    `Reminder created.\nYou will be reminded in <t:${ends.unix()}:R>(<t:${ends.unix()}:f>)`
+                ),
+            ],
+            ephemeral: true,
+        };
+    },
+};

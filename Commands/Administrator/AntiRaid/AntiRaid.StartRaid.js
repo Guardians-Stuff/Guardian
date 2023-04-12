@@ -12,15 +12,22 @@ module.exports = {
      * @param {import('../../../Classes/GuildsManager').GuildsManager} dbGuild
      */
     async execute(interaction, client, dbGuild) {
-        if(dbGuild.antiraid.raid) return EmbedGenerator.errorEmbed(':x: A raid is already ongoing!')
+        if (dbGuild.antiraid.raid)
+            return EmbedGenerator.errorEmbed(':x: A raid is already ongoing!');
 
         dbGuild.antiraid.raid = true;
-        if(dbGuild.antiraid.lockdown.enabled){
+        if (dbGuild.antiraid.lockdown.enabled) {
             dbGuild.antiraid.lockdown.active = true;
 
             // execute lockdown
         }
 
-        return EmbedGenerator.basicEmbed(`🔒 | Raid mode has been enabled!${dbGuild.antiraid.lockdown.enabled ? '\n🔒 | This server has entered lockdown mode!' : ''}`);
-    }
-}
+        return EmbedGenerator.basicEmbed(
+            `🔒 | Raid mode has been enabled!${
+                dbGuild.antiraid.lockdown.enabled
+                    ? '\n🔒 | This server has entered lockdown mode!'
+                    : ''
+            }`
+        );
+    },
+};

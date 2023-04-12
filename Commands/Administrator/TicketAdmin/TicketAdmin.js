@@ -11,8 +11,5 @@ module.exports = {
         .setDMPermission(false)
         .addSubcommand(TicketAdminSetup.data)
         .addSubcommand(TicketAdminDisable.data),
-    subCommands: [
-        TicketAdminSetup,
-        TicketAdminDisable,
-    ]
-}
+    subCommands: [TicketAdminSetup, TicketAdminDisable],
+};

@@ -1,10 +1,10 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require("discord.js");
+const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("serverinfo")
+        .setName('serverinfo')
         .setDefaultMemberPermissions(PermissionFlagsBits.EmbedLinks)
-        .setDescription("Receive information about the current guild"),
+        .setDescription('Receive information about the current guild'),
     async execute(interaction) {
         let serverIcon = interaction.guild.iconURL();
         let boostCount = interaction.guild.premiumSubscriptionCount;
@@ -21,12 +21,12 @@ module.exports = {
         const fetchedOwner = await Promise.resolve(interaction.guild.fetchOwner());
 
         const replyEmbed = new EmbedBuilder()
-            .setColor("blue")
+            .setColor('blue')
             .setAuthor({ name: `${interaction.guild.name}`, iconURL: serverIcon })
             .setThumbnail(serverIcon)
             .addFields(
                 {
-                    name: "General information",
+                    name: 'General information',
                     value: `
           *Owner:* \`${fetchedOwner.user.tag}\`
                 *Member count:* \`${interaction.guild.memberCount}\`
@@ -34,12 +34,11 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: "Other",
+                    name: 'Other',
                     value: `
           *Roles:* \`${interaction.guild.roles.cache.size - 1}\`
                 *Boost tier:* \`${boostTier}\`
-                *Channels:* \`${interaction.guild.channels.channelCountWithoutThreads
-                        }\``,
+                *Channels:* \`${interaction.guild.channels.channelCountWithoutThreads}\``,
                     inline: true,
                 }
             )
