@@ -172,32 +172,6 @@ app.use('/', router);
 module.exports.client = client;
 module.exports.server = server;
 
-<<<<<<< HEAD
-client.on("guildCreate", async (guild) => {
-  const whitelist = [
-    "1093043992553336882",
-    "1085642427286696026",
-    "1092158965212790877",
-    "992340846328434798",
-  ]; // replace with your whitelist of server IDs
-  if (!whitelist.includes(guild.id)) {
-    await guild.leave();
-  }
-});
-
-/*client.on("guildCreate", async (guild) => {
-  const whitelist = await Whitelist.find({}, { _id: 0, serverID: 1 }).lean();
-  const serverID = whitelist.map((w) => w.serverID);
-  if (!serverID.includes(guild.id)) {
-    await guild.leave();
-  }
-});*/ //Soon
-
-client.on("messageCreate", (message) => {
-  if (message.mentions.has(client.user)) {
-    message.reply("Hello! My prefix is `/`");
-  }
-=======
 client.on('guildCreate', async (guild) => {
     const whitelist = ['1093043992553336882', '1085642427286696026', '1092158965212790877']; // replace with your whitelist of server IDs
     if (!whitelist.includes(guild.id)) {
@@ -209,7 +183,6 @@ client.on('messageCreate', (message) => {
     if (message.mentions.has(client.user)) {
         message.reply('Hello! My prefix is `/`');
     }
->>>>>>> 373f9f29defc46f95764544e28e8eee070281d40
 });
 
 Mongoose.connect(process.env.MONGODB_URL).then(async () => {
