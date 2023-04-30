@@ -14,7 +14,7 @@ There are much more commands! Just do "/help"!
 
 ## Customization
 
-Guardian is highly customizable and can be configured to fit your server's needs. To customize Guardian, simply edit the `.env` file and restart the bot.
+Guardian is highly customizable and can be configured to fit your server's needs. To customize Guardian, simply edit the `example.env` file by renaming it to `.env`, then editing the variables inside of the file and then restart the bot.
 
 ## Support
 
