@@ -30,7 +30,8 @@
         "nodemon": "^2.0.20",
         "octokit": "^2.0.14",
         "os": "^0.1.2",
-        "urban": "^0.3.4"
+        "urban": "^0.3.4",
+        "weather-js": "^2.0.0"
     },
     "devDependencies": {
         "@types/mongoose": "^5.11.97"
