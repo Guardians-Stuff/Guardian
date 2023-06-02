@@ -20,7 +20,7 @@ Guardian is highly customizable and can be configured to fit your server's needs
 
 ## Support
 
-If you need help with Guardian or have any questions, feel free to join our [Discord server](https://discord.gg/BdJ4JwCveu) and ask for assistance.
+If you need help with Guardian or have any questions, feel free to join our [Discord server][(https://discord.gg/w3Dz33sQY2)] and ask for assistance.
 
 ## Contributing
 
