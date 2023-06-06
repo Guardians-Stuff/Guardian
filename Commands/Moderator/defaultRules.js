@@ -1,10 +1,10 @@
-const { EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require(`discord.js`);
+const { Discord, EmbedBuilder, PermissionFlagsBits, SlashCommandBuilder } = require(`discord.js`);
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rules')
         .setDescription('Gives the server basic rules.')
-        .setDefaultMemberPermissions(Discord.PermissionFlagsBits.ADMINISTRATOR)
+        //.setDefaultMemberPermissions(Discord.PermissionFlagsBits.ADMINISTRATOR)
         .setDMPermission(false),
 
     async execute(interaction, client, dbGuild) {

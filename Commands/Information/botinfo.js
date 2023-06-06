@@ -21,27 +21,27 @@ module.exports = {
         const replyEmbed = new Discord.EmbedBuilder()
             .addFields(
                 {
-                    name: `Name`,
+                    name: `<:blurple_discord_at:1115466237263237230> Name`,
                     value: `Guardian`,
                     inline: true,
                 },
                 {
-                    name: `ID`,
+                    name: `<:blurple_invite:1115466603325313034> ID`,
                     value: `1053736067129421884`,
                     inline: true,
                 },
                 {
-                    name: `Developers`,
+                    name: `<:blurple_employee:1115467009791115285> Developers`,
                     value: `Maxxie`,
                     inline: true,
                 },
                 {
-                    name: 'Total Guilds',
+                    name: '<:blurple_bot:1115465243649380452> Total Guilds',
                     value: `\`${interaction.client.guilds.cache.size}\``,
                     inline: true,
                 },
                 {
-                    name: 'Total Users',
+                    name: '<:blurple_members:1115465488227635272> Total Users',
                     value: `\`${
                         (
                             await Guilds.aggregate([
@@ -53,18 +53,18 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: 'Uptime',
+                    name: '<:blurple_chat:1115465656549265509> Uptime',
                     value: `\`${days}d:${hours}h:${minutes}m:${seconds}s\``,
                     inline: true,
                 },
                 {
                     name: `Dependency versions`,
-                    value: `NodeJS: \`${process.version}\`\nDiscord.JS: \`${Discord.version}\`\nMongoose: \`${Mongoose.version}\``,
+                    value: `<:nodejs:1115464281165668362> NodeJS: \`${process.version}\`\n<:discord_js:1115464430646468628> Discord.JS: \`${Discord.version}\`\n<:blurple_lock:1115464901377392671> Mongoose: \`${Mongoose.version}\``,
                     inline: true,
                 },
                 {
                     name: `Links`,
-                    value: '[**Github**](https://github.com/Guardians-Stuff/Guardian)\n[**Invite**](https://discord.com/oauth2/authorize?client_id=1093047924172279900&scope=bot)',
+                    value: '<:github:1109625282752688189> [**Github**](https://github.com/Guardians-Stuff/Guardian)\n<:blurple_link:1115463946565079040> [**Invite**](https://discord.com/oauth2/authorize?client_id=1093047924172279900&scope=bot)',
                     inline: true,
                 }
             )
