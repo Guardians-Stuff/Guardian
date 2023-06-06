@@ -31,7 +31,7 @@ module.exports = {
                     if (response.statusCode === 200) {
                         if (verbose) {
                             interaction.reply(
-                                `${url} is up! Response code: ${response.statusCode}`
+                                `<:blurple_check:1115777129536294932> ${url} is up! Response code: ${response.statusCode}`
                             );
                         } else {
                             interaction.reply(`${url} is up!`);
@@ -39,7 +39,7 @@ module.exports = {
                     } else {
                         if (verbose) {
                             interaction.reply(
-                                `${url} is down! Response code: ${response.statusCode}`
+                                `<:blurple_cross:1115777101925199912> ${url} is down! Response code: ${response.statusCode}`
                             );
                         } else {
                             interaction.reply(`${url} is down!`);

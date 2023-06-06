@@ -11,7 +11,7 @@ module.exports = {
             option.setName('rating').setDescription('Your rating out of 5.').setRequired(true)
         ),
     async execute(interaction, client, dbGuild) {
-        const feedbackChannel = client.channels.cache.get('1094404734011584602'); // Channel id of the feedback channel
+        const feedbackChannel = client.channels.cache.get('1109627213759914005'); // Channel id of the feedback channel
         const feedback = interaction.options.getString('feedback');
         const rating = interaction.options.getInteger('rating');
         feedbackChannel.send(
