@@ -1,6 +1,7 @@
 -- Guardian
     : Style the commands better
 
+    - Rename the bot to a better name
     - Fix alot of bugs 
     - Refactor the code
     - Style all the embeds neater with emojis
