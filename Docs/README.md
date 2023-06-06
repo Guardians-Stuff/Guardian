@@ -1,3 +1,5 @@
+**DEVELOPMENT IS ON HOLD, AS I AM REMAKING THE SUPPORT SERVER & IM GOING ON VACATION FOR A WEEK**
+
 # Guardian
 
 Guardian is a Discord bot designed to help moderate and manage your server. With features like automatic role assignment, message logging, and much more. Guardian is the perfect addition to any server.
@@ -18,7 +20,7 @@ Guardian is highly customizable and can be configured to fit your server's needs
 
 ## Support
 
-If you need help with Guardian or have any questions, feel free to join our [Discord server](https://discord.gg/BdJ4JwCveu) and ask for assistance.
+If you need help with Guardian or have any questions, feel free to join our [Discord server](https://discord.gg/w3Dz33sQY2) and ask for assistance.
 
 ## Contributing
 
