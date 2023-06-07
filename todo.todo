@@ -1,15 +1,7 @@
 -- Guardian
-    : Style the commands better
-
-    - Rename the bot to a better name
-    - Fix alot of bugs 
-    - Refactor the code
-    - Style all the embeds neater with emojis
-    - Improve the speed of the bot
-    - Make the bot more configurable with commands
-
+    : Guardian's todo list
     -- New Features
-        : LEARN HOW TO DO ALL THESE FIRST
+        : Maybe I'll add these
 
         - Anti-Zalgo sys & Anti-Badwords sys (maybe)
         - Anti-Nuke sys (maybe)
