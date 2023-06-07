@@ -10,6 +10,7 @@
         "check": "docker run --rm -v $(pwd):/app -w /app node:18.8 sh -c \"npm install -g prettier && prettier --check .\""
     },
     "dependencies": {
+        "@iamtraction/google-translate": "^2.0.1",
         "@octokit/rest": "^19.0.7",
         "ascii-table": "^0.0.9",
         "axios": "^1.2.1",
@@ -30,6 +31,7 @@
         "nodemon": "^2.0.20",
         "octokit": "^2.0.14",
         "os": "^0.1.2",
+        "uninstall": "^0.0.0",
         "urban": "^0.3.4",
         "weather-js": "^2.0.0"
     },
