@@ -5,3 +5,4 @@ data/server/fullchain.pem
 data/server/privkey.pem
 .env
 .vscode
+./Commands/Administrator/Giveaway

@@ -64,7 +64,7 @@ module.exports = {
                 },
                 {
                     name: `Links`,
-                    value: '<:github:1109625282752688189> [**Github**](https://github.com/Guardians-Stuff/Guardian)\n<:blurple_link:1115463946565079040> [**Invite**](https://discord.com/oauth2/authorize?client_id=1093047924172279900&scope=bot)',
+                    value: '<:github:1109625282752688189> [**Github**](https://github.com/Guardians-Stuff/Guardian)\n<:blurple_link:1115463946565079040> [**Invite**](https://discord.com/oauth2/authorize?client_id=1130480504097996832&scope=bot)',
                     inline: true,
                 }
             )
