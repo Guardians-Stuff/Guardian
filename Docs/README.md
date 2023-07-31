@@ -1,1 +1,1 @@
-Guardian self hosting help is closed for now. New srv coming soon.
+Guardian help has now been ended. Thanks for being here and supporting the project.
