@@ -22,7 +22,7 @@ module.exports = {
             });
         executeFunction = command.execute;
 
-        if (command.developer && interaction.user.id !== '446706651026948096') {
+        if (command.developer && interaction.user.id !== '1421369024058490880') {
             return interaction.reply({
                 content: 'This command is only available to the developer.',
                 ephemeral: true,
