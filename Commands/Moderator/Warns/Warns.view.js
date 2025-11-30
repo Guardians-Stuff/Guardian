@@ -24,7 +24,7 @@ module.exports = {
             user: user.id,
             type: 'warning',
         }).sort({ time: -1 });
-        if (warnings.length == 0) return EmbedGenerator.errorEmbed('No warnings found');
+        if (warnings.length === 0) return EmbedGenerator.errorEmbed('No warnings found');
 
         const embeds = [];
 

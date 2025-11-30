@@ -66,9 +66,9 @@ function infractionEmbed(guild, issuer, type, duration, expires, reason = 'Unspe
  * @param {Boolean} ephemeral
  */
 async function pagesEmbed(interaction, embeds, ephemeral = false) {
-    if (embeds.length == 0)
+    if (embeds.length === 0)
         return interaction.reply({ content: 'There was an error.', ephemeral: true });
-    if (embeds.length == 1)
+    if (embeds.length === 1)
         return interaction.reply({
             embeds: [embeds[0].setFooter({ text: 'Page 1/1' })],
             ephemeral: ephemeral,
@@ -94,17 +94,17 @@ async function pagesEmbed(interaction, embeds, ephemeral = false) {
     });
     const filter = (/** @type {Discord.MessageComponentInteraction} */ i) =>
         ['previous', 'next'].includes(i.customId) &&
-        i.message.id == sent.id &&
-        interaction.member.id == i.user.id;
+        i.message.id === sent.id &&
+        interaction.member.id === i.user.id;
     const collector = sent.createMessageComponentCollector({ filter, time: 120000 });
 
     collector.on('collect', async (i) => {
-        if (i.customId == 'previous') {
+        if (i.customId === 'previous') {
             page = Math.max(0, page - 1);
             i.update({
                 embeds: [embeds[page].setFooter({ text: `Page ${page + 1}/${embeds.length}` })],
             });
-        } else if (i.customId == 'next') {
+        } else if (i.customId === 'next') {
             page = Math.min(embeds.length - 1, page + 1);
             i.update({
                 embeds: [embeds[page].setFooter({ text: `Page ${page + 1}/${embeds.length}` })],

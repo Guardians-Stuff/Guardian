@@ -36,8 +36,8 @@ module.exports = {
 
         /** @type {Discord.Collection<string, Discord.Message>} */ const messages =
             await interaction.channel.messages.fetch({ limit: amount });
-        if (target) messages.filter((message) => message.author.id == target.id);
-        if (messages.size == 0)
+        if (target) messages = messages.filter((message) => message.author.id === target.id);
+        if (messages.size === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No messages found.')], ephemeral: true };
 
         /** @type {Discord.TextChannel} */ (interaction.channel)

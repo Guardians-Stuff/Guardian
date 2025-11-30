@@ -83,13 +83,13 @@ module.exports = {
                 return EmbedGenerator.errorEmbed(':x: | Failed to create a verification channel');
 
             for (const c of (await interaction.guild.channels.fetch()).values())
-                if (channel.id != c.id)
+                if (channel.id !== c.id)
                     await c.permissionOverwrites
                         .create(role.id, { ViewChannel: false })
                         .catch(() => null);
         }
 
-        if (type == 'button') {
+        if (type === 'button') {
             await channel.send({
                 embeds: [
                     EmbedGenerator.basicEmbed(
@@ -108,7 +108,7 @@ module.exports = {
                     ]),
                 ],
             });
-        } else if (type == 'command') {
+        } else if (type === 'command') {
             await channel.send({
                 embeds: [
                     EmbedGenerator.basicEmbed(
@@ -119,7 +119,7 @@ module.exports = {
                     ).setAuthor({ name: client.user.tag, iconURL: client.user.displayAvatarURL() }),
                 ],
             });
-        } else if (type == 'captcha') {
+        } else if (type === 'captcha') {
             await channel.send({
                 embeds: [
                     EmbedGenerator.basicEmbed(

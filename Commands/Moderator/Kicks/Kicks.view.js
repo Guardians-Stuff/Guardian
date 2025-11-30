@@ -24,7 +24,7 @@ module.exports = {
             user: user.id,
             type: 'kick',
         }).sort({ time: -1 });
-        if (kicks.length == 0) return EmbedGenerator.errorEmbed('No kicks found');
+        if (kicks.length === 0) return EmbedGenerator.errorEmbed('No kicks found');
 
         const embeds = [];
 

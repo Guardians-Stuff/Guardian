@@ -338,7 +338,7 @@ class GuildsManagerAntiRaidLockdown {
     set enabled(enabled) {
         this.parent.parent.document.antiraid.lockdown.enabled = enabled;
         Guilds.updateOne(
-            { guild: this.parent.id },
+            { guild: this.parent.parent.id },
             { $set: { 'antiraid.lockdown.enabled': enabled } }
         ).then(() => null);
     }
@@ -356,7 +356,7 @@ class GuildsManagerAntiRaidLockdown {
     set active(active) {
         this.parent.parent.document.antiraid.lockdown.active = active;
         Guilds.updateOne(
-            { guild: this.parent.id },
+            { guild: this.parent.parent.id },
             { $set: { 'antiraid.lockdown.active': active } }
         ).then(() => null);
     }

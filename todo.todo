@@ -3,11 +3,16 @@
     -- New Features
         : Maybe I'll add these
 
-        - Anti-Zalgo sys & Anti-Badwords sys (maybe)
-        - Anti-Nuke sys (maybe)
-        - Initinalizing command, like wickbot. (maybe)
-        - Configurable modmail sys (maybe)
+        - Anti-Zalgo sys & Anti-Badwords sys
+        - Anti-Nuke sys
+        - Initinalizing command, like wickbot.
+        - Configurable modmail sys
         - Economy commands
-        - More fun commands
+
+    -- What needs to be changed
+        : Core Features
+
+        - Add a prefix, so any non-moderation command will only be available via prefix astead of slashs.
+        - Rewrite some of the code, and upgrade the discordjs version (last of my priortity as im only one guy)
     --/
 --/

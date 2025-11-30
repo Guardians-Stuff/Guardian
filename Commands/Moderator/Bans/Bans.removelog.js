@@ -28,7 +28,7 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
 
         const ban = interaction.options.getString('ban', true);
-        if (ban == 'all') {
+        if (ban === 'all') {
             await Infractions.deleteMany({
                 guild: interaction.guild.id,
                 user: user.id,
@@ -44,10 +44,10 @@ module.exports = {
             user: user.id,
             type: 'ban',
         }).sort({ time: -1 });
-        if (bans.length == 0)
+        if (bans.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No bans found')], ephemeral: true };
 
-        if (ban == 'latest') {
+        if (ban === 'latest') {
             if (bans[0].active)
                 return {
                     embeds: [EmbedGenerator.errorEmbed('Unable to remove an active ban')],

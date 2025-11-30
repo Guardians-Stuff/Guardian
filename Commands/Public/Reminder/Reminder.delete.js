@@ -21,7 +21,7 @@ module.exports = {
     async execute(interaction, client) {
         const reminder = interaction.options.getString('reminder', true);
 
-        if (reminder == 'all') {
+        if (reminder === 'all') {
             await Reminders.deleteMany({ user: interaction.user.id });
 
             return {
@@ -31,7 +31,7 @@ module.exports = {
         }
 
         const reminders = await Reminders.find({ user: interaction.user.id }).sort({ expires: 1 });
-        if (reminders.length == 0)
+        if (reminders.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No reminders found.')], ephemeral: true };
 
         if (isNaN(+reminder) || !reminders[+reminder - 1])

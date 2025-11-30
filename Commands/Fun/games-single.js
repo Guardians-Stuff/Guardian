@@ -302,7 +302,7 @@ const {
   
               case "rock": {
   
-                if (botchoice == "rock") {
+                if (botchoice === "rock") {
   
                   return interaction.editReply({
                     embeds: [
@@ -319,7 +319,7 @@ const {
                   })
                 }
   
-                if (botchoice == "paper") {
+                if (botchoice === "paper") {
   
                   return interaction.editReply({
                     embeds: [
@@ -335,7 +335,7 @@ const {
                     components: []
                   })
                 }
-                if (botchoice == "scissor") {
+                if (botchoice === "scissor") {
   
                   return interaction.editReply({
                     embeds: [
@@ -354,7 +354,7 @@ const {
               }
                 break;
               case "paper": {
-                if (botchoice == "rock") {
+                if (botchoice === "rock") {
   
                   return interaction.editReply({
                     embeds: [
@@ -371,7 +371,7 @@ const {
                   })
                 }
   
-                if (botchoice == "paper") {
+                if (botchoice === "paper") {
   
                   return interaction.editReply({
                     embeds: [
@@ -387,7 +387,7 @@ const {
                     components: []
                   })
                 }
-                if (botchoice == "scissor") {
+                if (botchoice === "scissor") {
   
                   return interaction.editReply({
                     embeds: [
@@ -408,7 +408,7 @@ const {
   
               case "scissor": {
   
-                if (botchoice == "rock") {
+                if (botchoice === "rock") {
   
                   return interaction.editReply({
                     embeds: [
@@ -425,7 +425,7 @@ const {
                   })
                 }
   
-                if (botchoice == "paper") {
+                if (botchoice === "paper") {
   
                   return interaction.editReply({
                     embeds: [
@@ -441,7 +441,7 @@ const {
                     components: []
                   })
                 }
-                if (botchoice == "scissor") {
+                if (botchoice === "scissor") {
   
                   return interaction.editReply({
                     embeds: [

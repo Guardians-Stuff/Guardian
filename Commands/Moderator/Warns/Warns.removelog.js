@@ -30,7 +30,7 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
 
         const warning = interaction.options.getString('warning', true);
-        if (warning == 'all') {
+        if (warning === 'all') {
             await Infractions.deleteMany({
                 guild: interaction.guild.id,
                 user: user.id,
@@ -45,10 +45,10 @@ module.exports = {
             user: user.id,
             type: 'warning',
         }).sort({ time: -1 });
-        if (warnings.length == 0)
+        if (warnings.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No warnings found')], ephemeral: true };
 
-        if (warning == 'latest') {
+        if (warning === 'latest') {
             await warnings[0].remove();
 
             return EmbedGenerator.basicEmbed('Warning removed');

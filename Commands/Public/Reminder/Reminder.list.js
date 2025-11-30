@@ -16,7 +16,7 @@ module.exports = {
      */
     async execute(interaction, client, dbGuild) {
         const reminders = await Reminders.find({ user: interaction.user.id }).sort({ expires: 1 });
-        if (reminders.length == 0)
+        if (reminders.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No reminders found.')], ephemeral: true };
 
         const embeds = [];

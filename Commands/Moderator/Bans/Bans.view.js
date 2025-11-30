@@ -25,7 +25,7 @@ module.exports = {
             user: user.id,
             type: 'ban',
         }).sort({ time: -1 });
-        if (bans.length == 0) return EmbedGenerator.errorEmbed('No bans found.');
+        if (bans.length === 0) return EmbedGenerator.errorEmbed('No bans found.');
 
         const embeds = [];
 

@@ -22,7 +22,7 @@ module.exports = {
             });
         executeFunction = command.execute;
 
-        if (command.developer && interaction.user.id !== '1421369024058490880') {
+        if (command.developer && interaction.user.id !== '446706651026948096') {
             return interaction.reply({
                 content: 'This command is only available to the developer.',
                 ephemeral: true,
@@ -55,7 +55,7 @@ module.exports = {
             };
 
             if (response instanceof Discord.EmbedBuilder) parsedResponse.embeds.push(response);
-            if (response instanceof String) parsedResponse.content = response;
+            if (typeof response === 'string') parsedResponse.content = response;
 
             if (interaction.replied || interaction.deferred) {
                 interaction.editReply(parsedResponse);

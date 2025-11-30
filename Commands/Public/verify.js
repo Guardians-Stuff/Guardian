@@ -27,7 +27,7 @@ module.exports = {
             return {
                 embeds: [
                     EmbedGenerator.errorEmbed(
-                        'This guild doesn\t have the Verification system enabled.'
+                        'This guild doesn\'t have the Verification system enabled.'
                     ),
                 ],
                 ephemeral: true,
@@ -37,7 +37,7 @@ module.exports = {
                 embeds: [EmbedGenerator.errorEmbed('You are already verified.')],
                 ephemeral: true,
             };
-        if (dbGuild.verification.version == 'button')
+        if (dbGuild.verification.version === 'button')
             return {
                 embeds: [EmbedGenerator.errorEmbed('This guild uses a button for verification.')],
                 ephemeral: true,
@@ -45,9 +45,9 @@ module.exports = {
 
         const captcha = interaction.options.getString('captcha');
 
-        if (dbGuild.verification.version == 'command') {
+        if (dbGuild.verification.version === 'command') {
             interaction.member.roles
-                .remove(guild.verification.role, 'Verification completed')
+                .remove(dbGuild.verification.role, 'Verification completed')
                 .catch(() => {
                     interaction.reply({ embeds: [EmbedGenerator.errorEmbed()], ephemeral: true });
                 })
@@ -57,7 +57,7 @@ module.exports = {
                         ephemeral: true,
                     });
                 });
-        } else if (dbGuild.verification.version == 'captcha') {
+        } else if (dbGuild.verification.version === 'captcha') {
             if (!dbUser.captcha || !captcha) {
                 const generatedCaptcha = new Captcha();
                 dbUser.captcha = generatedCaptcha.value;
@@ -95,7 +95,7 @@ module.exports = {
                         });
                     });
             } else {
-                if (captcha.toUpperCase() == dbUser.captcha) {
+                if (captcha.toUpperCase() === dbUser.captcha) {
                     interaction.member.roles
                         .remove(dbGuild.verification.role, 'Verification completed')
                         .catch(() => {

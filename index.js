@@ -45,7 +45,7 @@ client.expiringDocumentsManager = {
         Infractions,
         'expires',
         async (infraction) => {
-            if (infraction.type == 'ban') {
+            if (infraction.type === 'ban') {
                 const guild = await client.guilds
                     .fetch({ guild: infraction.guild })
                     .catch(() => null);
@@ -91,7 +91,7 @@ client.expiringDocumentsManager = {
 
                         await message.edit({ embeds: [embed], components: [] });
 
-                        if (winners.length == 0) {
+                        if (winners.length === 0) {
                             await channel.send({
                                 embeds: [
                                     EmbedGenerator.errorEmbed(
@@ -173,7 +173,7 @@ module.exports.client = client;
 module.exports.server = server;
 
 client.on('guildCreate', async (guild) => {
-    const DevGuilds = ['1109243816822702180']; // replace with your dev guild of server IDs
+    const DevGuilds = ['1442949703342887034']; // replace with your dev guild of server IDs
     if (!DevGuilds.includes(guild.id)) {
         await guild.leave();
     }

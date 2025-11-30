@@ -98,20 +98,20 @@ module.exports = class ExpiringDocumentManager {
      */
     async updateDocument(document) {
         if (!document) throw new Error('No document provided');
-        if (this.documents.filter((doc) => doc.id == document.id).length == 0)
+        if (this.documents.filter((doc) => doc.id === document.id).length === 0)
             return this.addNewDocument(document);
 
         this.checkTimeout = await this.checkTimeout; // incase were checking, wait for it to complete
         if (this.checkTimeout) {
             // if we have documents that need to be checked
-            if (this.documents[0].id == document.id) {
+            if (this.documents[0].id === document.id) {
                 // if the updated document is the one were waiting for, expiration time might be different
                 clearTimeout(this.checkTimeout);
                 this.checkTimeout = null;
 
                 this.documents = [
                     document,
-                    ...this.documents.filter((doc) => doc.id != document.id),
+                    ...this.documents.filter((doc) => doc.id !== document.id),
                 ]; // replace the old document with the new one
                 this.documents.sort((a, b) => a.get(this.timeField) - b.get(this.timeField));
                 setTimeout(() => {
@@ -119,7 +119,7 @@ module.exports = class ExpiringDocumentManager {
                 }, Math.min(2147483647, this.documents[0].get(this.timeField) - Date.now())); // wait until the next document expires, or max safe 32bit integer in milliseconds (25~ days)
             } else {
                 this.documents = [
-                    ...this.documents.filter((doc) => doc.id != document.id),
+                    ...this.documents.filter((doc) => doc.id !== document.id),
                     document,
                 ]; // replace the old document with the new one
                 this.documents.sort((a, b) => a.get(this.timeField) - b.get(this.timeField));
@@ -141,10 +141,10 @@ module.exports = class ExpiringDocumentManager {
      */
     async removeDocument(document) {
         if (!document) throw new Error('No document provided');
-        if (this.documents.filter((doc) => doc.id == document.id).length == 0) return;
+        if (this.documents.filter((doc) => doc.id === document.id).length === 0) return;
 
         this.checkTimeout = await this.checkTimeout; // incase were checking, wait for it to complete
-        if (this.checkTimeout && this.documents[0].id == document.id && this.documents[1]) {
+        if (this.checkTimeout && this.documents[0].id === document.id && this.documents[1]) {
             // if we have documents that need to be checked, were waiting on the document removed and we have more documents
             clearTimeout(this.checkTimeout);
             this.checkTimeout = null;
@@ -154,7 +154,7 @@ module.exports = class ExpiringDocumentManager {
             }, Math.min(2147483647, this.documents[0].get(this.timeField) - Date.now())); // wait until the next document expires, or max safe 32bit integer in milliseconds (25~ days)
         }
 
-        this.documents = this.documents.filter((doc) => doc.id != document.id);
+        this.documents = this.documents.filter((doc) => doc.id !== document.id);
     }
 };
 

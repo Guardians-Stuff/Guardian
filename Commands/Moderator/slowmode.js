@@ -46,11 +46,11 @@ module.exports = {
             .setRateLimitPerUser(durationSeconds, reason)
             .then(() => {
                 const durationString =
-                    durationSeconds == 0 ? 'disabled' : ms(ms(duration), { long: true });
+                    durationSeconds === 0 ? 'disabled' : ms(ms(duration), { long: true });
                 interaction.reply({
                     embeds: [
                         EmbedGenerator.basicEmbed(
-                            `The slowmode for this chnanel is now ${durationString} | ${reason}`
+                            `The slowmode for this channel is now ${durationString} | ${reason}`
                         ),
                     ],
                 });

@@ -67,7 +67,7 @@ async function addMember(member) {
  */
 async function removeMember(member) {
     const dbGuild = await GuildsManager.fetch(member.guild.id);
-    dbGuild.members = dbGuild.members.filter((id) => id != member.id);
+    dbGuild.members = dbGuild.members.filter((id) => id !== member.id);
 
     console.log(`[Member Tracking]: Removed member ${member.id} from guild ${member.guild.id}`);
 }

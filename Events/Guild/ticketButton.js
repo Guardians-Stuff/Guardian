@@ -12,7 +12,7 @@ module.exports = {
      * @param {Discord.Interaction} interaction
      */
     async execute(interaction) {
-        if (!interaction.isButton() || interaction.customId != 'open-ticket') return;
+        if (!interaction.isButton() || interaction.customId !== 'open-ticket') return;
 
         const guild = await GuildsManager.fetch(interaction.guild.id);
         if (!guild.tickets.enabled)
@@ -79,7 +79,7 @@ module.exports = {
                                         previousTickets.slice(0, 5).length
                                     }/${previousTickets.length})`,
                                     value:
-                                        previousTickets.length == 0
+                                        previousTickets.length === 0
                                             ? 'No previous tickets.'
                                             : previousTickets
                                                   .slice(0, 5)

@@ -58,7 +58,7 @@ module.exports = {
                                 // execute lockdown
                             }
 
-                            if (guild.antiraid.action == 'kick') {
+                            if (guild.antiraid.action === 'kick') {
                                 for (const id of antiRaidTracking[member.guild.id]) {
                                     member.guild.members
                                         .fetch(id)
@@ -77,7 +77,7 @@ module.exports = {
                                         })
                                         .catch((err) => null);
                                 }
-                            } else if (guild.antiraid.action == 'ban') {
+                            } else if (guild.antiraid.action === 'ban') {
                                 for (const id of antiRaidTracking[member.guild.id]) {
                                     member.guild.members
                                         .fetch(id)
@@ -106,7 +106,7 @@ module.exports = {
                     guild.antiraid.joinWithin * 1000
                 );
             } else {
-                if (guild.antiraid.action == 'kick') {
+                if (guild.antiraid.action === 'kick') {
                     await member
                         .send({
                             embeds: [
@@ -117,7 +117,7 @@ module.exports = {
                         })
                         .catch(() => null);
                     member.kick().catch(() => null);
-                } else if (guild.antiraid.action == 'ban') {
+                } else if (guild.antiraid.action === 'ban') {
                     await member
                         .send({
                             embeds: [
@@ -211,7 +211,7 @@ module.exports = {
                 ],
             };
 
-            if (risk == 'High' || risk == 'Extreme')
+            if (risk === 'High' || risk === 'Extreme')
                 response.components = [
                     new Discord.ActionRowBuilder().addComponents(
                         new Discord.ButtonBuilder()

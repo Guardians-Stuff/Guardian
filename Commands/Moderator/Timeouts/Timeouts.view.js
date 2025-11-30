@@ -25,7 +25,7 @@ module.exports = {
             user: user.id,
             type: 'timeout',
         }).sort({ time: -1 });
-        if (timeouts.length == 0) return EmbedGenerator.errorEmbed('No timeouts found');
+        if (timeouts.length === 0) return EmbedGenerator.errorEmbed('No timeouts found');
 
         const embeds = [];
 

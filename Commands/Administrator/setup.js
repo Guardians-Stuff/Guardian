@@ -26,7 +26,7 @@ module.exports = {
         await interaction.editReply({ embeds: [generateEmbed(1, [0])] });
 
         if (
-            interaction.guild.roles.botRoleFor(client.user).position !=
+            interaction.guild.roles.botRoleFor(client.user).position !==
             interaction.guild.roles.highest.position
         ) {
             const embed = generateEmbed(1, [0]);
@@ -85,7 +85,7 @@ function generateEmbed(count, completed) {
                 : '',
             count >= 5 ? '\nAll checks completed!' : '',
         ]
-            .filter((i) => i != '')
+            .filter((i) => i !== '')
             .join('\n')
     ).setTitle('Guardian Setup:');
 }

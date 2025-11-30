@@ -11,10 +11,10 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        if (message.channel.type != Discord.ChannelType.GuildText || message.author.bot) return;
+        if (message.channel.type !== Discord.ChannelType.GuildText || message.author.bot) return;
 
         const guild = await GuildsManager.fetch(message.guild.id);
-        if (!guild.tickets.enabled || message.channel.parent?.id != guild.tickets.category) return;
+        if (!guild.tickets.enabled || message.channel.parent?.id !== guild.tickets.category) return;
 
         const ticket = await Tickets.findOne({
             guild: message.guild.id,

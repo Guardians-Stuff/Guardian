@@ -30,7 +30,7 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
 
         const timeout = interaction.options.getString('timeout', true);
-        if (timeout == 'all') {
+        if (timeout === 'all') {
             await Infractions.deleteMany({
                 guild: interaction.guild.id,
                 user: user.id,
@@ -45,10 +45,10 @@ module.exports = {
             user: user.id,
             type: 'timeout',
         }).sort({ time: -1 });
-        if (timeouts.length == 0)
+        if (timeouts.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No timeouts found')], ephemeral: true };
 
-        if (timeout == 'latest') {
+        if (timeout === 'latest') {
             await timeouts[0].remove();
 
             return EmbedGenerator.basicEmbed('Timeout removed');

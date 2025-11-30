@@ -15,7 +15,7 @@ const router = Express.Router();
 router.use((req, res, next) => {
     // Middleware function to validate authorization header
     if (!req.headers.authorization) return res.sendStatus(403);
-    if (req.headers.authorization != `Bearer ${process.env.DISCORD_TOKEN}`)
+    if (req.headers.authorization !== `Bearer ${process.env.DISCORD_TOKEN}`)
         return res.sendStatus(401);
 
     next(); // Proceed to next middleware
@@ -25,7 +25,7 @@ router.get('/api/commands', async (req, res) => {
     // API route to get a list of commands
     const commands = [];
 
-    for (var command of index.client.commands.values()) {
+    for (const command of index.client.commands.values()) {
         // Loop through the commands in the index module
         commands.push({
             name: command.data.name,
@@ -137,7 +137,7 @@ router.get('/api/guilds/:guild/members/:member', async (req, res) => {
         createdAt: member.user.createdTimestamp,
         joinedAt: member.joinedTimestamp,
 
-        owner: guild.ownerId == member.id,
+        owner: guild.ownerId === member.id,
         administrator: member.permissions.has('Administrator'),
     }); // Send the member information as a JSON response
 });
@@ -150,7 +150,7 @@ router.get('/infractions/:id/inactive', async (req, res) => {
         .then(async (infraction) => {
             if (!infraction) return res.sendStatus(404);
 
-            if (infraction.type == 'ban') {
+            if (infraction.type === 'ban') {
                 const guild = await index.client.guilds
                     .fetch({ guild: infraction.guild })
                     .catch(() => null);
@@ -168,7 +168,7 @@ router.get('/infractions/:id/inactive', async (req, res) => {
                     .catch(() => res.sendStatus(500)); // Error if unbanning fails
             }
 
-            if (infraction.type == 'timeout') {
+            if (infraction.type === 'timeout') {
                 const guild = await index.client.guilds
                     .fetch({ guild: infraction.guild })
                     .catch(() => null);

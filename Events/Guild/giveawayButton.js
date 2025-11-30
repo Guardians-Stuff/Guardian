@@ -11,7 +11,7 @@ module.exports = {
      * @param {Discord.Interaction} interaction
      */
     async execute(interaction) {
-        if (!interaction.isButton() || interaction.customId != 'giveaway') return;
+        if (!interaction.isButton() || interaction.customId !== 'giveaway') return;
 
         let giveaway = await Giveaways.findOne({ giveaway: interaction.message.id });
         if (!giveaway) return interaction.reply({ embeds: [EmbedGenerator.errorEmbed()] });

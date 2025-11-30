@@ -9,7 +9,7 @@ module.exports = {
      * @param {Discord.Interaction} interaction
      */
     async execute(interaction) {
-        if (!interaction.isButton() || interaction.customId != 'verification') return;
+        if (!interaction.isButton() || interaction.customId !== 'verification') return;
 
         const guild = await GuildsManager.fetch(interaction.guild.id);
         if (!guild.verification.enabled)
@@ -21,7 +21,7 @@ module.exports = {
                 ],
                 ephemeral: true,
             });
-        if (guild.verification.version != 'button')
+        if (guild.verification.version !== 'button')
             interaction.reply({
                 embeds: [EmbedGenerator.errorEmbed('This guild uses a command for verification.')],
                 ephemeral: true,

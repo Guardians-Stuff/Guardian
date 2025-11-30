@@ -29,10 +29,10 @@ module.exports = {
 
         const tickets = await Tickets.find({
             guild: interaction.guild.id,
-            user: interaction.user.id,
+            user: user.id,
             active: false,
         });
-        if (tickets.length == 0) return EmbedGenerator.errorEmbed('No previous tickets found.');
+        if (tickets.length === 0) return EmbedGenerator.errorEmbed('No previous tickets found.');
 
         let embeds = [];
 

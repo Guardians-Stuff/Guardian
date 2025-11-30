@@ -28,7 +28,7 @@ module.exports = {
         const user = interaction.options.getUser('user', true);
 
         const kick = interaction.options.getString('kick', true);
-        if (kick == 'all') {
+        if (kick === 'all') {
             await Infractions.deleteMany({
                 guild: interaction.guild.id,
                 user: user.id,
@@ -43,10 +43,10 @@ module.exports = {
             user: user.id,
             type: 'kick',
         }).sort({ time: -1 });
-        if (kicks.length == 0)
+        if (kicks.length === 0)
             return { embeds: [EmbedGenerator.errorEmbed('No kicks found')], ephemeral: true };
 
-        if (kick == 'latest') {
+        if (kick === 'latest') {
             await kicks[0].remove();
 
             return EmbedGenerator.basicEmbed('Kick removed');

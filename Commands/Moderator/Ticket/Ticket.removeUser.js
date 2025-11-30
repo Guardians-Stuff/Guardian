@@ -27,7 +27,7 @@ module.exports = {
 
         if (!ticket) return EmbedGenerator.errorEmbed('Ticket not found.');
         if (!ticket.active) return EmbedGenerator.errorEmbed('That ticket is not active.');
-        if (ticket.user == user.id)
+        if (ticket.user === user.id)
             return EmbedGenerator.errorEmbed('Unable to remove the ticket creator.');
 
         if (!member) return EmbedGenerator.errorEmbed('Member not found.');
@@ -36,7 +36,7 @@ module.exports = {
             .edit(member.id, { ViewChannel: false, SendMessages: false })
             .then(() => {
                 interaction.reply({
-                    embeds: [EmbedGenerator.basicEmbed('Member added to ticket.')],
+                    embeds: [EmbedGenerator.basicEmbed('Member removed from ticket.')],
                 });
             })
             .catch(() => {
